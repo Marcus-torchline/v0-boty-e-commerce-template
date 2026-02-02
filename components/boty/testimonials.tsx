@@ -9,72 +9,72 @@ const testimonials = [
     name: "Sarah M.",
     location: "New York",
     rating: 5,
-    text: "My skin has never felt so soft and nourished. The Radiance Serum is now a permanent part of my morning routine.",
-    product: "Radiance Serum"
+    text: "Love these! So comfortable! I wear them while doing chores and barely notice them. Finally something that works with my busy schedule.",
+    product: "Arm Toning Sleeves"
   },
   {
     id: 2,
-    name: "Emma L.",
+    name: "Linda T.",
     location: "Los Angeles",
     rating: 5,
-    text: "Finally, skincare that actually feels natural. No more harsh chemicals. My sensitive skin loves Boty products.",
-    product: "Gentle Cleanser"
+    text: "If your arms changed almost overnight like mine did, you are not alone. These sleeves gave me back my confidence to wear sleeveless tops again.",
+    product: "Premium Sleeves"
   },
   {
     id: 3,
-    name: "Jessica R.",
+    name: "Patricia H.",
     location: "Chicago",
     rating: 5,
-    text: "The Hydra Cream is absolutely divine. It absorbs beautifully and keeps my skin hydrated all day long.",
-    product: "Hydra Cream"
+    text: "At 58, I thought my arms were a lost cause. After wearing these daily for a month, I can see and feel the difference. No harsh workouts needed!",
+    product: "Arm Toning Sleeves"
   },
   {
     id: 4,
     name: "Maria K.",
     location: "Miami",
     rating: 5,
-    text: "I've tried countless serums but nothing compares to the glow I get from Boty. Absolutely transformative.",
-    product: "Glow Serum"
+    text: "I was skeptical at first, but the thermal technology really works. My arms feel firmer and I love that I can wear them while watching TV.",
+    product: "Thermal Sleeves"
   },
   {
     id: 5,
-    name: "Sophie T.",
+    name: "Diane R.",
     location: "Seattle",
     rating: 5,
-    text: "The packaging is beautiful and sustainable. I feel good knowing I'm choosing eco-friendly skincare.",
-    product: "Night Cream"
+    text: "Finally a product that respects women over 40. No shaming, just real support. The fit is comfortable and the results speak for themselves.",
+    product: "Plus Size Sleeves"
   },
   {
     id: 6,
-    name: "Anna P.",
+    name: "Barbara W.",
     location: "Boston",
     rating: 5,
-    text: "My acne-prone skin has cleared up since switching to Boty. Natural ingredients really make a difference.",
-    product: "Gentle Cleanser"
+    text: "The 30-day guarantee gave me confidence to try. I did not need to return them! Wearing them while walking has become part of my daily routine.",
+    product: "Starter Bundle"
   },
   {
     id: 7,
-    name: "Claire B.",
+    name: "Carol J.",
     location: "Austin",
     rating: 5,
-    text: "The texture of the Renewal Oil is perfection. It absorbs quickly and leaves my skin glowing.",
-    product: "Renewal Oil"
+    text: "My daughter got me these as a gift. Best gift ever! Easy to put on, comfortable all day, and I am seeing real results at 62.",
+    product: "Complete System"
   },
   {
     id: 8,
-    name: "Lily W.",
+    name: "Nancy L.",
     location: "Portland",
     rating: 5,
-    text: "I love that Boty is cruelty-free and vegan. Great products that align with my values.",
-    product: "Hydra Cream"
+    text: "I appreciate that Confitone focuses on gentle, non-invasive solutions. No surgery, no extreme workouts. Just comfortable support that works.",
+    product: "Arm Toning Sleeves"
   },
   {
     id: 9,
-    name: "Rachel D.",
+    name: "Janet P.",
     location: "Denver",
     rating: 5,
-    text: "The scent is so subtle and natural. No overpowering fragrances, just pure botanical goodness.",
-    product: "Radiance Serum"
+    text: "The guide book that came with my bundle was so helpful. Real exercises for real women. The sleeves plus the exercises are a winning combo.",
+    product: "Starter Bundle"
   }
 ]
 
@@ -140,10 +140,10 @@ export function Testimonials() {
         {/* Header */}
         <div ref={headerRef} className="text-center mb-16">
           <span className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
-            Kind Words
+            Real Women, Real Results
           </span>
-          <h2 className={`font-serif text-4xl leading-tight text-foreground text-balance md:text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
-            Loved by thousands
+          <h2 className={`font-sans text-4xl leading-tight text-foreground text-balance md:text-6xl font-bold ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
+            Trusted by Thousands
           </h2>
         </div>
 

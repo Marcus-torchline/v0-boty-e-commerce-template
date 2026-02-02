@@ -18,10 +18,10 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'Boty — Natural Skincare',
-  description: 'Premium natural skincare and body care products. Glow gently with Boty.',
+  title: 'Confitone — Reclaim Your Sleeveless Confidence',
+  description: 'Comfortable, non-invasive arm toning sleeves for women 40+. Real women, real results. 30-day money-back guarantee.',
   generator: 'v0.app',
-  keywords: ['skincare', 'natural', 'organic', 'beauty', 'body care', 'cruelty-free'],
+  keywords: ['arm toning', 'arm sleeves', 'arm shaper', 'women over 40', 'arm fat', 'compression sleeves', 'body confidence'],
   icons: {
     icon: [
       {
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#F7F4EF',
+  themeColor: '#5BB98C',
 }
 
 export default function RootLayout({

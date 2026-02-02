@@ -1,28 +1,28 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Leaf, Droplets, Sparkles, Flower2 } from "lucide-react"
+import { Shield, Star, Truck, HeartHandshake } from "lucide-react"
 
 const badges = [
   {
-    icon: Leaf,
-    title: "Organic Certified",
-    description: "100% organic ingredients"
+    icon: Shield,
+    title: "30-Day Guarantee",
+    description: "Full money-back promise"
   },
   {
-    icon: Droplets,
-    title: "Natural Extracts",
-    description: "Pure botanical formulas"
+    icon: Star,
+    title: "4.9/5 Stars",
+    description: "10,000+ happy customers"
   },
   {
-    icon: Sparkles,
-    title: "Clean Beauty",
-    description: "No toxic chemicals"
+    icon: Truck,
+    title: "Free Shipping",
+    description: "On orders over $50"
   },
   {
-    icon: Flower2,
-    title: "Vegan Formula",
-    description: "Plant-powered skincare"
+    icon: HeartHandshake,
+    title: "Made for Women 40+",
+    description: "Designed with you in mind"
   }
 ]
 

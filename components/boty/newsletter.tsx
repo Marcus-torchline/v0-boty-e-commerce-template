@@ -21,17 +21,17 @@ export function Newsletter() {
     <section className="py-24 bg-primary">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="font-serif text-4xl leading-tight text-primary-foreground mb-4 text-balance md:text-7xl">
-            Join the ritual
+          <h2 className="font-sans text-4xl leading-tight text-primary-foreground mb-4 text-balance md:text-6xl font-bold">
+            Join the Confitone Community
           </h2>
           <p className="text-lg text-primary-foreground/80 mb-10">
-            Subscribe for exclusive offers, skincare tips, and early access to new products.
+            Subscribe for exclusive offers, arm toning tips, and early access to new products. Real women, real support.
           </p>
 
           {isSubscribed ? (
             <div className="inline-flex items-center gap-3 bg-primary-foreground/10 backdrop-blur-sm rounded-full px-8 py-4">
               <Check className="w-5 h-5 text-primary-foreground" />
-              <span className="text-primary-foreground">Welcome to the Boty family!</span>
+              <span className="text-primary-foreground">Welcome to the Confitone family!</span>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">

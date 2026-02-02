@@ -6,142 +6,142 @@ import Link from "next/link"
 import { ShoppingBag } from "lucide-react"
 import { useCart } from "./cart-context"
 
-type Category = "cream" | "oil" | "serum"
+type Category = "sleeves" | "bundles" | "accessories"
 
 const products = [
-  // Serums
+  // Sleeves
   {
-    id: "radiance-serum",
-    name: "Radiance Serum",
-    description: "Vitamin C brightening formula",
-    price: 68,
+    id: "arm-toning-sleeves",
+    name: "Arm Toning Sleeves",
+    description: "Original compression arm shapers",
+    price: 49,
     originalPrice: null,
-    image: "/images/products/serum-bottles-1.png",
+    image: "/images/confitone-hero.png",
     badge: "Bestseller",
-    category: "serum" as Category
+    category: "sleeves" as Category
   },
   {
-    id: "hydrating-serum",
-    name: "Hydrating Serum",
-    description: "Hyaluronic acid moisture boost",
-    price: 62,
+    id: "premium-thermal-sleeves",
+    name: "Premium Thermal Sleeves",
+    description: "Enhanced warmth for better results",
+    price: 59,
     originalPrice: null,
-    image: "/images/products/eye-serum-bottles.png",
-    badge: null,
-    category: "serum" as Category
-  },
-  {
-    id: "age-defense-serum",
-    name: "Age Defense Serum",
-    description: "Retinol & peptide complex",
-    price: 78,
-    originalPrice: null,
-    image: "/images/products/amber-dropper-bottles.png",
+    image: "/images/confitone-benefits.png",
     badge: "New",
-    category: "serum" as Category
+    category: "sleeves" as Category
   },
   {
-    id: "glow-serum",
-    name: "Glow Serum",
-    description: "Niacinamide brightening boost",
-    price: 58,
-    originalPrice: 68,
-    image: "/images/products/spray-bottles.png",
-    badge: "Sale",
-    category: "serum" as Category
-  },
-  // Creams
-  {
-    id: "hydra-cream",
-    name: "Hydra Cream",
-    description: "Deep moisture with hyaluronic acid",
+    id: "sport-compression-sleeves",
+    name: "Sport Compression Sleeves",
+    description: "Active lifestyle arm support",
     price: 54,
     originalPrice: null,
-    image: "/images/products/cream-jars-colored.png",
+    image: "/images/confitone-hero.png",
     badge: null,
-    category: "cream" as Category
+    category: "sleeves" as Category
   },
   {
-    id: "gentle-cleanser",
-    name: "Gentle Cleanser",
-    description: "Soothing botanical wash",
-    price: 38,
-    originalPrice: 48,
-    image: "/images/products/tube-bottles.png",
+    id: "plus-size-sleeves",
+    name: "Plus Size Sleeves",
+    description: "Extended comfort fit design",
+    price: 52,
+    originalPrice: null,
+    image: "/images/confitone-benefits.png",
+    badge: null,
+    category: "sleeves" as Category
+  },
+  // Bundles
+  {
+    id: "starter-bundle",
+    name: "Starter Bundle",
+    description: "2 pairs + free guide book",
+    price: 89,
+    originalPrice: 108,
+    image: "/images/confitone-banner.jpg",
     badge: "Sale",
-    category: "cream" as Category
+    category: "bundles" as Category
   },
   {
-    id: "night-cream",
-    name: "Night Cream",
-    description: "Restorative overnight treatment",
-    price: 64,
-    originalPrice: null,
-    image: "/images/products/jars-wooden-lid.png",
-    badge: "Bestseller",
-    category: "cream" as Category
+    id: "complete-system",
+    name: "Complete Toning System",
+    description: "3 pairs + gel + guide book",
+    price: 129,
+    originalPrice: 169,
+    image: "/images/confitone-hero.png",
+    badge: "Best Value",
+    category: "bundles" as Category
   },
   {
-    id: "day-cream-spf",
-    name: "Day Cream SPF 30",
-    description: "Protection & hydration",
-    price: 58,
+    id: "gift-set",
+    name: "Gift Set",
+    description: "Premium packaging for gifting",
+    price: 79,
     originalPrice: null,
-    image: "/images/products/pump-bottles-lavender.png",
+    image: "/images/confitone-benefits.png",
     badge: null,
-    category: "cream" as Category
+    category: "bundles" as Category
   },
-  // Oils
   {
-    id: "renewal-oil",
-    name: "Renewal Oil",
-    description: "Nourishing facial oil blend",
-    price: 72,
+    id: "monthly-subscription",
+    name: "Monthly Subscription",
+    description: "Fresh sleeves delivered monthly",
+    price: 39,
+    originalPrice: 49,
+    image: "/images/confitone-banner.jpg",
+    badge: "Subscribe & Save",
+    category: "bundles" as Category
+  },
+  // Accessories
+  {
+    id: "toning-gel",
+    name: "Toning Gel",
+    description: "Enhances thermal activation",
+    price: 29,
     originalPrice: null,
-    image: "/images/products/amber-dropper-bottles.png",
+    image: "/images/confitone-benefits.png",
     badge: "New",
-    category: "oil" as Category
+    category: "accessories" as Category
   },
   {
-    id: "rosehip-oil",
-    name: "Rosehip Oil",
-    description: "Pure organic rosehip extract",
-    price: 48,
+    id: "guide-book",
+    name: "Toned Arms After 40",
+    description: "5+ simple exercises guide",
+    price: 19,
     originalPrice: null,
-    image: "/images/products/serum-bottles-1.png",
+    image: "/images/confitone-banner.jpg",
     badge: null,
-    category: "oil" as Category
+    category: "accessories" as Category
   },
   {
-    id: "jojoba-oil",
-    name: "Jojoba Oil",
-    description: "Balancing & lightweight",
-    price: 42,
+    id: "carrying-case",
+    name: "Travel Carrying Case",
+    description: "Compact storage solution",
+    price: 15,
     originalPrice: null,
-    image: "/images/products/spray-bottles.png",
+    image: "/images/confitone-hero.png",
     badge: null,
-    category: "oil" as Category
+    category: "accessories" as Category
   },
   {
-    id: "argan-oil",
-    name: "Argan Oil",
-    description: "Moroccan beauty elixir",
-    price: 56,
+    id: "replacement-straps",
+    name: "Replacement Straps",
+    description: "Adjustable velcro straps set",
+    price: 12,
     originalPrice: null,
-    image: "/images/products/pump-bottles-cream.png",
-    badge: "Bestseller",
-    category: "oil" as Category
+    image: "/images/confitone-benefits.png",
+    badge: null,
+    category: "accessories" as Category
   }
 ]
 
 const categories = [
-  { value: "cream" as Category, label: "Cream" },
-  { value: "oil" as Category, label: "Oil" },
-  { value: "serum" as Category, label: "Serum" }
+  { value: "sleeves" as Category, label: "Sleeves" },
+  { value: "bundles" as Category, label: "Bundles" },
+  { value: "accessories" as Category, label: "Accessories" }
 ]
 
 export function ProductGrid() {
-  const [selectedCategory, setSelectedCategory] = useState<Category>("cream")
+  const [selectedCategory, setSelectedCategory] = useState<Category>("sleeves")
   const [isVisible, setIsVisible] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(false)
@@ -214,13 +214,13 @@ export function ProductGrid() {
         {/* Header */}
         <div ref={headerRef} className="text-center mb-16">
           <span className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
-            Our Collection
+            Our Products
           </span>
-          <h2 className={`font-serif leading-tight text-foreground mb-4 text-balance text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
-            Gentle essentials
+          <h2 className={`font-sans leading-tight text-foreground mb-4 text-balance text-5xl md:text-6xl font-bold ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
+            Simple Toning Solutions
           </h2>
           <p className={`text-lg text-muted-foreground max-w-md mx-auto ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.6s', animationFillMode: 'forwards' } : {}}>
-            Thoughtfully crafted products for your daily skincare ritual
+            Comfortable, non-invasive products designed for busy women
           </p>
         </div>
 
@@ -229,9 +229,9 @@ export function ProductGrid() {
           <div className="inline-flex bg-background rounded-full p-1 gap-1 relative">
             {/* Animated background slide */}
             <div
-              className="absolute top-1 bottom-1 bg-foreground rounded-full transition-all duration-300 ease-out shadow-sm"
+              className="absolute top-1 bottom-1 bg-primary rounded-full transition-all duration-300 ease-out shadow-sm"
               style={{
-                left: selectedCategory === 'cream' ? '4px' : selectedCategory === 'oil' ? 'calc(33.333% + 2px)' : 'calc(66.666%)',
+                left: selectedCategory === 'sleeves' ? '4px' : selectedCategory === 'bundles' ? 'calc(33.333% + 2px)' : 'calc(66.666%)',
                 width: 'calc(33.333% - 4px)'
               }}
             />
@@ -242,7 +242,7 @@ export function ProductGrid() {
                 onClick={() => handleCategoryChange(category.value)}
                 className={`relative z-10 px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                   selectedCategory === category.value
-                    ? "text-background"
+                    ? "text-white"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >

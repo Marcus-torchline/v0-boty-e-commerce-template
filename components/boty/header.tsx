@@ -36,19 +36,19 @@ export function Header() {
               href="/"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              About
+              Our Story
             </Link>
             <Link
               href="/"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              Ingredients
+              How It Works
             </Link>
           </div>
 
           {/* Logo */}
           <Link href="/" className="absolute left-1/2 -translate-x-1/2">
-            <h1 className="font-serif text-3xl tracking-wider text-foreground">Boty</h1>
+            <h1 className="font-sans text-2xl font-bold tracking-wide text-foreground">CONF<span className="text-primary">I</span>TONE</h1>
           </Link>
 
           {/* Right Actions */}
@@ -102,13 +102,13 @@ export function Header() {
               href="/"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              About
+              Our Story
             </Link>
             <Link
               href="/"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              Ingredients
+              How It Works
             </Link>
             <Link
               href="/"
