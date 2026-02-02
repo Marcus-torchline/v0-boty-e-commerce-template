@@ -6,16 +6,16 @@
 /* Boty — Natural Skincare Theme */
 :root {
   /* Brand Colors: Sand, Cream, Warm Beige, Olive Green, Soft Taupe, Charcoal */
-  --background: #F7F4EF; /* Cream */
+  --background: rgb(239, 250, 243); /* Cream */
   --foreground: #2C2C2C; /* Charcoal */
   --card: #EDE6DC; /* Sand */
   --card-foreground: #2C2C2C;
   --popover: #F7F4EF;
   --popover-foreground: #2C2C2C;
-  --primary: #4F5B3A; /* Olive Green */
-  --primary-foreground: #F7F4EF;
-  --secondary: #D8CFC4; /* Warm Beige */
-  --secondary-foreground: #2C2C2C;
+  --primary: rgb(89, 198, 139); /* Olive Green */
+  --primary-foreground: rgb(255, 249, 240);
+  --secondary: rgb(239, 250, 243); /* Warm Beige */
+  --secondary-foreground: rgb(31, 106, 79);
   --muted: #EDE6DC; /* Sand */
   --muted-foreground: #6B6560;
   --accent: #B8ADA3; /* Soft Taupe */
