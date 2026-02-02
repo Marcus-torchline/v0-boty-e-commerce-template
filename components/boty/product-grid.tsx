@@ -3,145 +3,32 @@
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ShoppingBag } from "lucide-react"
+import { ShoppingBag, Loader2 } from "lucide-react"
 import { useCart } from "./cart-context"
+import useSWR from "swr"
 
-type Category = "cream" | "oil" | "serum"
+interface Product {
+  id: string
+  name: string
+  description: string
+  price: number
+  original_price: number | null
+  image: string
+  badge: string | null
+  category: string
+  featured?: boolean
+}
 
-const products = [
-  // Serums
-  {
-    id: "radiance-serum",
-    name: "Radiance Serum",
-    description: "Vitamin C brightening formula",
-    price: 68,
-    originalPrice: null,
-    image: "/images/products/serum-bottles-1.png",
-    badge: "Bestseller",
-    category: "serum" as Category
-  },
-  {
-    id: "hydrating-serum",
-    name: "Hydrating Serum",
-    description: "Hyaluronic acid moisture boost",
-    price: 62,
-    originalPrice: null,
-    image: "/images/products/eye-serum-bottles.png",
-    badge: null,
-    category: "serum" as Category
-  },
-  {
-    id: "age-defense-serum",
-    name: "Age Defense Serum",
-    description: "Retinol & peptide complex",
-    price: 78,
-    originalPrice: null,
-    image: "/images/products/amber-dropper-bottles.png",
-    badge: "New",
-    category: "serum" as Category
-  },
-  {
-    id: "glow-serum",
-    name: "Glow Serum",
-    description: "Niacinamide brightening boost",
-    price: 58,
-    originalPrice: 68,
-    image: "/images/products/spray-bottles.png",
-    badge: "Sale",
-    category: "serum" as Category
-  },
-  // Creams
-  {
-    id: "hydra-cream",
-    name: "Hydra Cream",
-    description: "Deep moisture with hyaluronic acid",
-    price: 54,
-    originalPrice: null,
-    image: "/images/products/cream-jars-colored.png",
-    badge: null,
-    category: "cream" as Category
-  },
-  {
-    id: "gentle-cleanser",
-    name: "Gentle Cleanser",
-    description: "Soothing botanical wash",
-    price: 38,
-    originalPrice: 48,
-    image: "/images/products/tube-bottles.png",
-    badge: "Sale",
-    category: "cream" as Category
-  },
-  {
-    id: "night-cream",
-    name: "Night Cream",
-    description: "Restorative overnight treatment",
-    price: 64,
-    originalPrice: null,
-    image: "/images/products/jars-wooden-lid.png",
-    badge: "Bestseller",
-    category: "cream" as Category
-  },
-  {
-    id: "day-cream-spf",
-    name: "Day Cream SPF 30",
-    description: "Protection & hydration",
-    price: 58,
-    originalPrice: null,
-    image: "/images/products/pump-bottles-lavender.png",
-    badge: null,
-    category: "cream" as Category
-  },
-  // Oils
-  {
-    id: "renewal-oil",
-    name: "Renewal Oil",
-    description: "Nourishing facial oil blend",
-    price: 72,
-    originalPrice: null,
-    image: "/images/products/amber-dropper-bottles.png",
-    badge: "New",
-    category: "oil" as Category
-  },
-  {
-    id: "rosehip-oil",
-    name: "Rosehip Oil",
-    description: "Pure organic rosehip extract",
-    price: 48,
-    originalPrice: null,
-    image: "/images/products/serum-bottles-1.png",
-    badge: null,
-    category: "oil" as Category
-  },
-  {
-    id: "jojoba-oil",
-    name: "Jojoba Oil",
-    description: "Balancing & lightweight",
-    price: 42,
-    originalPrice: null,
-    image: "/images/products/spray-bottles.png",
-    badge: null,
-    category: "oil" as Category
-  },
-  {
-    id: "argan-oil",
-    name: "Argan Oil",
-    description: "Moroccan beauty elixir",
-    price: 56,
-    originalPrice: null,
-    image: "/images/products/pump-bottles-cream.png",
-    badge: "Bestseller",
-    category: "oil" as Category
-  }
-]
+const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 const categories = [
-  { value: "cream" as Category, label: "Cream" },
-  { value: "oil" as Category, label: "Oil" },
-  { value: "serum" as Category, label: "Serum" }
+  { label: "All", value: "all" },
+  { label: "Sleeves", value: "sleeves" },
+  { label: "Bundles", value: "bundles" }
 ]
 
 export function ProductGrid() {
-  const [selectedCategory, setSelectedCategory] = useState<Category>("cream")
+  const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [isVisible, setIsVisible] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(false)
@@ -149,9 +36,27 @@ export function ProductGrid() {
   const headerRef = useRef<HTMLDivElement>(null)
   const { addItem } = useCart()
   
-  const filteredProducts = products.filter(product => product.category === selectedCategory)
+  // Fetch categories dynamically from the database
+  const { data: dbCategories = [] } = useSWR<string[]>(
+    '/api/products/categories',
+    fetcher,
+    { revalidateOnFocus: false }
+  )
 
-  const handleCategoryChange = (category: Category) => {
+  // Fetch products - if "all" is selected, don't filter by category
+  const { data: products = [], isLoading } = useSWR<Product[]>(
+    selectedCategory === "all" ? '/api/products' : `/api/products?category=${selectedCategory}`,
+    fetcher,
+    { revalidateOnFocus: false }
+  )
+  
+  // Build dynamic category list from database
+  const dynamicCategories = [
+    { label: "All", value: "all" },
+    ...dbCategories.map(cat => ({ label: cat.charAt(0).toUpperCase() + cat.slice(1), value: cat }))
+  ]
+
+  const handleCategoryChange = (category: string) => {
     if (category !== selectedCategory) {
       setIsTransitioning(true)
       setTimeout(() => {
@@ -208,56 +113,60 @@ export function ProductGrid() {
     }
   }, [])
 
+  const filteredProducts = products.filter(product => selectedCategory ? product.category === selectedCategory : true)
+
   return (
     <section className="py-24 bg-card">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div ref={headerRef} className="text-center mb-16">
           <span className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
-            Our Collection
+            Our Products
           </span>
-          <h2 className={`font-serif leading-tight text-foreground mb-4 text-balance text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
-            Gentle essentials
+          <h2 className={`font-sans leading-tight text-foreground mb-4 text-balance text-5xl md:text-6xl font-bold ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
+            Simple Toning Solutions
           </h2>
           <p className={`text-lg text-muted-foreground max-w-md mx-auto ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.6s', animationFillMode: 'forwards' } : {}}>
-            Thoughtfully crafted products for your daily skincare ritual
+            Comfortable, non-invasive products designed for busy women
           </p>
         </div>
 
-        {/* Segmented Control */}
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex bg-background rounded-full p-1 gap-1 relative">
-            {/* Animated background slide */}
-            <div
-              className="absolute top-1 bottom-1 bg-foreground rounded-full transition-all duration-300 ease-out shadow-sm"
-              style={{
-                left: selectedCategory === 'cream' ? '4px' : selectedCategory === 'oil' ? 'calc(33.333% + 2px)' : 'calc(66.666%)',
-                width: 'calc(33.333% - 4px)'
-              }}
-            />
-            {categories.map((category) => (
-              <button
-                key={category.value}
-                type="button"
-                onClick={() => handleCategoryChange(category.value)}
-                className={`relative z-10 px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                  selectedCategory === category.value
-                    ? "text-background"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {category.label}
-              </button>
-            ))}
+        {/* Segmented Control - only show if there are categories */}
+        {dynamicCategories.length > 1 && (
+          <div className="flex justify-center mb-12">
+            <div className="inline-flex bg-background rounded-full p-1 gap-1 flex-wrap justify-center">
+              {dynamicCategories.map((category) => (
+                <button
+                  key={category.value}
+                  type="button"
+                  onClick={() => handleCategoryChange(category.value)}
+                  className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                    selectedCategory === category.value
+                      ? "bg-primary text-white"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                >
+                  {category.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Product Grid */}
         <div 
           ref={gridRef}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[400px]"
         >
-          {filteredProducts.map((product, index) => (
+          {isLoading ? (
+            <div className="col-span-full flex items-center justify-center py-20">
+              <Loader2 className="w-8 h-8 text-primary animate-spin" />
+            </div>
+          ) : products.length === 0 ? (
+            <div className="col-span-full text-center py-20 text-muted-foreground">
+              No products found in this category.
+            </div>
+          ) : filteredProducts.map((product, index) => (
             <Link
               key={`${selectedCategory}-${product.id}`}
               href={`/product/${product.id}`}
@@ -316,9 +225,9 @@ export function ProductGrid() {
                   <p className="text-sm text-muted-foreground mb-3">{product.description}</p>
                   <div className="flex items-center gap-2">
                     <span className="font-medium text-foreground">${product.price}</span>
-                    {product.originalPrice && (
+                    {product.original_price && (
                       <span className="text-sm text-muted-foreground line-through">
-                        ${product.originalPrice}
+                        ${product.original_price}
                       </span>
                     )}
                   </div>

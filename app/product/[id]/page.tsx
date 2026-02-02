@@ -4,97 +4,48 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useParams } from "next/navigation"
-import { ChevronLeft, Minus, Plus, ChevronDown, Leaf, Heart, Award, Recycle, Star, Check } from "lucide-react"
+import { ChevronLeft, Minus, Plus, ChevronDown, Shield, Heart, Award, Flame, Star, Check, Loader2 } from "lucide-react"
 import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
+import { useCart } from "@/components/boty/cart-context"
+import useSWR from "swr"
 
-const products: Record<string, {
+interface Product {
   id: string
   name: string
-  tagline: string
   description: string
   price: number
-  originalPrice: number | null
+  original_price: number | null
   image: string
-  sizes: string[]
-  details: string
-  howToUse: string
-  ingredients: string
-  delivery: string
-}> = {
-  "radiance-serum": {
-    id: "radiance-serum",
-    name: "Radiance Serum",
-    tagline: "Illuminate your natural glow",
-    description: "A lightweight, fast-absorbing serum infused with Vitamin C and botanical extracts. Designed to brighten, even skin tone, and reveal your skin's natural radiance.",
-    price: 68,
-    originalPrice: null,
-    image: "/images/products/serum.jpg",
-    sizes: ["30ml", "50ml"],
-    details: "Our Radiance Serum combines 15% stabilized Vitamin C with rosehip seed oil and sea buckthorn extract. The formula is designed to penetrate deep into the skin, targeting dark spots and uneven tone while protecting against environmental stressors. Suitable for all skin types, this serum is your daily dose of luminosity.",
-    howToUse: "Apply 3-4 drops to cleansed face and neck morning and evening. Gently pat into skin until absorbed. Follow with your favorite Boty moisturizer. For best results, use consistently for 4-6 weeks.",
-    ingredients: "Aqua, Ascorbic Acid (Vitamin C), Rosa Canina Seed Oil, Hippophae Rhamnoides Oil, Glycerin, Niacinamide, Tocopherol (Vitamin E), Ferulic Acid, Aloe Barbadensis Leaf Juice, Citrus Aurantium Dulcis Peel Oil, Lavandula Angustifolia Oil.",
-    delivery: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. Returns accepted within 30 days of purchase if product is unused and sealed."
-  },
-  "hydra-cream": {
-    id: "hydra-cream",
-    name: "Hydra Cream",
-    tagline: "Deep moisture, lasting comfort",
-    description: "A rich yet lightweight moisturizer that delivers intense hydration without heaviness. Formulated with hyaluronic acid and botanical butters for all-day nourishment.",
-    price: 54,
-    originalPrice: null,
-    image: "/images/products/moisturizer.jpg",
-    sizes: ["50ml", "100ml"],
-    details: "Hydra Cream features multi-weight hyaluronic acid to hydrate at every level of the skin. Shea butter and jojoba oil lock in moisture while squalane provides a silky, non-greasy finish. Perfect for normal to dry skin seeking lasting comfort.",
-    howToUse: "After cleansing and serum, apply a small amount to face and neck. Massage gently in upward motions. Use morning and evening as the final step of your skincare routine.",
-    ingredients: "Aqua, Butyrospermum Parkii Butter, Simmondsia Chinensis Seed Oil, Sodium Hyaluronate, Squalane, Glycerin, Cetearyl Alcohol, Calendula Officinalis Extract, Chamomilla Recutita Extract, Tocopherol.",
-    delivery: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. Returns accepted within 30 days of purchase if product is unused and sealed."
-  },
-  "gentle-cleanser": {
-    id: "gentle-cleanser",
-    name: "Gentle Cleanser",
-    tagline: "Cleanse without compromise",
-    description: "A soothing botanical wash that removes impurities while respecting your skin's natural balance. Perfect for sensitive skin and daily use.",
-    price: 38,
-    originalPrice: 48,
-    image: "/images/products/cleanser.jpg",
-    sizes: ["150ml", "250ml"],
-    details: "Our Gentle Cleanser uses coconut-derived surfactants that cleanse effectively without stripping. Enriched with chamomile, oat extract, and aloe vera, it calms and soothes as it cleanses. pH-balanced and dermatologist tested for sensitive skin.",
-    howToUse: "Wet face with lukewarm water. Apply a small amount to fingertips and massage onto face in circular motions. Rinse thoroughly. Use morning and evening.",
-    ingredients: "Aqua, Coco-Glucoside, Glycerin, Avena Sativa Kernel Extract, Aloe Barbadensis Leaf Juice, Chamomilla Recutita Extract, Panthenol, Allantoin, Citric Acid, Benzyl Alcohol, Potassium Sorbate.",
-    delivery: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. Returns accepted within 30 days of purchase if product is unused and sealed."
-  },
-  "renewal-oil": {
-    id: "renewal-oil",
-    name: "Renewal Oil",
-    tagline: "Nourish deeply, glow eternally",
-    description: "A luxurious blend of precious botanical oils that deeply nourish and restore skin overnight. Wake up to softer, more supple skin.",
-    price: 72,
-    originalPrice: null,
-    image: "/images/products/oil.jpg",
-    sizes: ["30ml", "50ml"],
-    details: "Renewal Oil combines argan, rosehip, and marula oils with vitamin E for intensive overnight nourishment. This dry oil absorbs quickly, leaving skin soft without residue. Ideal for mature or dehydrated skin seeking restoration.",
-    howToUse: "Apply 4-6 drops to palms and warm between hands. Press gently onto face and neck as the final step of your evening routine. Can also be mixed with moisturizer for added hydration.",
-    ingredients: "Argania Spinosa Kernel Oil, Rosa Canina Seed Oil, Sclerocarya Birrea Seed Oil, Tocopherol, Rosa Damascena Flower Oil, Lavandula Angustifolia Oil, Helianthus Annuus Seed Oil, Limonene, Linalool.",
-    delivery: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. Returns accepted within 30 days of purchase if product is unused and sealed."
-  }
+  badge: string | null
+  category: string
 }
 
+const fetcher = (url: string) => fetch(url).then(res => res.json())
+
 const benefits = [
-  { icon: Leaf, label: "100% Natural" },
-  { icon: Heart, label: "Cruelty-Free" },
-  { icon: Recycle, label: "Eco-Friendly" },
-  { icon: Award, label: "Expert Approved" }
+  { icon: Flame, label: "Thermal Tech" },
+  { icon: Heart, label: "Comfortable Fit" },
+  { icon: Shield, label: "30-Day Guarantee" },
+  { icon: Award, label: "4.9/5 Stars" }
 ]
 
-type AccordionSection = "details" | "howToUse" | "ingredients" | "delivery"
+const sizes = ["S/M", "L/XL", "XXL"]
+
+type AccordionSection = "details" | "howToUse" | "shipping"
 
 export default function ProductPage() {
   const params = useParams()
   const productId = params.id as string
-  const product = products[productId] || products["radiance-serum"]
+  const { addItem } = useCart()
 
-  const [selectedSize, setSelectedSize] = useState(product.sizes[0])
+  const { data: product, isLoading, error } = useSWR<Product>(
+    `/api/products/${productId}`,
+    fetcher,
+    { revalidateOnFocus: false }
+  )
+
+  const [selectedSize, setSelectedSize] = useState(sizes[0])
   const [quantity, setQuantity] = useState(1)
   const [openAccordion, setOpenAccordion] = useState<AccordionSection | null>("details")
   const [isAdded, setIsAdded] = useState(false)
@@ -108,16 +59,68 @@ export default function ProductPage() {
   }
 
   const handleAddToCart = () => {
+    if (!product) return
+    addItem({
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      image: product.image
+    })
     setIsAdded(true)
     setTimeout(() => setIsAdded(false), 2000)
   }
 
   const accordionItems: { key: AccordionSection; title: string; content: string }[] = [
-    { key: "details", title: "Details", content: product.details },
-    { key: "howToUse", title: "How to Use", content: product.howToUse },
-    { key: "ingredients", title: "Ingredients", content: product.ingredients },
-    { key: "delivery", title: "Delivery & Returns", content: product.delivery }
+    { 
+      key: "details", 
+      title: "Product Details", 
+      content: product?.category === 'sleeves' 
+        ? "Our arm toning sleeves feature advanced thermal technology that supports circulation and promotes gentle warmth. Made from premium neoprene material, they provide comfortable compression while allowing full range of motion. Suitable for all-day wear during daily activities."
+        : product?.category === 'bundles'
+        ? "This bundle includes everything you need to start your arm toning journey. Each set comes with detailed instructions and our exclusive Toned Arms After 40 guide with 5+ simple exercises."
+        : "High-quality accessories designed to complement your Confitone arm toning routine. Made with the same attention to detail and comfort as our signature sleeves."
+    },
+    { 
+      key: "howToUse", 
+      title: "How to Use", 
+      content: "Slide the sleeves onto your upper arms and secure with the adjustable velcro straps. Wear for 1-2 hours daily while walking, cooking, watching TV, or doing light activities. For best results, combine with the exercises in our Toned Arms After 40 guide. Hand wash with mild soap and air dry."
+    },
+    { 
+      key: "shipping", 
+      title: "Shipping & Returns", 
+      content: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. We offer a 30-day money-back guarantee - if you're not satisfied with your results, return the product for a full refund."
+    }
   ]
+
+  if (isLoading) {
+    return (
+      <main className="min-h-screen">
+        <Header />
+        <div className="pt-28 pb-20 flex items-center justify-center min-h-[60vh]">
+          <Loader2 className="w-8 h-8 text-primary animate-spin" />
+        </div>
+        <Footer />
+      </main>
+    )
+  }
+
+  if (error || !product) {
+    return (
+      <main className="min-h-screen">
+        <Header />
+        <div className="pt-28 pb-20">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+            <h1 className="text-2xl text-foreground mb-4">Product not found</h1>
+            <Link href="/shop" className="text-primary hover:underline">
+              Return to shop
+            </Link>
+          </div>
+        </div>
+        <Footer />
+      </main>
+    )
+  }
 
   return (
     <main className="min-h-screen">
@@ -127,7 +130,7 @@ export default function ProductPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {/* Back Link */}
           <Link
-            href="/"
+            href="/shop"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground boty-transition mb-8"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -144,6 +147,19 @@ export default function ProductPage() {
                 className="object-cover"
                 priority
               />
+              {product.badge && (
+                <span
+                  className={`absolute top-6 left-6 px-4 py-2 rounded-full text-sm font-medium ${
+                    product.badge === "Sale"
+                      ? "bg-destructive/10 text-destructive"
+                      : product.badge === "New"
+                      ? "bg-primary/10 text-primary"
+                      : "bg-primary text-white"
+                  }`}
+                >
+                  {product.badge}
+                </span>
+              )}
             </div>
 
             {/* Product Info */}
@@ -151,14 +167,11 @@ export default function ProductPage() {
               {/* Header */}
               <div className="mb-8">
                 <span className="text-sm tracking-[0.3em] uppercase text-primary mb-2 block">
-                  Boty Essentials
+                  Confitone {product.category}
                 </span>
-                <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-3">
+                <h1 className="font-sans text-4xl md:text-5xl text-foreground mb-3 font-bold">
                   {product.name}
                 </h1>
-                <p className="text-lg text-muted-foreground italic mb-4">
-                  {product.tagline}
-                </p>
                 
                 {/* Rating */}
                 <div className="flex items-center gap-2 mb-4">
@@ -167,44 +180,51 @@ export default function ProductPage() {
                       <Star key={i} className="w-4 h-4 fill-primary text-primary" />
                     ))}
                   </div>
-                  <span className="text-sm text-muted-foreground">(128 reviews)</span>
+                  <span className="text-sm text-muted-foreground">4.9/5 (2,847 reviews)</span>
                 </div>
 
-                <p className="text-foreground/80 leading-relaxed">
+                <p className="text-foreground/80 leading-relaxed text-lg">
                   {product.description}
                 </p>
               </div>
 
               {/* Price */}
               <div className="flex items-center gap-3 mb-8">
-                <span className="text-3xl font-medium text-foreground">${product.price}</span>
-                {product.originalPrice && (
+                <span className="text-3xl font-bold text-foreground">${product.price}</span>
+                {product.original_price && (
                   <span className="text-xl text-muted-foreground line-through">
-                    ${product.originalPrice}
+                    ${product.original_price}
+                  </span>
+                )}
+                {product.original_price && (
+                  <span className="text-sm bg-destructive/10 text-destructive px-2 py-1 rounded-full">
+                    Save ${product.original_price - product.price}
                   </span>
                 )}
               </div>
 
               {/* Size Selector */}
-              <div className="mb-6">
-                <label className="text-sm font-medium text-foreground mb-3 block">Size</label>
-                <div className="flex gap-3">
-                  {product.sizes.map((size) => (
-                    <button
-                      key={size}
-                      type="button"
-                      onClick={() => setSelectedSize(size)}
-                      className={`px-6 py-3 rounded-full text-sm boty-transition boty-shadow ${
-                        selectedSize === size
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-card text-foreground hover:bg-card/80"
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
+              {product.category === 'sleeves' && (
+                <div className="mb-6">
+                  <label className="text-sm font-medium text-foreground mb-3 block">Size</label>
+                  <div className="flex gap-3">
+                    {sizes.map((size) => (
+                      <button
+                        key={size}
+                        type="button"
+                        onClick={() => setSelectedSize(size)}
+                        className={`px-6 py-3 rounded-full text-sm boty-transition boty-shadow ${
+                          selectedSize === size
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-card text-foreground hover:bg-card/80"
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Quantity Selector */}
               <div className="mb-8">
@@ -235,10 +255,10 @@ export default function ProductPage() {
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  className={`flex-1 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm tracking-wide boty-transition boty-shadow ${
+                  className={`flex-1 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm tracking-wide boty-transition boty-shadow font-medium ${
                     isAdded
-                      ? "bg-primary/80 text-primary-foreground"
-                      : "bg-primary text-primary-foreground hover:bg-primary/90"
+                      ? "bg-[#3DA870] text-white"
+                      : "bg-primary text-primary-foreground hover:bg-[#3DA870]"
                   }`}
                 >
                   {isAdded ? (
@@ -252,7 +272,7 @@ export default function ProductPage() {
                 </button>
                 <button
                   type="button"
-                  className="flex-1 inline-flex items-center justify-center gap-2 bg-transparent border border-foreground/20 text-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-foreground/5"
+                  className="flex-1 inline-flex items-center justify-center gap-2 bg-transparent border border-foreground/20 text-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-foreground/5 font-medium"
                 >
                   Buy Now
                 </button>
@@ -263,10 +283,10 @@ export default function ProductPage() {
                 {benefits.map((benefit) => (
                   <div
                     key={benefit.label}
-                    className="flex flex-col items-center gap-2 p-4 boty-shadow bg-transparent shadow-none rounded-md"
+                    className="flex flex-col items-center gap-2 p-4 bg-secondary/50 rounded-xl"
                   >
                     <benefit.icon className="w-5 h-5 text-primary" />
-                    <span className="text-xs text-muted-foreground text-center">{benefit.label}</span>
+                    <span className="text-xs text-muted-foreground text-center font-medium">{benefit.label}</span>
                   </div>
                 ))}
               </div>
