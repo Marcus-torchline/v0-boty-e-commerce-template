@@ -7,7 +7,7 @@
 :root {
   /* Brand Colors: Sand, Cream, Warm Beige, Olive Green, Soft Taupe, Charcoal */
   --background: rgb(239, 250, 243); /* Cream */
-  --foreground: #2C2C2C; /* Charcoal */
+  --foreground: rgb(26, 87, 67); /* Charcoal */
   --card: #EDE6DC; /* Sand */
   --card-foreground: #2C2C2C;
   --popover: #F7F4EF;
