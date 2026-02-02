@@ -1,6 +1,9 @@
 -- Clear existing products and import Confitone products from JSON
 -- Excluding the mattress product
 
+-- Drop the category constraint if it exists
+ALTER TABLE products DROP CONSTRAINT IF EXISTS products_category_check;
+
 DELETE FROM products;
 
 -- Insert 11 Confitone products (mapped from Shopify JSON format)
