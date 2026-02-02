@@ -3,168 +3,43 @@
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ShoppingBag, SlidersHorizontal, X } from "lucide-react"
+import { ShoppingBag, SlidersHorizontal, X, Loader2 } from "lucide-react"
 import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
+import { useCart } from "@/components/boty/cart-context"
+import useSWR from "swr"
 
-const products = [
-  // Serums
-  {
-    id: "radiance-serum",
-    name: "Radiance Serum",
-    description: "Vitamin C brightening formula",
-    price: 68,
-    originalPrice: null,
-    image: "/images/products/serum-bottles-1.png",
-    badge: "Bestseller",
-    category: "serums"
-  },
-  {
-    id: "hydrating-serum",
-    name: "Hydrating Serum",
-    description: "Hyaluronic acid moisture boost",
-    price: 62,
-    originalPrice: null,
-    image: "/images/products/eye-serum-bottles.png",
-    badge: null,
-    category: "serums"
-  },
-  {
-    id: "age-defense-serum",
-    name: "Age Defense Serum",
-    description: "Retinol & peptide complex",
-    price: 78,
-    originalPrice: null,
-    image: "/images/products/amber-dropper-bottles.png",
-    badge: "New",
-    category: "serums"
-  },
-  {
-    id: "glow-serum",
-    name: "Glow Serum",
-    description: "Niacinamide brightening boost",
-    price: 58,
-    originalPrice: 68,
-    image: "/images/products/spray-bottles.png",
-    badge: "Sale",
-    category: "serums"
-  },
-  // Creams
-  {
-    id: "hydra-cream",
-    name: "Hydra Cream",
-    description: "Deep moisture with hyaluronic acid",
-    price: 54,
-    originalPrice: null,
-    image: "/images/products/cream-jars-colored.png",
-    badge: null,
-    category: "moisturizers"
-  },
-  {
-    id: "gentle-cleanser",
-    name: "Gentle Cleanser",
-    description: "Soothing botanical wash",
-    price: 38,
-    originalPrice: 48,
-    image: "/images/products/tube-bottles.png",
-    badge: "Sale",
-    category: "cleansers"
-  },
-  {
-    id: "night-cream",
-    name: "Night Cream",
-    description: "Restorative overnight treatment",
-    price: 64,
-    originalPrice: null,
-    image: "/images/products/jars-wooden-lid.png",
-    badge: "Bestseller",
-    category: "moisturizers"
-  },
-  {
-    id: "day-cream-spf",
-    name: "Day Cream SPF 30",
-    description: "Protection & hydration",
-    price: 58,
-    originalPrice: null,
-    image: "/images/products/pump-bottles-lavender.png",
-    badge: null,
-    category: "moisturizers"
-  },
-  // Oils
-  {
-    id: "renewal-oil",
-    name: "Renewal Oil",
-    description: "Nourishing facial oil blend",
-    price: 72,
-    originalPrice: null,
-    image: "/images/products/amber-dropper-bottles.png",
-    badge: "New",
-    category: "oils"
-  },
-  {
-    id: "rosehip-oil",
-    name: "Rosehip Oil",
-    description: "Pure organic rosehip extract",
-    price: 48,
-    originalPrice: null,
-    image: "/images/products/serum-bottles-1.png",
-    badge: null,
-    category: "oils"
-  },
-  {
-    id: "jojoba-oil",
-    name: "Jojoba Oil",
-    description: "Balancing & lightweight",
-    price: 42,
-    originalPrice: null,
-    image: "/images/products/spray-bottles.png",
-    badge: null,
-    category: "oils"
-  },
-  {
-    id: "argan-oil",
-    name: "Argan Oil",
-    description: "Moroccan beauty elixir",
-    price: 56,
-    originalPrice: null,
-    image: "/images/products/pump-bottles-cream.png",
-    badge: "Bestseller",
-    category: "oils"
-  },
-  // Masks & Toners (original products)
-  {
-    id: "glow-mask",
-    name: "Glow Mask",
-    description: "Weekly brightening treatment",
-    price: 45,
-    originalPrice: null,
-    image: "/images/products/mask.jpg",
-    badge: null,
-    category: "masks"
-  },
-  {
-    id: "balance-toner",
-    name: "Balance Toner",
-    description: "pH restoring mist",
-    price: 32,
-    originalPrice: null,
-    image: "/images/products/toner.jpg",
-    badge: "New",
-    category: "toners"
-  }
-]
+interface Product {
+  id: string
+  name: string
+  description: string
+  price: number
+  original_price: number | null
+  image: string
+  badge: string | null
+  category: string
+}
 
-const categories = ["all", "serums", "moisturizers", "cleansers", "oils", "masks", "toners"]
+const fetcher = (url: string) => fetch(url).then(res => res.json())
+
+const categories = ["all", "sleeves", "bundles", "accessories"]
 
 export default function ShopPage() {
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [showFilters, setShowFilters] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const gridRef = useRef<HTMLDivElement>(null)
+  const { addItem } = useCart()
 
-  const filteredProducts = selectedCategory === "all"
-    ? products
-    : products.filter(p => p.category === selectedCategory)
+  const { data: products = [], isLoading } = useSWR<Product[]>(
+    `/api/products${selectedCategory !== 'all' ? `?category=${selectedCategory}` : ''}`,
+    fetcher,
+    { revalidateOnFocus: false }
+  )
+
+  const filteredProducts = products.filter(product => 
+    selectedCategory === 'all' || product.category === selectedCategory
+  )
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -205,11 +80,11 @@ export default function ShopPage() {
             <span className="text-sm tracking-[0.3em] uppercase text-primary mb-4 block">
               Our Collection
             </span>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-4 text-balance">
+            <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl text-foreground mb-4 text-balance font-bold">
               Shop All Products
             </h1>
             <p className="text-lg text-muted-foreground max-w-md mx-auto">
-              Discover our complete range of natural skincare essentials
+              Comfortable, non-invasive arm toning solutions for confident women
             </p>
           </div>
 
@@ -287,14 +162,23 @@ export default function ShopPage() {
           {/* Product Grid */}
           <div 
             ref={gridRef}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[400px]"
           >
-            {filteredProducts.map((product, index) => (
+            {isLoading ? (
+              <div className="col-span-full flex items-center justify-center py-20">
+                <Loader2 className="w-8 h-8 text-primary animate-spin" />
+              </div>
+            ) : products.length === 0 ? (
+              <div className="col-span-full text-center py-20 text-muted-foreground">
+                No products found.
+              </div>
+            ) : products.map((product, index) => (
               <ProductCard 
                 key={product.id}
                 product={product}
                 index={index}
                 isVisible={isVisible}
+                addItem={addItem}
               />
             ))}
           </div>
@@ -309,11 +193,13 @@ export default function ShopPage() {
 function ProductCard({ 
   product, 
   index, 
-  isVisible 
+  isVisible,
+  addItem
 }: { 
-  product: typeof products[0]
+  product: Product
   index: number
   isVisible: boolean
+  addItem: (item: { id: string; name: string; description: string; price: number; image: string }) => void
 }) {
   const [imageLoaded, setImageLoaded] = useState(false)
 
@@ -364,6 +250,14 @@ function ProductCard({
             className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 boty-transition boty-shadow"
             onClick={(e) => {
               e.preventDefault()
+              e.stopPropagation()
+              addItem({
+                id: product.id,
+                name: product.name,
+                description: product.description,
+                price: product.price,
+                image: product.image
+              })
             }}
             aria-label="Add to cart"
           >
@@ -373,13 +267,13 @@ function ProductCard({
 
         {/* Info */}
         <div className="p-6">
-          <h3 className="font-serif text-xl text-foreground mb-1">{product.name}</h3>
+          <h3 className="font-sans text-xl text-foreground mb-1 font-medium">{product.name}</h3>
           <p className="text-sm text-muted-foreground mb-4">{product.description}</p>
           <div className="flex items-center gap-2">
             <span className="text-lg font-medium text-foreground">${product.price}</span>
-            {product.originalPrice && (
+            {product.original_price && (
               <span className="text-sm text-muted-foreground line-through">
-                ${product.originalPrice}
+                ${product.original_price}
               </span>
             )}
           </div>

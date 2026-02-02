@@ -3,136 +3,24 @@
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ShoppingBag } from "lucide-react"
+import { ShoppingBag, Loader2 } from "lucide-react"
 import { useCart } from "./cart-context"
+import useSWR from "swr"
 
 type Category = "sleeves" | "bundles" | "accessories"
 
-const products = [
-  // Sleeves
-  {
-    id: "arm-toning-sleeves",
-    name: "Arm Toning Sleeves",
-    description: "Original compression arm shapers",
-    price: 49,
-    originalPrice: null,
-    image: "/images/confitone-hero.png",
-    badge: "Bestseller",
-    category: "sleeves" as Category
-  },
-  {
-    id: "premium-thermal-sleeves",
-    name: "Premium Thermal Sleeves",
-    description: "Enhanced warmth for better results",
-    price: 59,
-    originalPrice: null,
-    image: "/images/confitone-benefits.png",
-    badge: "New",
-    category: "sleeves" as Category
-  },
-  {
-    id: "sport-compression-sleeves",
-    name: "Sport Compression Sleeves",
-    description: "Active lifestyle arm support",
-    price: 54,
-    originalPrice: null,
-    image: "/images/confitone-hero.png",
-    badge: null,
-    category: "sleeves" as Category
-  },
-  {
-    id: "plus-size-sleeves",
-    name: "Plus Size Sleeves",
-    description: "Extended comfort fit design",
-    price: 52,
-    originalPrice: null,
-    image: "/images/confitone-benefits.png",
-    badge: null,
-    category: "sleeves" as Category
-  },
-  // Bundles
-  {
-    id: "starter-bundle",
-    name: "Starter Bundle",
-    description: "2 pairs + free guide book",
-    price: 89,
-    originalPrice: 108,
-    image: "/images/confitone-banner.jpg",
-    badge: "Sale",
-    category: "bundles" as Category
-  },
-  {
-    id: "complete-system",
-    name: "Complete Toning System",
-    description: "3 pairs + gel + guide book",
-    price: 129,
-    originalPrice: 169,
-    image: "/images/confitone-hero.png",
-    badge: "Best Value",
-    category: "bundles" as Category
-  },
-  {
-    id: "gift-set",
-    name: "Gift Set",
-    description: "Premium packaging for gifting",
-    price: 79,
-    originalPrice: null,
-    image: "/images/confitone-benefits.png",
-    badge: null,
-    category: "bundles" as Category
-  },
-  {
-    id: "monthly-subscription",
-    name: "Monthly Subscription",
-    description: "Fresh sleeves delivered monthly",
-    price: 39,
-    originalPrice: 49,
-    image: "/images/confitone-banner.jpg",
-    badge: "Subscribe & Save",
-    category: "bundles" as Category
-  },
-  // Accessories
-  {
-    id: "toning-gel",
-    name: "Toning Gel",
-    description: "Enhances thermal activation",
-    price: 29,
-    originalPrice: null,
-    image: "/images/confitone-benefits.png",
-    badge: "New",
-    category: "accessories" as Category
-  },
-  {
-    id: "guide-book",
-    name: "Toned Arms After 40",
-    description: "5+ simple exercises guide",
-    price: 19,
-    originalPrice: null,
-    image: "/images/confitone-banner.jpg",
-    badge: null,
-    category: "accessories" as Category
-  },
-  {
-    id: "carrying-case",
-    name: "Travel Carrying Case",
-    description: "Compact storage solution",
-    price: 15,
-    originalPrice: null,
-    image: "/images/confitone-hero.png",
-    badge: null,
-    category: "accessories" as Category
-  },
-  {
-    id: "replacement-straps",
-    name: "Replacement Straps",
-    description: "Adjustable velcro straps set",
-    price: 12,
-    originalPrice: null,
-    image: "/images/confitone-benefits.png",
-    badge: null,
-    category: "accessories" as Category
-  }
-]
+interface Product {
+  id: string
+  name: string
+  description: string
+  price: number
+  original_price: number | null
+  image: string
+  badge: string | null
+  category: Category
+}
+
+const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 const categories = [
   { value: "sleeves" as Category, label: "Sleeves" },
@@ -149,7 +37,11 @@ export function ProductGrid() {
   const headerRef = useRef<HTMLDivElement>(null)
   const { addItem } = useCart()
   
-  const filteredProducts = products.filter(product => product.category === selectedCategory)
+  const { data: products = [], isLoading } = useSWR<Product[]>(
+    `/api/products?category=${selectedCategory}`,
+    fetcher,
+    { revalidateOnFocus: false }
+  )
 
   const handleCategoryChange = (category: Category) => {
     if (category !== selectedCategory) {
@@ -208,6 +100,8 @@ export function ProductGrid() {
     }
   }, [])
 
+  const filteredProducts = products.filter(product => product.category === selectedCategory)
+
   return (
     <section className="py-24 bg-card">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -255,9 +149,17 @@ export function ProductGrid() {
         {/* Product Grid */}
         <div 
           ref={gridRef}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[400px]"
         >
-          {filteredProducts.map((product, index) => (
+          {isLoading ? (
+            <div className="col-span-full flex items-center justify-center py-20">
+              <Loader2 className="w-8 h-8 text-primary animate-spin" />
+            </div>
+          ) : products.length === 0 ? (
+            <div className="col-span-full text-center py-20 text-muted-foreground">
+              No products found in this category.
+            </div>
+          ) : products.map((product, index) => (
             <Link
               key={`${selectedCategory}-${product.id}`}
               href={`/product/${product.id}`}
@@ -316,9 +218,9 @@ export function ProductGrid() {
                   <p className="text-sm text-muted-foreground mb-3">{product.description}</p>
                   <div className="flex items-center gap-2">
                     <span className="font-medium text-foreground">${product.price}</span>
-                    {product.originalPrice && (
+                    {product.original_price && (
                       <span className="text-sm text-muted-foreground line-through">
-                        ${product.originalPrice}
+                        ${product.original_price}
                       </span>
                     )}
                   </div>
