@@ -22,8 +22,6 @@ interface Product {
 
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 
-const categories = ["all", "sleeves", "bundles", "accessories"]
-
 export default function ShopPage() {
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [showFilters, setShowFilters] = useState(false)
@@ -31,8 +29,18 @@ export default function ShopPage() {
   const gridRef = useRef<HTMLDivElement>(null)
   const { addItem } = useCart()
 
+  // Fetch categories dynamically from the database
+  const { data: dbCategories = [] } = useSWR<string[]>(
+    '/api/products/categories',
+    fetcher,
+    { revalidateOnFocus: false }
+  )
+
+  // Build dynamic category list
+  const categories = ["all", ...dbCategories]
+
   const { data: products = [], isLoading } = useSWR<Product[]>(
-    `/api/products${selectedCategory !== 'all' ? `?category=${selectedCategory}` : ''}`,
+    selectedCategory !== 'all' ? `/api/products?category=${selectedCategory}` : '/api/products',
     fetcher,
     { revalidateOnFocus: false }
   )

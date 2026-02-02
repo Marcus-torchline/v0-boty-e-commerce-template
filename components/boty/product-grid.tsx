@@ -7,8 +7,6 @@ import { ShoppingBag, Loader2 } from "lucide-react"
 import { useCart } from "./cart-context"
 import useSWR from "swr"
 
-type Category = "sleeves" | "bundles" | "accessories"
-
 interface Product {
   id: string
   name: string
@@ -17,19 +15,20 @@ interface Product {
   original_price: number | null
   image: string
   badge: string | null
-  category: Category
+  category: string
+  featured?: boolean
 }
 
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 const categories = [
-  { value: "sleeves" as Category, label: "Sleeves" },
-  { value: "bundles" as Category, label: "Bundles" },
-  { value: "accessories" as Category, label: "Accessories" }
+  { label: "All", value: "all" },
+  { label: "Sleeves", value: "sleeves" },
+  { label: "Bundles", value: "bundles" }
 ]
 
 export function ProductGrid() {
-  const [selectedCategory, setSelectedCategory] = useState<Category>("sleeves")
+  const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [isVisible, setIsVisible] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(false)
@@ -37,13 +36,27 @@ export function ProductGrid() {
   const headerRef = useRef<HTMLDivElement>(null)
   const { addItem } = useCart()
   
-  const { data: products = [], isLoading } = useSWR<Product[]>(
-    `/api/products?category=${selectedCategory}`,
+  // Fetch categories dynamically from the database
+  const { data: dbCategories = [] } = useSWR<string[]>(
+    '/api/products/categories',
     fetcher,
     { revalidateOnFocus: false }
   )
 
-  const handleCategoryChange = (category: Category) => {
+  // Fetch products - if "all" is selected, don't filter by category
+  const { data: products = [], isLoading } = useSWR<Product[]>(
+    selectedCategory === "all" ? '/api/products' : `/api/products?category=${selectedCategory}`,
+    fetcher,
+    { revalidateOnFocus: false }
+  )
+  
+  // Build dynamic category list from database
+  const dynamicCategories = [
+    { label: "All", value: "all" },
+    ...dbCategories.map(cat => ({ label: cat.charAt(0).toUpperCase() + cat.slice(1), value: cat }))
+  ]
+
+  const handleCategoryChange = (category: string) => {
     if (category !== selectedCategory) {
       setIsTransitioning(true)
       setTimeout(() => {
@@ -100,7 +113,7 @@ export function ProductGrid() {
     }
   }, [])
 
-  const filteredProducts = products.filter(product => product.category === selectedCategory)
+  const filteredProducts = products.filter(product => selectedCategory ? product.category === selectedCategory : true)
 
   return (
     <section className="py-24 bg-card">
@@ -118,33 +131,27 @@ export function ProductGrid() {
           </p>
         </div>
 
-        {/* Segmented Control */}
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex bg-background rounded-full p-1 gap-1 relative">
-            {/* Animated background slide */}
-            <div
-              className="absolute top-1 bottom-1 bg-primary rounded-full transition-all duration-300 ease-out shadow-sm"
-              style={{
-                left: selectedCategory === 'sleeves' ? '4px' : selectedCategory === 'bundles' ? 'calc(33.333% + 2px)' : 'calc(66.666%)',
-                width: 'calc(33.333% - 4px)'
-              }}
-            />
-            {categories.map((category) => (
-              <button
-                key={category.value}
-                type="button"
-                onClick={() => handleCategoryChange(category.value)}
-                className={`relative z-10 px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                  selectedCategory === category.value
-                    ? "text-white"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {category.label}
-              </button>
-            ))}
+        {/* Segmented Control - only show if there are categories */}
+        {dynamicCategories.length > 1 && (
+          <div className="flex justify-center mb-12">
+            <div className="inline-flex bg-background rounded-full p-1 gap-1 flex-wrap justify-center">
+              {dynamicCategories.map((category) => (
+                <button
+                  key={category.value}
+                  type="button"
+                  onClick={() => handleCategoryChange(category.value)}
+                  className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                    selectedCategory === category.value
+                      ? "bg-primary text-white"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                >
+                  {category.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Product Grid */}
         <div 
@@ -159,7 +166,7 @@ export function ProductGrid() {
             <div className="col-span-full text-center py-20 text-muted-foreground">
               No products found in this category.
             </div>
-          ) : products.map((product, index) => (
+          ) : filteredProducts.map((product, index) => (
             <Link
               key={`${selectedCategory}-${product.id}`}
               href={`/product/${product.id}`}
