@@ -1,16 +1,47 @@
-// lib/medusa-store.ts
-
 const BASE_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL!
 const PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY!
 
-export type MedusaProduct = {
+// This matches the Product interface in ProductGrid
+export type Product = {
   id: string
-  title: string
-  description?: string
-  thumbnail?: string
+  name: string
+  description: string
+  price: number
+  original_price: number | null
+  image: string
+  badge: string | null
+  category: string
+  featured?: boolean
 }
 
-export async function getMedusaProducts(): Promise<MedusaProduct[]> {
+function mapMedusaToProduct(p: any): Product {
+  const v = p.variants?.[0]
+
+  const usdPrice =
+    v?.prices?.find((pr: any) => pr.currency_code === "usd")?.amount ?? 0
+
+  // Use Medusa title as name
+  const name = p.title ?? ""
+
+  // Use a short description: prefer subtitle, then truncate description
+  const rawDesc = p.subtitle || p.description || ""
+  const description =
+    rawDesc.length > 120 ? rawDesc.slice(0, 117).trimEnd() + "..." : rawDesc
+
+  return {
+    id: p.id,
+    name,
+    description,
+    price: usdPrice / 100, // Medusa stores cents
+    original_price: null,
+    image: p.thumbnail ?? "",
+    badge: null,
+    category: "bundles", // or some default; refine later
+    featured: false,
+  }
+}
+
+export async function getMedusaProducts(): Promise<Product[]> {
   const res = await fetch(`${BASE_URL}/store/products`, {
     cache: "no-store",
     headers: {
@@ -25,5 +56,7 @@ export async function getMedusaProducts(): Promise<MedusaProduct[]> {
   }
 
   const data = await res.json()
-  return data.products as MedusaProduct[]
+  const medusaProducts = data.products ?? []
+  return medusaProducts.map(mapMedusaToProduct)
 }
+
