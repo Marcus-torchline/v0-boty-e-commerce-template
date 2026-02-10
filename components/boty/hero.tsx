@@ -54,32 +54,32 @@ export function Hero() {
                 <div className="text-sm text-muted-foreground">30-Day Money-Back Guarantee</div>
               </div>
               {/* Press credential badges */}
-              <div className="mt-6 flex flex-wrap gap-3 justify-center lg:justify-start animate-blur-in opacity-0" style={{ animationDelay: '1.3s', animationFillMode: 'forwards' }}>
-                <div className="rounded-2xl overflow-hidden bg-white boty-shadow">
+              <div className="mt-5 flex flex-wrap gap-2 justify-center lg:justify-start animate-blur-in opacity-0" style={{ animationDelay: '1.3s', animationFillMode: 'forwards' }}>
+                <div className="rounded-xl overflow-hidden bg-white boty-shadow">
                   <Image
                     src="/images/womens-health-quote.jpg"
                     alt="Women's Health Magazine: ThermoTone Technology is all you need to get rid of flabby arms"
-                    width={200}
-                    height={100}
-                    className="w-36 md:w-44 h-auto object-contain"
+                    width={120}
+                    height={60}
+                    className="w-20 md:w-24 h-auto object-contain"
                   />
                 </div>
-                <div className="rounded-2xl overflow-hidden bg-white boty-shadow">
+                <div className="rounded-xl overflow-hidden bg-white boty-shadow">
                   <Image
                     src="/images/press-gq.jpg"
                     alt="GQ: 97% review success rate across all arm types"
-                    width={200}
-                    height={100}
-                    className="w-36 md:w-44 h-auto object-contain"
+                    width={120}
+                    height={60}
+                    className="w-20 md:w-24 h-auto object-contain"
                   />
                 </div>
-                <div className="rounded-2xl overflow-hidden bg-white boty-shadow">
+                <div className="rounded-xl overflow-hidden bg-white boty-shadow">
                   <Image
                     src="/images/press-cbs.jpg"
                     alt="CBS: Sold out 11 times over the past 7 months"
-                    width={200}
-                    height={100}
-                    className="w-36 md:w-44 h-auto object-contain"
+                    width={120}
+                    height={60}
+                    className="w-20 md:w-24 h-auto object-contain"
                   />
                 </div>
               </div>

@@ -20,7 +20,7 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
       <nav className="max-w-7xl mx-auto px-6 lg:px-8 backdrop-blur-md rounded-lg py-0 my-0 animate-scale-fade-in bg-[rgba(255,255,255,0.4)] border border-[rgba(255,255,255,0.32)]" style={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px' }}>
-        <div className="flex items-center justify-between h-[72px]">
+          <div className="flex items-center justify-between h-[100px]">
           {/* Mobile menu button */}
           <button
             type="button"
@@ -50,18 +50,18 @@ export function Header() {
             <Image
               src="/images/logo-confitone-green.png"
               alt="Confitone"
-              width={480}
-              height={120}
-              className="hidden sm:block h-14 w-auto"
+              width={960}
+              height={240}
+              className="hidden sm:block h-28 w-auto"
               priority
             />
             {/* CT monogram on small screens */}
             <Image
               src="/images/logo-ct-green.png"
               alt="Confitone"
-              width={120}
-              height={120}
-              className="sm:hidden h-12 w-auto"
+              width={240}
+              height={240}
+              className="sm:hidden h-20 w-auto"
               priority
             />
           </Link>
