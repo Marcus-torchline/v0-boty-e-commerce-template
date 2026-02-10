@@ -62,7 +62,7 @@ const productLine = [
     title: "ThermoTone Arm Sleeves",
     description:
       "Our original. Graduated compression and gentle thermal activation to shape, smooth, and define your upper arms.",
-    image: "/images/confitone-arm-sleeves-lifestyle.jpg",
+    image: "/images/confitone-arm-sleeves-product.png",
     badge: "Bestseller",
   },
   {
