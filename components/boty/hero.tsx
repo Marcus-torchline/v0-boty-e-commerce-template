@@ -22,7 +22,7 @@ export function Hero() {
                 Trusted by 23,000+ Women
               </p>
               <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl leading-[1.08] mb-6 text-balance font-bold">
-                <span className="block animate-blur-in opacity-0 text-foreground" style={{ animationDelay: '0.35s', animationFillMode: 'forwards' }}>The</span>
+                <span className="block animate-blur-in opacity-0 text-foreground" style={{ animationDelay: '0.35s', animationFillMode: 'forwards' }}>The Original</span>
                 <span className="block animate-blur-in opacity-0" style={{ animationDelay: '0.45s', animationFillMode: 'forwards' }}><span className="text-primary">ThermoTone</span> <span className="text-foreground">{"&"}</span> <span className="text-primary">Compression</span></span>
                 <span className="block animate-blur-in opacity-0 text-foreground" style={{ animationDelay: '0.55s', animationFillMode: 'forwards' }}>Combo.</span>
               </h1>
