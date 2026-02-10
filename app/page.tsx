@@ -7,6 +7,7 @@ import { ProductGrid } from "@/components/boty/product-grid"
 import { Testimonials } from "@/components/boty/testimonials"
 import { CTABanner } from "@/components/boty/cta-banner"
 import { Newsletter } from "@/components/boty/newsletter"
+import { OurStory } from "@/components/boty/our-story"
 import { Footer } from "@/components/boty/footer"
 
 export default async function HomePage() {
@@ -19,6 +20,7 @@ export default async function HomePage() {
       <TrustBadges />
       <ProductGrid products={products} />
       <FeatureSection />
+      <OurStory />
       <Testimonials />
       <CTABanner />
       <Newsletter />

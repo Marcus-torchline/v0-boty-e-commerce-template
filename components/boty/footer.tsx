@@ -12,7 +12,7 @@ const footerLinks = {
     { name: "Gift Sets", href: "/shop" }
   ],
   about: [
-    { name: "Our Story", href: "/" },
+    { name: "Our Story", href: "/#our-story" },
     { name: "How It Works", href: "/" },
     { name: "Real Results", href: "/" },
     { name: "Press", href: "/" }

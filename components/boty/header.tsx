@@ -33,7 +33,7 @@ export function Header() {
               Shop
             </Link>
             <Link
-              href="/"
+              href="/#our-story"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
               Our Story
@@ -99,7 +99,7 @@ export function Header() {
               Shop
             </Link>
             <Link
-              href="/"
+              href="/#our-story"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
               Our Story
