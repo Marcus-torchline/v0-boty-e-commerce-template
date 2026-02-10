@@ -202,7 +202,7 @@ export function RealResults() {
             }`}
           />
           <h2
-            className={`font-sans text-4xl md:text-6xl lg:text-7xl leading-[1.05] text-white font-bold text-balance mb-6 ${
+            className={`font-sans text-5xl md:text-7xl lg:text-8xl leading-[1.05] text-white font-bold text-balance mb-6 ${
               headerVisible
                 ? "animate-blur-in opacity-0"
                 : "opacity-0"

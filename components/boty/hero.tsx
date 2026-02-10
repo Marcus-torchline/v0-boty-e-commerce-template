@@ -18,17 +18,15 @@ export function Hero() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left content */}
             <div className="text-center lg:text-left">
-              <span className="text-sm uppercase mb-6 block text-primary animate-blur-in opacity-0 tracking-widest font-medium" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
-                Real Women, Real Results
-              </span>
-              <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-6 text-balance text-foreground font-bold">
-                <span className="block animate-blur-in opacity-0" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>Reclaim Your</span>
-                <span className="block animate-blur-in opacity-0 text-primary" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>Sleeveless Confidence.</span>
-              </h2>
-              <p className="text-lg leading-relaxed mb-8 max-w-md mx-auto lg:mx-0 text-muted-foreground animate-blur-in opacity-0" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
-                Comfortable, non-invasive arm toning for daily life. If your arms changed almost overnight, you are not alone.
+              <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-6 text-balance font-bold">
+                <span className="block animate-blur-in opacity-0" style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}><span className="text-primary">ThermoTone</span> <span className="text-foreground">{"&"}</span> <span className="text-primary">Compression</span></span>
+                <span className="block animate-blur-in opacity-0 text-foreground" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>Combo Trusted by</span>
+                <span className="block animate-blur-in opacity-0 text-foreground" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>Thousands of Women 40+</span>
+              </h1>
+              <p className="text-base leading-relaxed mb-8 max-w-md mx-auto lg:mx-0 text-muted-foreground animate-blur-in opacity-0" style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}>
+                Products designed to firm, shape, and help you feel confident wearing what you love.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-blur-in opacity-0" style={{ animationDelay: '1s', animationFillMode: 'forwards' }}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-blur-in opacity-0" style={{ animationDelay: '0.9s', animationFillMode: 'forwards' }}>
                 <Link
                   href="/shop"
                   className="group inline-flex items-center justify-center gap-3 bg-primary text-primary-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-[#3DA870] boty-shadow font-medium"
@@ -38,7 +36,7 @@ export function Hero() {
                 </Link>
               </div>
               {/* Trust badges */}
-              <div className="flex items-center gap-6 mt-8 justify-center lg:justify-start animate-blur-in opacity-0" style={{ animationDelay: '1.2s', animationFillMode: 'forwards' }}>
+              <div className="flex items-center gap-6 mt-8 justify-center lg:justify-start animate-blur-in opacity-0" style={{ animationDelay: '1.1s', animationFillMode: 'forwards' }}>
                 <div className="flex items-center gap-2">
                   <div className="flex text-primary">
                     {[...Array(5)].map((_, i) => (
