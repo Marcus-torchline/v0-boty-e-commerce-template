@@ -140,25 +140,37 @@ export function FeatureSection() {
           ref={heroRef}
           className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
         >
-          {/* Image */}
+          {/* Images -- stacked top/bottom */}
           <div
-            className={`relative aspect-[4/5] rounded-3xl overflow-hidden boty-shadow transition-all duration-700 ease-out ${
+            className={`flex flex-col gap-4 transition-all duration-700 ease-out ${
               heroVisible
                 ? "opacity-100 scale-100"
                 : "opacity-0 scale-95"
             }`}
           >
-            <Image
-              src={bestseller.image}
-              alt="Woman comfortably wearing Confitone ThermoTone arm sleeves at home"
-              fill
-              className="object-cover"
-            />
-            {/* Floating badge */}
-            <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 boty-shadow">
-              <span className="text-xs font-bold tracking-wide text-primary uppercase">
-                {bestseller.tagline}
-              </span>
+            {/* Top image -- customer wearing sleeves */}
+            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden boty-shadow">
+              <Image
+                src="/images/confitone-customer-sleeves.png"
+                alt="Confitone customer showing off her ThermoTone arm sleeves"
+                fill
+                className="object-cover"
+              />
+              {/* Floating badge */}
+              <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 boty-shadow">
+                <span className="text-xs font-bold tracking-wide text-primary uppercase">
+                  {bestseller.tagline}
+                </span>
+              </div>
+            </div>
+            {/* Bottom image -- product shot */}
+            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden boty-shadow">
+              <Image
+                src="/images/confitone-arm-sleeves-product.png"
+                alt="Confitone ThermoTone compression arm sleeves product pair"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
 
