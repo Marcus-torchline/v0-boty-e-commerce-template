@@ -159,7 +159,7 @@ export function OurStory() {
             }`}
           >
             <Image
-              src="/images/karen-taylor-founder.jpg"
+              src="/images/karen-taylor-founder.png"
               alt="Karen Taylor, founder of Confitone"
               fill
               className="object-cover"
