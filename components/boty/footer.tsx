@@ -140,10 +140,10 @@ export function Footer() {
               © {new Date().getFullYear()} Confitone. All rights reserved.
             </p>
             <div className="flex gap-6">
-              <Link href="/" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
+              <Link href="/privacy-policy" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
                 Privacy Policy
               </Link>
-              <Link href="/" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
+              <Link href="/terms-of-service" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
                 Terms of Service
               </Link>
             </div>
