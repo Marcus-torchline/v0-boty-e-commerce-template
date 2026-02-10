@@ -246,8 +246,8 @@ export function FeatureSection() {
             </p>
           </div>
 
-          {/* Two-column: bullets left, images right */}
-          <div className="grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-start">
+          {/* Two-column: bullets left (narrower), images right (wider) */}
+          <div className="grid lg:grid-cols-[2fr_3fr] gap-8 lg:gap-10 items-start">
             {/* Expandable bullets */}
             <div className="flex flex-col gap-3">
               {differencePoints.map((point, i) => (
@@ -262,28 +262,28 @@ export function FeatureSection() {
 
             {/* Product images */}
             <div
-              className={`hidden lg:flex flex-col gap-4 w-72 xl:w-80 sticky top-24 transition-all duration-700 ease-out ${
+              className={`hidden lg:flex flex-col gap-4 sticky top-24 transition-all duration-700 ease-out ${
                 diffVisible
                   ? "opacity-100 scale-100"
                   : "opacity-0 scale-95"
               }`}
               style={{ transitionDelay: "300ms" }}
             >
-              <div className="rounded-3xl overflow-hidden boty-shadow bg-muted">
+              <div className="rounded-3xl overflow-hidden boty-shadow">
                 <Image
-                  src="/images/confitone-customer-sleeves.png"
-                  alt="Confitone customer showing off her ThermoTone arm sleeves"
-                  width={400}
-                  height={300}
+                  src="/images/testimonial-linda-before-after.png"
+                  alt="Linda, 61 -- before and after results with Confitone arm sleeves"
+                  width={700}
+                  height={700}
                   className="w-full h-auto object-contain"
                 />
               </div>
-              <div className="rounded-3xl overflow-hidden boty-shadow bg-muted">
+              <div className="rounded-3xl overflow-hidden boty-shadow">
                 <Image
-                  src="/images/confitone-arm-sleeves-product.png"
-                  alt="Confitone ThermoTone compression arm sleeves"
-                  width={400}
-                  height={300}
+                  src="/images/arm-fat-reduction-support.jpg"
+                  alt="Confitone arm fat reduction support -- thermal activation and improved circulation"
+                  width={700}
+                  height={350}
                   className="w-full h-auto object-contain"
                 />
               </div>
