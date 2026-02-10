@@ -296,61 +296,63 @@ export function OurStory() {
                 aria-hidden="true"
               />
             </div>
-            <div className="relative z-10 max-w-3xl">
-              <Image
-                src="/images/logo-confitone-white.png"
-                alt="Confitone"
-                width={120}
-                height={30}
-                className="h-6 w-auto mb-6"
-              />
-              <span className="text-sm tracking-[0.3em] uppercase text-white/70 mb-4 block">
-                Where We Are Today
-              </span>
-              <h3 className="text-3xl md:text-4xl text-white font-bold mb-6 text-balance">
-                Karen{"'"}s Vision Lives in Everything We Do
-              </h3>
-              <div className="space-y-5 text-white/85 leading-relaxed">
-                <p>
-                  Karen remains closely involved in the brand she built,
-                  ensuring that every decision stays true to the principle
-                  that started it all: women deserve a gentle, effective,
-                  non-invasive path to feeling confident in their own skin.
-                </p>
-                <p>
-                  Under new management, Confitone has undergone a complete
-                  evolution. We have enhanced the proprietary Confitone
-                  material, invested in world-class customer service, and
-                  implemented state-of-the-art tracking so you always know
-                  exactly where your order is.
-                </p>
-                <p>
-                  But some things will never change. Every product is still
-                  crafted with precision using our trademark thermo-compression
-                  textile. Every customer interaction still carries the warmth
-                  and care that Karen brought to the very first pair of
-                  sleeves she made in her kitchen. And our commitment to
-                  quality and real results has never been stronger.
+            <div className="relative z-10 flex flex-col lg:flex-row gap-10 items-start">
+              <div className="flex-1">
+                <Image
+                  src="/images/logo-confitone-white.png"
+                  alt="Confitone"
+                  width={120}
+                  height={30}
+                  className="h-6 w-auto mb-6"
+                />
+                <span className="text-sm tracking-[0.3em] uppercase text-white/70 mb-4 block">
+                  Where We Are Today
+                </span>
+                <h3 className="text-3xl md:text-4xl text-white font-bold mb-6 text-balance">
+                  Karen{"'"}s Vision Lives in Everything We Do
+                </h3>
+                <div className="space-y-5 text-white/85 leading-relaxed">
+                  <p>
+                    Karen remains closely involved in the brand she built,
+                    ensuring that every decision stays true to the principle
+                    that started it all: women deserve a gentle, effective,
+                    non-invasive path to feeling confident in their own skin.
+                  </p>
+                  <p>
+                    Under new management, Confitone has undergone a complete
+                    evolution. We have enhanced the proprietary Confitone
+                    material, invested in world-class customer service, and
+                    implemented state-of-the-art tracking so you always know
+                    exactly where your order is.
+                  </p>
+                  <p>
+                    But some things will never change. Every product is still
+                    crafted with precision using our trademark thermo-compression
+                    textile. Every customer interaction still carries the warmth
+                    and care that Karen brought to the very first pair of
+                    sleeves she made in her kitchen. And our commitment to
+                    quality and real results has never been stronger.
+                  </p>
+                </div>
+                <p className="mt-8 text-white font-bold text-lg">
+                  This is Confitone.{" "}
+                  <span className="text-white/80 font-normal">
+                    Real science. Real care. Real results.
+                  </span>
                 </p>
               </div>
-              <p className="mt-8 text-white font-bold text-lg">
-                This is Confitone.{" "}
-                <span className="text-white/80 font-normal">
-                  Real science. Real care. Real results.
-                </span>
-              </p>
-            </div>
 
-            {/* Karen TV appearance photo */}
-            <div className="relative z-10 mt-10 max-w-sm">
-              <div className="rounded-2xl overflow-hidden boty-shadow">
-                <Image
-                  src="/images/karen-good-morning-tv.png"
-                  alt="Karen Taylor on Good Morning TV promoting Confitone"
-                  width={400}
-                  height={500}
-                  className="w-full h-auto object-cover"
-                />
+              {/* Karen TV appearance photo */}
+              <div className="w-full lg:w-72 xl:w-80 shrink-0">
+                <div className="rounded-2xl overflow-hidden boty-shadow">
+                  <Image
+                    src="/images/karen-good-morning-tv.png"
+                    alt="Karen Taylor on Good Morning TV promoting Confitone"
+                    width={400}
+                    height={500}
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
               </div>
             </div>
           </div>
