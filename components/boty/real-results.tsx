@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Star, Droplets, ThermometerSun, Sparkles } from "lucide-react"
+import { ArrowRight, Star } from "lucide-react"
 
 /* ─── Testimonial Data ─── */
 const testimonials = [
@@ -81,27 +81,6 @@ const testimonials = [
   },
 ]
 
-const pillars = [
-  {
-    icon: Droplets,
-    title: "Gentle Compression",
-    description:
-      "Applies light, even pressure that supports healthy blood flow and helps reduce fluid retention naturally.",
-  },
-  {
-    icon: ThermometerSun,
-    title: "Thermal Activation",
-    description:
-      "A subtle warming layer works with your body heat to smooth and firm areas where skin tends to lose definition with age.",
-  },
-  {
-    icon: Sparkles,
-    title: "Visible Results",
-    description:
-      "Most women notice a difference in 30 to 45 days of consistent daily wear, no extreme routines required.",
-  },
-]
-
 /* ─── Testimonial Card ─── */
 const TestimonialCard = ({
   testimonial,
@@ -139,13 +118,11 @@ export function RealResults() {
   const [headerVisible, setHeaderVisible] = useState(false)
   const [missionVisible, setMissionVisible] = useState(false)
   const [resultsVisible, setResultsVisible] = useState(false)
-  const [pillarsVisible, setPillarsVisible] = useState(false)
   const [testimonialsVisible, setTestimonialsVisible] = useState(false)
 
   const headerRef = useRef<HTMLDivElement>(null)
   const missionRef = useRef<HTMLDivElement>(null)
   const resultsRef = useRef<HTMLDivElement>(null)
-  const pillarsRef = useRef<HTMLDivElement>(null)
   const testimonialsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -163,21 +140,18 @@ export function RealResults() {
     const obs1 = createObserver(setHeaderVisible, 0.2)
     const obs2 = createObserver(setMissionVisible)
     const obs3 = createObserver(setResultsVisible)
-    const obs4 = createObserver(setPillarsVisible)
-    const obs5 = createObserver(setTestimonialsVisible, 0.1)
+    const obs4 = createObserver(setTestimonialsVisible, 0.1)
 
     if (headerRef.current) obs1.observe(headerRef.current)
     if (missionRef.current) obs2.observe(missionRef.current)
     if (resultsRef.current) obs3.observe(resultsRef.current)
-    if (pillarsRef.current) obs4.observe(pillarsRef.current)
-    if (testimonialsRef.current) obs5.observe(testimonialsRef.current)
+    if (testimonialsRef.current) obs4.observe(testimonialsRef.current)
 
     return () => {
       obs1.disconnect()
       obs2.disconnect()
       obs3.disconnect()
       obs4.disconnect()
-      obs5.disconnect()
     }
   }, [])
 
@@ -188,21 +162,21 @@ export function RealResults() {
   return (
     <section className="bg-background">
       {/* ──────────── Part 1: Section Header ──────────── */}
-      <div ref={headerRef} className="pt-14 pb-10 bg-[#1A1A1A]">
+      <div ref={headerRef} className="pt-10 pb-8 bg-[#1A1A1A]">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <Image
             src="/images/logo-confitone-white.png"
             alt="Confitone"
             width={560}
             height={140}
-            className={`h-24 md:h-28 w-auto mx-auto mb-6 transition-all duration-700 ease-out ${
+            className={`h-20 md:h-24 w-auto mx-auto mb-5 transition-all duration-700 ease-out ${
               headerVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-4"
             }`}
           />
           <h2
-            className={`font-sans text-3xl md:text-5xl lg:text-6xl leading-[1.05] text-white font-bold text-balance mb-4 ${
+            className={`font-sans text-3xl md:text-4xl lg:text-5xl leading-[1.05] text-white font-bold text-balance mb-3 ${
               headerVisible
                 ? "animate-blur-in opacity-0"
                 : "opacity-0"
@@ -217,7 +191,7 @@ export function RealResults() {
             <span className="text-primary">Real Results.</span>
           </h2>
           <p
-            className={`text-base md:text-lg text-white/60 leading-relaxed max-w-2xl mx-auto mb-8 ${
+            className={`text-sm md:text-base text-white/60 leading-relaxed max-w-2xl mx-auto mb-6 ${
               headerVisible
                 ? "animate-blur-in opacity-0"
                 : "opacity-0"
@@ -323,16 +297,6 @@ export function RealResults() {
             }`}
             style={{ transitionDelay: "150ms" }}
           >
-            {/* Women's Health Press Quote */}
-            <div className="rounded-3xl overflow-hidden bg-white boty-shadow p-6 flex items-center justify-center">
-              <Image
-                src="/images/womens-health-quote.jpg"
-                alt="Women's Health Magazine: ThermoTone Technology is all you need to get rid of flabby arms"
-                width={400}
-                height={200}
-                className="w-full max-w-xs h-auto object-contain"
-              />
-            </div>
             {/* Customer collage */}
             <div className="rounded-3xl overflow-hidden boty-shadow">
               <Image
@@ -418,7 +382,7 @@ export function RealResults() {
               />
             </div>
 
-            {/* Week 4 full body */}
+            {/* Before / After body transformation */}
             <div
               className={`rounded-3xl overflow-hidden boty-shadow transition-all duration-700 ease-out ${
                 resultsVisible
@@ -428,8 +392,8 @@ export function RealResults() {
               style={{ transitionDelay: "450ms" }}
             >
               <Image
-                src="/images/result-week4-fullbody.png"
-                alt="Week 4 full body results - confident woman showing toned arms"
+                src="/images/result-before-after-body.jpg"
+                alt="Customer before and after body transformation with Confitone"
                 width={500}
                 height={500}
                 className="w-full h-auto object-contain"
@@ -439,67 +403,7 @@ export function RealResults() {
         </div>
       </div>
 
-      {/* ──────────── Part 4: How It Works Pillars ──────────── */}
-      <div ref={pillarsRef} className="pb-20 md:pb-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <span
-              className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${
-                pillarsVisible
-                  ? "animate-blur-in opacity-0"
-                  : "opacity-0"
-              }`}
-              style={
-                pillarsVisible
-                  ? { animationDelay: "0.1s", animationFillMode: "forwards" }
-                  : {}
-              }
-            >
-              The Science Behind It
-            </span>
-            <h3
-              className={`font-sans text-3xl md:text-4xl leading-tight text-foreground font-bold text-balance ${
-                pillarsVisible
-                  ? "animate-blur-in opacity-0"
-                  : "opacity-0"
-              }`}
-              style={
-                pillarsVisible
-                  ? { animationDelay: "0.2s", animationFillMode: "forwards" }
-                  : {}
-              }
-            >
-              Simple Technology. Honest Results.
-            </h3>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {pillars.map((pillar, i) => (
-              <div
-                key={pillar.title}
-                className={`rounded-3xl bg-card p-8 md:p-10 boty-shadow transition-all duration-700 ease-out ${
-                  pillarsVisible
-                    ? "opacity-100 scale-100"
-                    : "opacity-0 scale-95"
-                }`}
-                style={{ transitionDelay: `${(i + 1) * 120}ms` }}
-              >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-5">
-                  <pillar.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h4 className="text-lg font-bold text-foreground mb-3">
-                  {pillar.title}
-                </h4>
-                <p className="text-muted-foreground leading-relaxed text-sm">
-                  {pillar.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ──────────── Part 5: Scrolling Testimonials ──────────── */}
+      {/* ──────────── Part 4: Scrolling Testimonials ──────────── */}
       <div ref={testimonialsRef} className="pb-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">

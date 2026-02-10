@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 
 export function Hero() {
@@ -51,6 +52,18 @@ export function Hero() {
                   <span className="text-sm font-medium text-foreground">4.9/5 Stars</span>
                 </div>
                 <div className="text-sm text-muted-foreground">30-Day Money-Back Guarantee</div>
+              </div>
+              {/* Women's Health press badge */}
+              <div className="mt-6 animate-blur-in opacity-0" style={{ animationDelay: '1.3s', animationFillMode: 'forwards' }}>
+                <div className="inline-flex rounded-2xl overflow-hidden bg-white boty-shadow">
+                  <Image
+                    src="/images/womens-health-quote.jpg"
+                    alt="Women's Health Magazine: ThermoTone Technology is all you need to get rid of flabby arms"
+                    width={240}
+                    height={120}
+                    className="w-48 md:w-56 h-auto object-contain"
+                  />
+                </div>
               </div>
             </div>
             {/* Right image */}
