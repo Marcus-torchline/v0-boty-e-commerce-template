@@ -18,10 +18,13 @@ export function Hero() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left content */}
             <div className="text-center lg:text-left">
-              <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-6 text-balance font-bold">
-                <span className="block animate-blur-in opacity-0" style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}><span className="text-primary">ThermoTone</span> <span className="text-foreground">{"&"}</span> <span className="text-primary">Compression</span></span>
-                <span className="block animate-blur-in opacity-0 text-foreground" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>Combo Trusted by</span>
-                <span className="block animate-blur-in opacity-0 text-foreground" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>Thousands of Women 40+</span>
+              <p className="text-sm tracking-[0.25em] uppercase text-primary font-semibold mb-4 animate-blur-in opacity-0" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
+                Trusted by 23,000+ Women
+              </p>
+              <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl leading-[1.08] mb-6 text-balance font-bold">
+                <span className="block animate-blur-in opacity-0 text-foreground" style={{ animationDelay: '0.35s', animationFillMode: 'forwards' }}>The</span>
+                <span className="block animate-blur-in opacity-0" style={{ animationDelay: '0.45s', animationFillMode: 'forwards' }}><span className="text-primary">ThermoTone</span> <span className="text-foreground">{"&"}</span> <span className="text-primary">Compression</span></span>
+                <span className="block animate-blur-in opacity-0 text-foreground" style={{ animationDelay: '0.55s', animationFillMode: 'forwards' }}>Combo.</span>
               </h1>
               <p className="text-base leading-relaxed mb-8 max-w-md mx-auto lg:mx-0 text-muted-foreground animate-blur-in opacity-0" style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}>
                 Products designed to firm, shape, and help you feel confident wearing what you love.
