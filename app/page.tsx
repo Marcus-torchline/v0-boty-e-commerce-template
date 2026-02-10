@@ -8,6 +8,7 @@ import { Testimonials } from "@/components/boty/testimonials"
 import { CTABanner } from "@/components/boty/cta-banner"
 import { OurStory } from "@/components/boty/our-story"
 import { RealResults } from "@/components/boty/real-results"
+import { ClosingCTA } from "@/components/boty/closing-cta"
 import { Newsletter } from "@/components/boty/newsletter"
 import { Footer } from "@/components/boty/footer"
 
@@ -26,8 +27,10 @@ export default async function HomePage() {
         <ProductGrid products={products} />
       </div>
 
-      {/* Trusted by Thousands + CTA */}
+      {/* Trusted by Thousands (right after Customers Who Love Their Results) */}
       <Testimonials />
+
+      {/* Ready to Reclaim Confidence (right after Simple Technology) */}
       <CTABanner />
 
       {/* Branch 2: Our Story */}
@@ -40,6 +43,8 @@ export default async function HomePage() {
         <RealResults />
       </div>
 
+      {/* Your Body May Be Changing -- right before Newsletter */}
+      <ClosingCTA />
       <Newsletter />
       <Footer />
     </main>
