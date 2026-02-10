@@ -2,236 +2,472 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { Flame, Zap, Heart, Shield, Leaf, Flower2, Globe, Recycle } from "lucide-react"
+import Link from "next/link"
+import {
+  ArrowRight,
+  Flame,
+  Zap,
+  Heart,
+  Shield,
+  Check,
+  Sparkles,
+  Wind,
+  HandMetal,
+  Activity,
+} from "lucide-react"
 
-const features = [
+/* ───────────────────── Data ───────────────────── */
+
+const bestseller = {
+  tagline: "Our Bestseller",
+  title: "ThermoTone Arm Sleeves",
+  description:
+    "Graduated pressure meets thermal activation to shape and smooth your upper arms. The result is firmer skin, enhanced definition, and all-day comfort you can wear anywhere -- whether you are working out, doing chores, or relaxing at home.",
+  image: "/images/confitone-arm-sleeves-lifestyle.jpg",
+  features: [
+    "Premium Confitone\u2122 breathable fabric with thermal heat",
+    "Supports circulation through thermal action",
+    "Precision graduated compression",
+    "Visible results in as little as 30 days",
+  ],
+}
+
+const differentiators = [
   {
     icon: Flame,
-    title: "Thermal Activation",
-    description: "Supports circulation through gentle warmth"
+    title: "Graduated Compression",
+    subtitle: "Supports Natural Shaping",
+    description:
+      "Our compression is engineered to apply the right amount of pressure in the right places, gently encouraging your body to do what it does best -- hold its shape.",
   },
   {
-    icon: Zap,
-    title: "Easy to Use",
-    description: "Wear while cooking, walking, or watching TV"
+    icon: Activity,
+    title: "Thermal Activation",
+    subtitle: "Enhances Blood Circulation",
+    description:
+      "A subtle warming layer works with your body heat to promote healthy blood flow and support firmer, smoother skin over time.",
   },
   {
     icon: Heart,
-    title: "Comfortable Fit",
-    description: "Designed for all-day wear and movement"
+    title: "All-Day Comfort",
+    subtitle: "Designed for Real Life",
+    description:
+      "Lightweight, breathable, and moisture-wicking. You will forget you are wearing them -- but your body will not.",
   },
-  {
-    icon: Shield,
-    title: "Non-Invasive",
-    description: "No surgery, no harsh treatments"
-  }
 ]
 
+const productLine = [
+  {
+    icon: Zap,
+    title: "ThermoTone Arm Sleeves",
+    description:
+      "Our original. Graduated compression and gentle thermal activation to shape, smooth, and define your upper arms.",
+    image: "/images/confitone-arm-sleeves-lifestyle.jpg",
+    badge: "Bestseller",
+  },
+  {
+    icon: Wind,
+    title: "ThermoTone Waistband",
+    description:
+      "Far more than a wrap. Targeted heat and compression support back alignment, improve posture, and help sculpt your waistline.",
+    image: "/images/confitone-waistband.jpg",
+    badge: "New",
+  },
+  {
+    icon: HandMetal,
+    title: "Compression Gloves",
+    description:
+      "Soothing compression that warms and circulates joints. Designed for women managing arthritis or everyday hand stiffness.",
+    image: "/images/confitone-compression-gloves.jpg",
+    badge: "New",
+  },
+]
+
+const stats = [
+  { number: "92%", label: "Achieved Smoother Arms" },
+  { number: "87%", label: "Felt Enhanced Comfort" },
+  { number: "94%", label: "Gained Confidence" },
+  { number: "96%", label: "Rated 5 Stars" },
+]
+
+/* ───────────────────── Component ───────────────────── */
+
 export function FeatureSection() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [isVideoVisible, setIsVideoVisible] = useState(false)
-  const [headerVisible, setHeaderVisible] = useState(false)
-  const bentoRef = useRef<HTMLDivElement>(null)
-  const videoSectionRef = useRef<HTMLDivElement>(null)
-  const headerRef = useRef<HTMLDivElement>(null)
+  const [heroVisible, setHeroVisible] = useState(false)
+  const [diffVisible, setDiffVisible] = useState(false)
+  const [lineVisible, setLineVisible] = useState(false)
+  const [statsVisible, setStatsVisible] = useState(false)
+  const heroRef = useRef<HTMLDivElement>(null)
+  const diffRef = useRef<HTMLDivElement>(null)
+  const lineRef = useRef<HTMLDivElement>(null)
+  const statsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 }
-    )
+    const createObserver = (
+      setter: (v: boolean) => void,
+      threshold = 0.1
+    ) =>
+      new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setter(true)
+        },
+        { threshold }
+      )
 
-    const videoObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVideoVisible(true)
-        }
-      },
-      { threshold: 0.1 }
-    )
+    const obs1 = createObserver(setHeroVisible)
+    const obs2 = createObserver(setDiffVisible)
+    const obs3 = createObserver(setLineVisible)
+    const obs4 = createObserver(setStatsVisible)
 
-    const headerObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setHeaderVisible(true)
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (bentoRef.current) {
-      observer.observe(bentoRef.current)
-    }
-
-    if (videoSectionRef.current) {
-      videoObserver.observe(videoSectionRef.current)
-    }
-
-    if (headerRef.current) {
-      headerObserver.observe(headerRef.current)
-    }
+    if (heroRef.current) obs1.observe(heroRef.current)
+    if (diffRef.current) obs2.observe(diffRef.current)
+    if (lineRef.current) obs3.observe(lineRef.current)
+    if (statsRef.current) obs4.observe(statsRef.current)
 
     return () => {
-      if (bentoRef.current) {
-        observer.unobserve(bentoRef.current)
-      }
-      if (videoSectionRef.current) {
-        videoObserver.unobserve(videoSectionRef.current)
-      }
-      if (headerRef.current) {
-        headerObserver.unobserve(headerRef.current)
-      }
+      obs1.disconnect()
+      obs2.disconnect()
+      obs3.disconnect()
+      obs4.disconnect()
     }
   }, [])
 
   return (
-    <section className="py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Bento Grid */}
-        <div 
-          ref={bentoRef}
-          className="grid md:grid-cols-4 mb-20 md:grid-rows-[300px_300px] gap-6"
+    <section id="the-difference" className="bg-background">
+      {/* ── 1. Bestseller Spotlight ── */}
+      <div className="py-24">
+        <div
+          ref={heroRef}
+          className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
         >
-          {/* Left Large Block - Benefits Image */}
-          <div 
-            className={`relative rounded-3xl overflow-hidden h-[500px] md:h-auto md:col-span-2 md:row-span-2 transition-all duration-700 ease-out ${
-              isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-            }`}
-            style={{ transitionDelay: '0ms' }}
-          >
-            <Image
-              src="/images/confitone-benefits.png"
-              alt="Arm fat reduction support with thermal activation"
-              fill
-              className="object-cover"
-            />
-            {/* Overlay Card */}
-            <div className="absolute bottom-8 left-8 right-8 bg-white p-6 shadow-lg rounded-xl">
-              <div className="flex items-start gap-3">
-                <div className="flex-shrink-0">
-                  <Flame className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-xl text-foreground mb-2 font-medium">
-                    Thermal <span className="text-primary">Technology</span>
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Supports circulation and promotes warmth for comfortable, effective arm toning.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Top Right - Confidence Message */}
-          <div 
-            className={`rounded-3xl p-6 md:p-8 flex flex-col justify-center md:col-span-2 relative overflow-hidden transition-all duration-700 ease-out bg-gradient-to-br from-[#5BB98C] to-[#3DA870] ${
-              isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-            }`}
-            style={{ transitionDelay: '100ms' }}
-          >
-            <div className="relative z-10">
-              <h3 className="text-3xl md:text-4xl text-white mb-2 font-bold">
-                Gentle Support
-              </h3>
-              <h3 className="text-2xl md:text-3xl text-white/80 mb-4">
-                Real Results
-              </h3>
-              
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-white/90 text-sm">
-                  <Heart className="w-4 h-4 flex-shrink-0" />
-                  <span>No Shaming, Just Support</span>
-                </div>
-                <div className="flex items-center gap-2 text-white/90 text-sm">
-                  <Shield className="w-4 h-4 flex-shrink-0" />
-                  <span>Non-Invasive Approach</span>
-                </div>
-                <div className="flex items-center gap-2 text-white/90 text-sm">
-                  <Zap className="w-4 h-4 flex-shrink-0" />
-                  <span>Works With Your Body</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Right - 30 Day Guarantee */}
-          <div 
-            className={`rounded-3xl p-6 md:p-8 flex flex-col justify-center relative overflow-hidden md:col-span-2 transition-all duration-700 ease-out bg-[#1A1A1A] ${
-              isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-            }`}
-            style={{ transitionDelay: '200ms' }}
-          >
-            <div className="relative z-10 flex flex-col justify-center h-full text-left items-start">
-              <div className="inline-flex items-center justify-center w-10 h-10 mb-3">
-                <Shield className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="font-sans text-base mb-1 text-white/70">
-                30-Day
-              </h3>
-              <h3 className="text-2xl md:text-3xl mb-2 text-white font-bold">
-                Money-Back Guarantee
-              </h3>
-            </div>
-          </div>
-        </div>
-
-        <div 
-          ref={videoSectionRef}
-          className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center my-0 py-20"
-        >
-          {/* Banner Image */}
-          <div 
-            className={`relative aspect-[4/5] rounded-3xl overflow-hidden boty-shadow transition-all duration-700 ease-out ${
-              isVideoVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-            }`}
-          >
-            <Image
-              src="/images/confitone-banner.jpg"
-              alt="Say goodbye to flabby arms faster than ever - Confitone"
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          {/* Content */}
+          {/* Image */}
           <div
-            ref={headerRef}
-            className={`transition-all duration-700 ease-out ${
-              isVideoVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            className={`relative aspect-[4/5] rounded-3xl overflow-hidden boty-shadow transition-all duration-700 ease-out ${
+              heroVisible
+                ? "opacity-100 scale-100"
+                : "opacity-0 scale-95"
             }`}
-            style={{ transitionDelay: '100ms' }}
           >
-            <span className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
-              Why Confitone
+            <Image
+              src={bestseller.image}
+              alt="Woman comfortably wearing Confitone ThermoTone arm sleeves at home"
+              fill
+              className="object-cover"
+            />
+            {/* Floating badge */}
+            <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 boty-shadow">
+              <span className="text-xs font-bold tracking-wide text-primary uppercase">
+                {bestseller.tagline}
+              </span>
+            </div>
+          </div>
+
+          {/* Copy */}
+          <div
+            className={`transition-all duration-700 ease-out ${
+              heroVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-8"
+            }`}
+            style={{ transitionDelay: "100ms" }}
+          >
+            <span className="text-sm tracking-[0.3em] uppercase text-primary mb-4 block">
+              Feel the Confitone Difference
             </span>
-            <h2 className={`font-sans text-4xl leading-tight text-foreground mb-6 text-balance md:text-6xl font-bold ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
-              Toned Arms After 40
+            <h2 className="font-sans text-4xl md:text-5xl leading-[1.1] text-foreground font-bold mb-6 text-balance">
+              {bestseller.title}
             </h2>
-            <p className={`text-lg text-muted-foreground leading-relaxed mb-10 max-w-md ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.6s', animationFillMode: 'forwards' } : {}}>
-              We believe confidence should be simple, not complicated. Wear the sleeves while walking, cooking, or watching TV. Gentle support that works with your body, not against it.
+            <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-lg">
+              {bestseller.description}
             </p>
 
-            {/* Feature Cards */}
-            <div className="grid sm:grid-cols-2 gap-4">
-              {features.map((feature) => (
-                <div
-                  key={feature.title}
-                  className="group p-5 boty-transition hover:scale-[1.02] rounded-md bg-white"
-                >
-                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full mb-3 group-hover:bg-primary/20 boty-transition bg-stone-50">
-                    <feature.icon className="w-5 h-5 text-primary" />
+            {/* Feature checks -- Spanx/Lulu-style benefit list */}
+            <div className="space-y-3 mb-10">
+              {bestseller.features.map((f) => (
+                <div key={f} className="flex items-start gap-3">
+                  <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Check className="w-3 h-3 text-primary" strokeWidth={3} />
                   </div>
-                  <h3 className="font-medium text-foreground mb-1">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground">{feature.description}</p>
+                  <span className="text-foreground/80 text-sm leading-relaxed">
+                    {f}
+                  </span>
                 </div>
               ))}
             </div>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/shop"
+                className="group inline-flex items-center justify-center gap-3 bg-primary text-primary-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-accent boty-shadow font-medium"
+              >
+                Shop Now
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 boty-transition" />
+              </Link>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Shield className="w-4 h-4 text-primary" />
+                <span>30-Day Money-Back Guarantee</span>
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* ── 2. The Confitone Difference -- 3 Pillars ── */}
+      <div className="py-24 bg-card">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div ref={diffRef} className="text-center mb-16">
+            <span
+              className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${
+                diffVisible
+                  ? "animate-blur-in opacity-0"
+                  : "opacity-0"
+              }`}
+              style={
+                diffVisible
+                  ? { animationDelay: "0.1s", animationFillMode: "forwards" }
+                  : {}
+              }
+            >
+              The Confitone Difference
+            </span>
+            <h2
+              className={`font-sans text-3xl md:text-5xl leading-tight text-foreground font-bold text-balance max-w-2xl mx-auto ${
+                diffVisible
+                  ? "animate-blur-in opacity-0"
+                  : "opacity-0"
+              }`}
+              style={
+                diffVisible
+                  ? { animationDelay: "0.2s", animationFillMode: "forwards" }
+                  : {}
+              }
+            >
+              Gentle on You.{" "}
+              <span className="text-primary">Serious About Results.</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {differentiators.map((d, i) => (
+              <div
+                key={d.title}
+                className={`rounded-3xl bg-background p-8 md:p-10 boty-shadow transition-all duration-700 ease-out hover:scale-[1.02] boty-transition ${
+                  diffVisible
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 scale-95"
+                }`}
+                style={{ transitionDelay: `${(i + 1) * 120}ms` }}
+              >
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-5">
+                  <d.icon className="w-6 h-6 text-primary" />
+                </div>
+                <h4 className="text-lg font-bold text-foreground mb-1">
+                  {d.title}
+                </h4>
+                <p className="text-sm font-medium text-primary mb-3">
+                  {d.subtitle}
+                </p>
+                <p className="text-muted-foreground leading-relaxed text-sm">
+                  {d.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── 3. Rediscover Confidence -- Product Line ── */}
+      <div className="py-24">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div ref={lineRef} className="text-center mb-16">
+            <span
+              className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${
+                lineVisible
+                  ? "animate-blur-in opacity-0"
+                  : "opacity-0"
+              }`}
+              style={
+                lineVisible
+                  ? { animationDelay: "0.1s", animationFillMode: "forwards" }
+                  : {}
+              }
+            >
+              More Than Sleeves
+            </span>
+            <h2
+              className={`font-sans text-3xl md:text-5xl leading-tight text-foreground font-bold text-balance max-w-3xl mx-auto mb-4 ${
+                lineVisible
+                  ? "animate-blur-in opacity-0"
+                  : "opacity-0"
+              }`}
+              style={
+                lineVisible
+                  ? { animationDelay: "0.2s", animationFillMode: "forwards" }
+                  : {}
+              }
+            >
+              Rediscover Confidence{" "}
+              <span className="text-primary">Everywhere</span>
+            </h2>
+            <p
+              className={`text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed ${
+                lineVisible
+                  ? "animate-blur-in opacity-0"
+                  : "opacity-0"
+              }`}
+              style={
+                lineVisible
+                  ? { animationDelay: "0.3s", animationFillMode: "forwards" }
+                  : {}
+              }
+            >
+              What started with arm sleeves has grown into a complete line of
+              thermo-compression wellness products. Each one is built on the
+              same principle: your body deserves gentle, effective support --
+              not extreme measures.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {productLine.map((product, i) => (
+              <div
+                key={product.title}
+                className={`group rounded-3xl overflow-hidden bg-card boty-shadow transition-all duration-700 ease-out hover:scale-[1.02] boty-transition ${
+                  lineVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-8"
+                }`}
+                style={{ transitionDelay: `${(i + 1) * 150}ms` }}
+              >
+                {/* Image */}
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={product.image}
+                    alt={product.title}
+                    fill
+                    className="object-cover group-hover:scale-105 boty-transition"
+                  />
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
+                    <span className="text-xs font-bold tracking-wide text-primary uppercase">
+                      {product.badge}
+                    </span>
+                  </div>
+                </div>
+                {/* Content */}
+                <div className="p-6 md:p-8">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                      <product.icon className="w-4 h-4 text-primary" />
+                    </div>
+                    <h4 className="text-lg font-bold text-foreground">
+                      {product.title}
+                    </h4>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                    {product.description}
+                  </p>
+                  <Link
+                    href="/shop"
+                    className="group/link inline-flex items-center gap-2 text-sm font-medium text-primary boty-transition hover:text-accent"
+                  >
+                    Learn More
+                    <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 boty-transition" />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Coming Soon teaser */}
+          <div
+            className={`mt-12 rounded-3xl p-8 md:p-12 bg-[#1A1A1A] text-center transition-all duration-700 ease-out ${
+              lineVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-8"
+            }`}
+            style={{ transitionDelay: "600ms" }}
+          >
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <Sparkles className="w-5 h-5 text-primary" />
+              <span className="text-sm tracking-[0.3em] uppercase text-primary font-medium">
+                Coming Soon
+              </span>
+            </div>
+            <h3 className="text-2xl md:text-3xl text-white font-bold mb-3 text-balance">
+              The Confitone Wellness Collection Keeps Growing
+            </h3>
+            <p className="text-white/60 max-w-2xl mx-auto leading-relaxed">
+              Sweat-enhancing gels, targeted massage tools, and new
+              compression products are in development. Everything we make
+              follows the same philosophy: effective, comfortable, and
+              designed for how real women actually live.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* ── 4. Social Proof Stats Bar ── */}
+      <div ref={statsRef} className="py-16 bg-card">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h3
+              className={`font-sans text-2xl md:text-3xl leading-tight text-foreground font-bold text-balance ${
+                statsVisible
+                  ? "animate-blur-in opacity-0"
+                  : "opacity-0"
+              }`}
+              style={
+                statsVisible
+                  ? { animationDelay: "0.1s", animationFillMode: "forwards" }
+                  : {}
+              }
+            >
+              Customers Who Love Their Results
+            </h3>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {stats.map((s, i) => (
+              <div
+                key={s.label}
+                className={`rounded-3xl bg-background p-6 md:p-8 text-center boty-shadow transition-all duration-700 ease-out ${
+                  statsVisible
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 scale-95"
+                }`}
+                style={{ transitionDelay: `${i * 100}ms` }}
+              >
+                <p className="text-4xl md:text-5xl font-bold text-primary mb-2">
+                  {s.number}
+                </p>
+                <p className="text-sm text-muted-foreground font-medium">
+                  {s.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── 5. Closing CTA -- Warm, Not Pushy ── */}
+      <div className="py-24">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+          <h2 className="font-sans text-3xl md:text-5xl leading-tight text-foreground font-bold text-balance mb-6">
+            Your Body Changed.{" "}
+            <span className="text-primary">Your Confidence Doesn't Have To.</span>
+          </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
+            You have spent enough time wondering if anything will work.
+            Confitone was made by a woman who asked the same question -- and
+            found the answer. Slip them on. Live your life. Let the results
+            speak for themselves.
+          </p>
+          <Link
+            href="/shop"
+            className="group inline-flex items-center justify-center gap-3 bg-primary text-primary-foreground px-10 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-accent boty-shadow font-medium"
+          >
+            Find Your Fit
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 boty-transition" />
+          </Link>
         </div>
       </div>
     </section>

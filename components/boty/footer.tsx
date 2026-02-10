@@ -13,8 +13,8 @@ const footerLinks = {
   ],
   about: [
     { name: "Our Story", href: "/#our-story" },
-    { name: "How It Works", href: "/" },
-    { name: "Real Results", href: "/" },
+    { name: "Our Products", href: "/#the-difference" },
+    { name: "Real Results", href: "/#real-results" },
     { name: "Press", href: "/" }
   ],
   support: [

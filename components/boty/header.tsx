@@ -39,10 +39,10 @@ export function Header() {
               Our Story
             </Link>
             <Link
-              href="/"
+              href="/#the-difference"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              How It Works
+              Our Products
             </Link>
           </div>
 
@@ -105,13 +105,13 @@ export function Header() {
               Our Story
             </Link>
             <Link
-              href="/"
+              href="/#the-difference"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
-              How It Works
+              Our Products
             </Link>
             <Link
-              href="/"
+              href="/account"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
             >
               Account

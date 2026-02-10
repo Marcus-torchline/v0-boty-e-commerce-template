@@ -62,7 +62,7 @@ export function RealResults() {
   }, [])
 
   return (
-    <section className="bg-background">
+    <section id="real-results" className="bg-background">
       {/* Slogan Banner */}
       <div
         ref={sloganRef}
