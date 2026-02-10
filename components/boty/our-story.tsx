@@ -340,6 +340,19 @@ export function OurStory() {
                 </span>
               </p>
             </div>
+
+            {/* Karen TV appearance photo */}
+            <div className="relative z-10 mt-10 max-w-sm">
+              <div className="rounded-2xl overflow-hidden boty-shadow">
+                <Image
+                  src="/images/karen-good-morning-tv.png"
+                  alt="Karen Taylor on Good Morning TV promoting Confitone"
+                  width={400}
+                  height={500}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
