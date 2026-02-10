@@ -78,7 +78,7 @@ const productLine = [
     title: "Compression Gloves",
     description:
       "Soothing compression that warms and circulates joints. Designed for women managing arthritis or everyday hand stiffness.",
-    image: "/images/confitone-compression-gloves.jpg",
+    image: "/images/confitone-gloves-product.png",
     badge: "New",
   },
 ]
