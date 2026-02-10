@@ -70,7 +70,7 @@ const productLine = [
     title: "ThermoTone Waistband",
     description:
       "Far more than a wrap. Targeted heat and compression support back alignment, improve posture, and help sculpt your waistline.",
-    image: "/images/confitone-waistband.jpg",
+    image: "/images/confitone-waistband-product.png",
     badge: "New",
   },
   {
