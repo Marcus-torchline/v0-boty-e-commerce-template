@@ -9,50 +9,59 @@ import {
   Zap,
   Heart,
   Shield,
-  Check,
   Sparkles,
   Wind,
   HandMetal,
   Activity,
+  ChevronDown,
+  Droplets,
+  Timer,
 } from "lucide-react"
 
 /* ───────────────────── Data ───────────────────── */
 
-const bestseller = {
-  tagline: "Our Bestseller",
-  title: "ThermoTone Arm Sleeves",
-  description:
-    "Graduated pressure meets thermal activation to shape and smooth your upper arms. The result is firmer skin, enhanced definition, and all-day comfort you can wear anywhere -- whether you are working out, doing chores, or relaxing at home.",
-  image: "/images/confitone-arm-sleeves-lifestyle.jpg",
-  features: [
-    "Premium Confitone\u2122 breathable fabric with thermal heat",
-    "Supports circulation through thermal action",
-    "Precision graduated compression",
-    "Visible results in as little as 30 days",
-  ],
-}
-
-const differentiators = [
+const differencePoints = [
   {
     icon: Flame,
     title: "Graduated Compression",
-    subtitle: "Supports Natural Shaping",
-    description:
-      "Our compression is engineered to apply the right amount of pressure in the right places, gently encouraging your body to do what it does best -- hold its shape.",
+    summary: "Supports natural shaping with precision-placed pressure.",
+    detail:
+      "Our compression is engineered to apply the right amount of pressure in the right places, gently encouraging your body to hold its shape. Unlike generic shapewear, every Confitone product uses medical-grade graduated compression that is firmer at the extremities and lighter as it moves inward -- promoting healthy circulation while you wear it.",
   },
   {
     icon: Activity,
     title: "Thermal Activation",
-    subtitle: "Enhances Blood Circulation",
-    description:
-      "A subtle warming layer works with your body heat to promote healthy blood flow and support firmer, smoother skin over time.",
+    summary: "Enhances blood circulation with gentle, sustained warmth.",
+    detail:
+      "A subtle warming layer works with your natural body heat to promote healthy blood flow and support firmer, smoother skin over time. This is the same thermal principle used in sports recovery -- adapted for everyday wear so you get benefits while doing chores, working out, or simply relaxing at home.",
   },
   {
     icon: Heart,
     title: "All-Day Comfort",
-    subtitle: "Designed for Real Life",
-    description:
-      "Lightweight, breathable, and moisture-wicking. You will forget you are wearing them -- but your body will not.",
+    summary: "Lightweight, breathable, and designed for real life.",
+    detail:
+      "Premium Confitone\u2122 fabric is moisture-wicking, breathable, and soft against your skin. Unlike compression garments that feel restrictive after an hour, ours are built to wear from morning to night. Most customers tell us they forget they have them on -- but their body does not.",
+  },
+  {
+    icon: Droplets,
+    title: "Sweat-Resistant Material",
+    summary: "Built to resist moisture and maintain support through any activity.",
+    detail:
+      "Our proprietary fabric blend resists sweat and moisture without losing its compression properties. Whether you are at the gym or running errands on a hot day, Confitone products maintain their shape, support, and effectiveness throughout your entire wear.",
+  },
+  {
+    icon: Shield,
+    title: "Premium Build Quality",
+    summary: "Reinforced stitching and medical-grade materials that last.",
+    detail:
+      "Every Confitone product features double-stitched seams, adjustable velcro closures for a personalized fit, and medical-grade neoprene that holds up wash after wash. We designed these to be part of your daily routine -- not something you replace every few weeks.",
+  },
+  {
+    icon: Timer,
+    title: "Visible Results in 30 Days",
+    summary: "96% of customers report noticeable improvement within a month.",
+    detail:
+      "When worn consistently for 4-6 hours daily, the combination of graduated compression and thermal activation produces visible results in as little as 30 days. Smoother skin, improved definition, and a confidence boost that our 23,000+ customers can not stop talking about.",
   },
 ]
 
@@ -90,14 +99,69 @@ const stats = [
   { number: "96%", label: "Rated 5 Stars" },
 ]
 
+/* ───────────────── Expandable Bullet ───────────────── */
+
+function DifferenceBullet({
+  point,
+  index,
+  visible,
+}: {
+  point: (typeof differencePoints)[number]
+  index: number
+  visible: boolean
+}) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div
+      className={`rounded-2xl border border-border bg-background boty-shadow transition-all duration-700 ease-out ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+      }`}
+      style={{ transitionDelay: `${(index + 1) * 80}ms` }}
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center gap-4 p-5 md:p-6 text-left boty-transition hover:bg-muted/30 rounded-2xl"
+        aria-expanded={open}
+      >
+        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+          <point.icon className="w-5 h-5 text-primary" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <h4 className="text-base font-bold text-foreground">
+            {point.title}
+          </h4>
+          <p className="text-sm text-muted-foreground mt-0.5 leading-relaxed">
+            {point.summary}
+          </p>
+        </div>
+        <ChevronDown
+          className={`w-5 h-5 text-muted-foreground flex-shrink-0 boty-transition ${
+            open ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+      <div
+        className={`overflow-hidden boty-transition ${
+          open ? "max-h-60" : "max-h-0"
+        }`}
+      >
+        <div className="px-5 pb-5 md:px-6 md:pb-6 pl-[4.5rem]">
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {point.detail}
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ───────────────────── Component ───────────────────── */
 
 export function FeatureSection() {
-  const [heroVisible, setHeroVisible] = useState(false)
   const [diffVisible, setDiffVisible] = useState(false)
   const [lineVisible, setLineVisible] = useState(false)
   const [statsVisible, setStatsVisible] = useState(false)
-  const heroRef = useRef<HTMLDivElement>(null)
   const diffRef = useRef<HTMLDivElement>(null)
   const lineRef = useRef<HTMLDivElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
@@ -114,122 +178,28 @@ export function FeatureSection() {
         { threshold }
       )
 
-    const obs1 = createObserver(setHeroVisible)
-    const obs2 = createObserver(setDiffVisible)
-    const obs3 = createObserver(setLineVisible)
-    const obs4 = createObserver(setStatsVisible)
+    const obs1 = createObserver(setDiffVisible)
+    const obs2 = createObserver(setLineVisible)
+    const obs3 = createObserver(setStatsVisible)
 
-    if (heroRef.current) obs1.observe(heroRef.current)
-    if (diffRef.current) obs2.observe(diffRef.current)
-    if (lineRef.current) obs3.observe(lineRef.current)
-    if (statsRef.current) obs4.observe(statsRef.current)
+    if (diffRef.current) obs1.observe(diffRef.current)
+    if (lineRef.current) obs2.observe(lineRef.current)
+    if (statsRef.current) obs3.observe(statsRef.current)
 
     return () => {
       obs1.disconnect()
       obs2.disconnect()
       obs3.disconnect()
-      obs4.disconnect()
     }
   }, [])
 
   return (
     <section id="the-difference" className="bg-background">
-      {/* ── 1. Bestseller Spotlight ── */}
-      <div className="py-24">
-        <div
-          ref={heroRef}
-          className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
-        >
-          {/* Images -- stacked top/bottom, 2/3 size */}
-          <div
-            className={`flex flex-col gap-4 w-2/3 mx-auto transition-all duration-700 ease-out ${
-              heroVisible
-                ? "opacity-100 scale-100"
-                : "opacity-0 scale-95"
-            }`}
-          >
-            {/* Top image -- customer wearing sleeves */}
-            <div className="relative rounded-3xl overflow-hidden boty-shadow bg-muted">
-              <Image
-                src="/images/confitone-customer-sleeves.png"
-                alt="Confitone customer showing off her ThermoTone arm sleeves"
-                width={600}
-                height={450}
-                className="w-full h-auto object-contain"
-              />
-              {/* Floating badge */}
-              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 boty-shadow">
-                <span className="text-xs font-bold tracking-wide text-primary uppercase">
-                  {bestseller.tagline}
-                </span>
-              </div>
-            </div>
-            {/* Bottom image -- product shot */}
-            <div className="relative rounded-3xl overflow-hidden boty-shadow bg-muted">
-              <Image
-                src="/images/confitone-arm-sleeves-product.png"
-                alt="Confitone ThermoTone compression arm sleeves product pair"
-                width={600}
-                height={450}
-                className="w-full h-auto object-contain"
-              />
-            </div>
-          </div>
-
-          {/* Copy */}
-          <div
-            className={`transition-all duration-700 ease-out ${
-              heroVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-            style={{ transitionDelay: "100ms" }}
-          >
-            <span className="text-sm tracking-[0.3em] uppercase text-primary mb-4 block">
-              Feel the Confitone Difference
-            </span>
-            <h2 className="font-sans text-4xl md:text-5xl leading-[1.1] text-foreground font-bold mb-6 text-balance">
-              {bestseller.title}
-            </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-lg">
-              {bestseller.description}
-            </p>
-
-            {/* Feature checks -- Spanx/Lulu-style benefit list */}
-            <div className="space-y-3 mb-10">
-              {bestseller.features.map((f) => (
-                <div key={f} className="flex items-start gap-3">
-                  <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Check className="w-3 h-3 text-primary" strokeWidth={3} />
-                  </div>
-                  <span className="text-foreground/80 text-sm leading-relaxed">
-                    {f}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/shop"
-                className="group inline-flex items-center justify-center gap-3 bg-primary text-primary-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-accent boty-shadow font-medium"
-              >
-                Shop Now
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 boty-transition" />
-              </Link>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Shield className="w-4 h-4 text-primary" />
-                <span>30-Day Money-Back Guarantee</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── 2. The Confitone Difference -- 3 Pillars ── */}
+      {/* ── 1. The Confitone Difference -- Expandable Bullets ── */}
       <div className="py-24 bg-card">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div ref={diffRef} className="text-center mb-16">
+        <div ref={diffRef} className="max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center mb-14">
             <span
               className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${
                 diffVisible
@@ -242,10 +212,10 @@ export function FeatureSection() {
                   : {}
               }
             >
-              The Confitone Difference
+              What Makes Us Different
             </span>
             <h2
-              className={`font-sans text-3xl md:text-5xl leading-tight text-foreground font-bold text-balance max-w-2xl mx-auto ${
+              className={`font-sans text-3xl md:text-5xl leading-tight text-foreground font-bold text-balance max-w-2xl mx-auto mb-4 ${
                 diffVisible
                   ? "animate-blur-in opacity-0"
                   : "opacity-0"
@@ -256,41 +226,73 @@ export function FeatureSection() {
                   : {}
               }
             >
-              Gentle on You.{" "}
-              <span className="text-primary">Serious About Results.</span>
+              The Confitone{" "}
+              <span className="text-primary">Difference</span>
             </h2>
+            <p
+              className={`text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed ${
+                diffVisible
+                  ? "animate-blur-in opacity-0"
+                  : "opacity-0"
+              }`}
+              style={
+                diffVisible
+                  ? { animationDelay: "0.3s", animationFillMode: "forwards" }
+                  : {}
+              }
+            >
+              Gentle on you. Serious about results. Tap any point below to learn
+              more about the science and care behind every product we make.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {differentiators.map((d, i) => (
-              <div
-                key={d.title}
-                className={`rounded-3xl bg-background p-8 md:p-10 boty-shadow transition-all duration-700 ease-out hover:scale-[1.02] boty-transition ${
-                  diffVisible
-                    ? "opacity-100 scale-100"
-                    : "opacity-0 scale-95"
-                }`}
-                style={{ transitionDelay: `${(i + 1) * 120}ms` }}
-              >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-5">
-                  <d.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h4 className="text-lg font-bold text-foreground mb-1">
-                  {d.title}
-                </h4>
-                <p className="text-sm font-medium text-primary mb-3">
-                  {d.subtitle}
-                </p>
-                <p className="text-muted-foreground leading-relaxed text-sm">
-                  {d.description}
-                </p>
+          {/* Two-column: bullets left, images right */}
+          <div className="grid lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-start">
+            {/* Expandable bullets */}
+            <div className="flex flex-col gap-3">
+              {differencePoints.map((point, i) => (
+                <DifferenceBullet
+                  key={point.title}
+                  point={point}
+                  index={i}
+                  visible={diffVisible}
+                />
+              ))}
+            </div>
+
+            {/* Product images */}
+            <div
+              className={`hidden lg:flex flex-col gap-4 w-72 xl:w-80 sticky top-24 transition-all duration-700 ease-out ${
+                diffVisible
+                  ? "opacity-100 scale-100"
+                  : "opacity-0 scale-95"
+              }`}
+              style={{ transitionDelay: "300ms" }}
+            >
+              <div className="rounded-3xl overflow-hidden boty-shadow bg-muted">
+                <Image
+                  src="/images/confitone-customer-sleeves.png"
+                  alt="Confitone customer showing off her ThermoTone arm sleeves"
+                  width={400}
+                  height={300}
+                  className="w-full h-auto object-contain"
+                />
               </div>
-            ))}
+              <div className="rounded-3xl overflow-hidden boty-shadow bg-muted">
+                <Image
+                  src="/images/confitone-arm-sleeves-product.png"
+                  alt="Confitone ThermoTone compression arm sleeves"
+                  width={400}
+                  height={300}
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* ── 3. Rediscover Confidence -- Product Line ── */}
+      {/* ── 2. Rediscover Confidence -- Product Line ── */}
       <div className="py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div ref={lineRef} className="text-center mb-16">
@@ -353,7 +355,6 @@ export function FeatureSection() {
                 }`}
                 style={{ transitionDelay: `${(i + 1) * 150}ms` }}
               >
-                {/* Image */}
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     src={product.image}
@@ -367,7 +368,6 @@ export function FeatureSection() {
                     </span>
                   </div>
                 </div>
-                {/* Content */}
                 <div className="p-6 md:p-8">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -401,7 +401,6 @@ export function FeatureSection() {
             }`}
             style={{ transitionDelay: "600ms" }}
           >
-            {/* Background brand mark */}
             <div className="absolute top-1/2 right-8 md:right-16 -translate-y-1/2 opacity-[0.04]">
               <Image
                 src="/images/logo-ct-white.png"
@@ -413,27 +412,27 @@ export function FeatureSection() {
               />
             </div>
             <div className="relative z-10">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Sparkles className="w-5 h-5 text-primary" />
-              <span className="text-sm tracking-[0.3em] uppercase text-primary font-medium">
-                Coming Soon
-              </span>
-            </div>
-            <h3 className="text-2xl md:text-3xl text-white font-bold mb-3 text-balance">
-              The Confitone Wellness Collection Keeps Growing
-            </h3>
-            <p className="text-white/60 max-w-2xl mx-auto leading-relaxed">
-              Sweat-enhancing gels, targeted massage tools, and new
-              compression products are in development. Everything we make
-              follows the same philosophy: effective, comfortable, and
-              designed for how real women actually live.
-            </p>
+              <div className="flex items-center justify-center gap-2 mb-3">
+                <Sparkles className="w-5 h-5 text-primary" />
+                <span className="text-sm tracking-[0.3em] uppercase text-primary font-medium">
+                  Coming Soon
+                </span>
+              </div>
+              <h3 className="text-2xl md:text-3xl text-white font-bold mb-3 text-balance">
+                The Confitone Wellness Collection Keeps Growing
+              </h3>
+              <p className="text-white/60 max-w-2xl mx-auto leading-relaxed">
+                Sweat-enhancing gels, targeted massage tools, and new
+                compression products are in development. Everything we make
+                follows the same philosophy: effective, comfortable, and
+                designed for how real women actually live.
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── 4. Social Proof Stats Bar ── */}
+      {/* ── 3. Social Proof Stats Bar ── */}
       <div ref={statsRef} className="py-16 bg-card">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-10">
@@ -475,12 +474,14 @@ export function FeatureSection() {
         </div>
       </div>
 
-      {/* ── 5. Closing CTA -- Warm, Not Pushy ── */}
+      {/* ── 4. Closing CTA ── */}
       <div className="py-24">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="font-sans text-3xl md:text-5xl leading-tight text-foreground font-bold text-balance mb-6">
             Your Body Changed.{" "}
-            <span className="text-primary">Your Confidence Doesn't Have To.</span>
+            <span className="text-primary">
+              Your Confidence Doesn{"'"}t Have To.
+            </span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
             You have spent enough time wondering if anything will work.
