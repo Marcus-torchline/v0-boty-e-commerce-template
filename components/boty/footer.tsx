@@ -14,7 +14,7 @@ const footerLinks = {
   ],
   about: [
     { name: "Our Story", href: "/#our-story" },
-    { name: "Our Products", href: "/#the-difference" },
+    { name: "Our Products", href: "/#our-products" },
     { name: "Real Results", href: "/#real-results" },
     { name: "Press", href: "/" }
   ],

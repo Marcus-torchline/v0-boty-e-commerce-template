@@ -23,13 +23,13 @@ interface ProductGridProps {
 }
 
 const categories = [
-  { label: "All", value: "all" },
-  { label: "Sleeves", value: "sleeves" },
-  { label: "Bundles", value: "bundles" },
+  { label: "Top Sellers", value: "top-sellers" },
+  { label: "Kits & Bundles", value: "bundles" },
+  { label: "All Products", value: "all" },
 ]
 
 export function ProductGrid({ products }: ProductGridProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>("all")
+  const [selectedCategory, setSelectedCategory] = useState<string>("top-sellers")
   const [isVisible, setIsVisible] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(false)
@@ -99,10 +99,12 @@ export function ProductGrid({ products }: ProductGridProps) {
   const filteredProducts =
     selectedCategory === "all"
       ? products
+      : selectedCategory === "top-sellers"
+      ? products.filter((product) => product.featured || product.badge === "Bestseller")
       : products.filter((product) => product.category === selectedCategory)
 
   return (
-    <section className="py-24 bg-card">
+    <section className="py-16 bg-card">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div ref={headerRef} className="text-center mb-16">

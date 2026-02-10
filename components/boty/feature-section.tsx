@@ -194,9 +194,9 @@ export function FeatureSection() {
   }, [])
 
   return (
-    <section id="the-difference" className="bg-background">
+    <section className="bg-background">
       {/* ── 1. The Confitone Difference -- Expandable Bullets ── */}
-      <div className="py-24 bg-card">
+      <div className="py-16 bg-card">
         <div ref={diffRef} className="max-w-7xl mx-auto px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-14">
@@ -293,7 +293,7 @@ export function FeatureSection() {
       </div>
 
       {/* ── 2. Rediscover Confidence -- Product Line ── */}
-      <div className="py-24">
+      <div className="py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div ref={lineRef} className="text-center mb-16">
             <span
@@ -433,7 +433,7 @@ export function FeatureSection() {
       </div>
 
       {/* ── 3. Social Proof Stats Bar ── */}
-      <div ref={statsRef} className="py-16 bg-card">
+      <div ref={statsRef} className="py-12 bg-card">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-10">
             <h3
@@ -475,19 +475,16 @@ export function FeatureSection() {
       </div>
 
       {/* ── 4. Closing CTA ── */}
-      <div className="py-24">
+      <div className="py-16">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="font-sans text-3xl md:text-5xl leading-tight text-foreground font-bold text-balance mb-6">
-            Your Body Changed.{" "}
+            Your Body May Be Changing.{" "}
             <span className="text-primary">
               Your Confidence Doesn{"'"}t Have To.
             </span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
-            You have spent enough time wondering if anything will work.
-            Confitone was made by a woman who asked the same question -- and
-            found the answer. Slip them on. Live your life. Let the results
-            speak for themselves.
+            Slip them on. Live your life. Let the results speak for themselves.
           </p>
           <Link
             href="/shop"

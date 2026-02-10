@@ -28,14 +28,14 @@ const milestones = [
 ]
 
 export function OurStory() {
-  const [heroVisible, setHeroVisible] = useState(false)
-  const [storyVisible, setStoryVisible] = useState(false)
+  const [bannerVisible, setBannerVisible] = useState(false)
+  const [karenVisible, setKarenVisible] = useState(false)
   const [milestonesVisible, setMilestonesVisible] = useState(false)
-  const [visionVisible, setVisionVisible] = useState(false)
-  const heroRef = useRef<HTMLDivElement>(null)
-  const storyRef = useRef<HTMLDivElement>(null)
+  const [confitoneVisible, setConfitoneVisible] = useState(false)
+  const bannerRef = useRef<HTMLDivElement>(null)
+  const karenRef = useRef<HTMLDivElement>(null)
   const milestonesRef = useRef<HTMLDivElement>(null)
-  const visionRef = useRef<HTMLDivElement>(null)
+  const confitoneRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const createObserver = (
@@ -49,76 +49,56 @@ export function OurStory() {
         { threshold }
       )
 
-    const heroObs = createObserver(setHeroVisible)
-    const storyObs = createObserver(setStoryVisible)
-    const milestonesObs = createObserver(setMilestonesVisible)
-    const visionObs = createObserver(setVisionVisible)
+    const obs1 = createObserver(setBannerVisible)
+    const obs2 = createObserver(setKarenVisible)
+    const obs3 = createObserver(setMilestonesVisible)
+    const obs4 = createObserver(setConfitoneVisible)
 
-    if (heroRef.current) heroObs.observe(heroRef.current)
-    if (storyRef.current) storyObs.observe(storyRef.current)
-    if (milestonesRef.current) milestonesObs.observe(milestonesRef.current)
-    if (visionRef.current) visionObs.observe(visionRef.current)
+    if (bannerRef.current) obs1.observe(bannerRef.current)
+    if (karenRef.current) obs2.observe(karenRef.current)
+    if (milestonesRef.current) obs3.observe(milestonesRef.current)
+    if (confitoneRef.current) obs4.observe(confitoneRef.current)
 
     return () => {
-      heroObs.disconnect()
-      storyObs.disconnect()
-      milestonesObs.disconnect()
-      visionObs.disconnect()
+      obs1.disconnect()
+      obs2.disconnect()
+      obs3.disconnect()
+      obs4.disconnect()
     }
   }, [])
 
   return (
-    <section id="our-story" className="bg-background">
-      {/* ── Hero Banner ── */}
+    <section className="bg-background">
+      {/* ── Compact Banner ── */}
       <div
-        ref={heroRef}
-        className="relative py-32 md:py-40 bg-gradient-to-br from-[#E8F5EE] via-[#5BB98C]/20 to-[#3DA870]/30 overflow-hidden"
+        ref={bannerRef}
+        className="relative py-16 md:py-20 bg-gradient-to-br from-[#E8F5EE] via-[#5BB98C]/20 to-[#3DA870]/30 overflow-hidden"
       >
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 right-10 w-96 h-96 bg-[#5BB98C]/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 left-10 w-72 h-72 bg-[#3DA870]/15 rounded-full blur-3xl" />
+          <div className="absolute top-10 right-10 w-72 h-72 bg-[#5BB98C]/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-5 left-10 w-56 h-56 bg-[#3DA870]/15 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <Image
-            src="/images/logo-confitone-green.png"
-            alt="Confitone"
-            width={140}
-            height={35}
-            className={`h-7 w-auto mx-auto mb-8 ${
-              heroVisible
-                ? "animate-blur-in opacity-0"
-                : "opacity-0"
-            }`}
-            style={
-              heroVisible
-                ? { animationDelay: "0.1s", animationFillMode: "forwards" }
-                : {}
-            }
-          />
           <span
-            className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${
-              heroVisible
-                ? "animate-blur-in opacity-0"
-                : "opacity-0"
+            className={`text-sm tracking-[0.3em] uppercase text-primary mb-3 block ${
+              bannerVisible ? "animate-blur-in opacity-0" : "opacity-0"
             }`}
             style={
-              heroVisible
-                ? { animationDelay: "0.2s", animationFillMode: "forwards" }
+              bannerVisible
+                ? { animationDelay: "0.1s", animationFillMode: "forwards" }
                 : {}
             }
           >
             Our Story
           </span>
           <h2
-            className={`font-sans text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-foreground font-bold text-balance mb-6 ${
-              heroVisible
-                ? "animate-blur-in opacity-0"
-                : "opacity-0"
+            className={`font-sans text-3xl md:text-4xl lg:text-5xl leading-[1.1] text-foreground font-bold text-balance mb-4 ${
+              bannerVisible ? "animate-blur-in opacity-0" : "opacity-0"
             }`}
             style={
-              heroVisible
-                ? { animationDelay: "0.4s", animationFillMode: "forwards" }
+              bannerVisible
+                ? { animationDelay: "0.2s", animationFillMode: "forwards" }
                 : {}
             }
           >
@@ -127,33 +107,31 @@ export function OurStory() {
             Built Into an Industry Leader.
           </h2>
           <p
-            className={`text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto ${
-              heroVisible
-                ? "animate-blur-in opacity-0"
-                : "opacity-0"
+            className={`text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto ${
+              bannerVisible ? "animate-blur-in opacity-0" : "opacity-0"
             }`}
             style={
-              heroVisible
-                ? { animationDelay: "0.6s", animationFillMode: "forwards" }
+              bannerVisible
+                ? { animationDelay: "0.35s", animationFillMode: "forwards" }
                 : {}
             }
           >
             The story of Confitone is the story of one woman who refused to
-            accept "there's nothing you can do" as an answer.
+            accept &ldquo;there&rsquo;s nothing you can do&rdquo; as an answer.
           </p>
         </div>
       </div>
 
-      {/* ── The Origin Story ── */}
-      <div className="py-24">
+      {/* ── Karen's Story ── */}
+      <div className="py-16">
         <div
-          ref={storyRef}
+          ref={karenRef}
           className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
         >
           {/* Founder Image */}
           <div
             className={`relative aspect-[4/5] rounded-3xl overflow-hidden boty-shadow transition-all duration-700 ease-out ${
-              storyVisible
+              karenVisible
                 ? "opacity-100 scale-100"
                 : "opacity-0 scale-95"
             }`}
@@ -176,14 +154,14 @@ export function OurStory() {
           {/* Narrative */}
           <div
             className={`transition-all duration-700 ease-out ${
-              storyVisible
+              karenVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-8"
             }`}
             style={{ transitionDelay: "100ms" }}
           >
             <span className="text-sm tracking-[0.3em] uppercase text-primary mb-4 block">
-              The Beginning
+              Meet Karen
             </span>
             <h3 className="font-sans text-3xl md:text-4xl leading-tight text-foreground font-bold mb-6 text-balance">
               It Started With a Personal Struggle
@@ -226,8 +204,8 @@ export function OurStory() {
         </div>
       </div>
 
-      {/* ── Milestones / Stats ── */}
-      <div ref={milestonesRef} className="py-16 bg-card">
+      {/* ── Milestones ── */}
+      <div ref={milestonesRef} className="py-12 bg-card">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {milestones.map((m, i) => (
@@ -253,11 +231,11 @@ export function OurStory() {
         </div>
       </div>
 
-      {/* ── Remarkable Success + Vision ── */}
-      <div className="py-24">
+      {/* ── Confitone's Growth Story ── */}
+      <div className="py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {/* Success Story */}
-          <div className="max-w-3xl mx-auto mb-24">
+          <div className="max-w-3xl mx-auto mb-16">
             <span className="text-sm tracking-[0.3em] uppercase text-primary mb-4 block text-center">
               Remarkable Early Success
             </span>
@@ -300,9 +278,9 @@ export function OurStory() {
 
           {/* Continuing the Vision */}
           <div
-            ref={visionRef}
+            ref={confitoneRef}
             className={`rounded-3xl p-10 md:p-16 relative overflow-hidden transition-all duration-700 ease-out bg-gradient-to-br from-[#5BB98C] to-[#3DA870] ${
-              visionVisible
+              confitoneVisible
                 ? "opacity-100 scale-100"
                 : "opacity-0 scale-95"
             }`}
@@ -330,7 +308,7 @@ export function OurStory() {
                 Where We Are Today
               </span>
               <h3 className="text-3xl md:text-4xl text-white font-bold mb-6 text-balance">
-                Karen's Vision Lives in Everything We Do
+                Karen{"'"}s Vision Lives in Everything We Do
               </h3>
               <div className="space-y-5 text-white/85 leading-relaxed">
                 <p>

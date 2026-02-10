@@ -7,6 +7,12 @@ import { Menu, X, ShoppingBag, Search, User } from "lucide-react"
 import { CartDrawer } from "./cart-drawer"
 import { useCart } from "./cart-context"
 
+const navLinks = [
+  { label: "Our Products", href: "/#our-products" },
+  { label: "Our Story", href: "/#our-story" },
+  { label: "Shop All", href: "/shop" },
+]
+
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { setIsOpen, itemCount } = useCart()
@@ -14,7 +20,7 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
       <nav className="max-w-7xl mx-auto px-6 lg:px-8 backdrop-blur-md rounded-lg py-0 my-0 animate-scale-fade-in bg-[rgba(255,255,255,0.4)] border border-[rgba(255,255,255,0.32)]" style={{ boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 50px' }}>
-        <div className="flex items-center justify-between h-[68px]">
+        <div className="flex items-center justify-between h-[72px]">
           {/* Mobile menu button */}
           <button
             type="button"
@@ -27,44 +33,35 @@ export function Header() {
 
           {/* Desktop Navigation - Left */}
           <div className="hidden lg:flex items-center gap-8">
-            <Link
-              href="/shop"
-              className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
-            >
-              Shop
-            </Link>
-            <Link
-              href="/#our-story"
-              className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
-            >
-              Our Story
-            </Link>
-            <Link
-              href="/#the-difference"
-              className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
-            >
-              Our Products
-            </Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
-          {/* Logo */}
+          {/* Logo -- center, 4x bigger */}
           <Link href="/" className="absolute left-1/2 -translate-x-1/2">
             {/* Full logo on larger screens */}
             <Image
               src="/images/logo-confitone-green.png"
               alt="Confitone"
-              width={160}
-              height={40}
-              className="hidden sm:block h-8 w-auto"
+              width={480}
+              height={120}
+              className="hidden sm:block h-14 w-auto"
               priority
             />
             {/* CT monogram on small screens */}
             <Image
               src="/images/logo-ct-green.png"
               alt="Confitone"
-              width={40}
-              height={40}
-              className="sm:hidden h-9 w-auto"
+              width={120}
+              height={120}
+              className="sm:hidden h-12 w-auto"
               priority
             />
           </Link>
@@ -110,27 +107,20 @@ export function Header() {
           }`}
         >
           <div className="flex flex-col gap-4 pt-4 border-t border-border/50">
-            <Link
-              href="/shop"
-              className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
-            >
-              Shop
-            </Link>
-            <Link
-              href="/#our-story"
-              className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
-            >
-              Our Story
-            </Link>
-            <Link
-              href="/#the-difference"
-              className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
-            >
-              Our Products
-            </Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
             <Link
               href="/account"
               className="text-sm tracking-wide text-foreground/70 hover:text-foreground boty-transition"
+              onClick={() => setIsMenuOpen(false)}
             >
               Account
             </Link>

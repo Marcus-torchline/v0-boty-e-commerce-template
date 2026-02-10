@@ -186,23 +186,23 @@ export function RealResults() {
   const column3 = [testimonials[2], testimonials[5], testimonials[8]]
 
   return (
-    <section id="real-results" className="bg-background">
+    <section className="bg-background">
       {/* ──────────── Part 1: Section Header ──────────── */}
-      <div ref={headerRef} className="pt-24 pb-16 bg-[#1A1A1A]">
+      <div ref={headerRef} className="pt-14 pb-10 bg-[#1A1A1A]">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <Image
             src="/images/logo-confitone-white.png"
             alt="Confitone"
-            width={140}
-            height={35}
-            className={`h-7 w-auto mx-auto mb-8 transition-all duration-700 ease-out ${
+            width={560}
+            height={140}
+            className={`h-24 md:h-28 w-auto mx-auto mb-6 transition-all duration-700 ease-out ${
               headerVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-4"
             }`}
           />
           <h2
-            className={`font-sans text-5xl md:text-7xl lg:text-8xl leading-[1.05] text-white font-bold text-balance mb-6 ${
+            className={`font-sans text-3xl md:text-5xl lg:text-6xl leading-[1.05] text-white font-bold text-balance mb-4 ${
               headerVisible
                 ? "animate-blur-in opacity-0"
                 : "opacity-0"
@@ -217,7 +217,7 @@ export function RealResults() {
             <span className="text-primary">Real Results.</span>
           </h2>
           <p
-            className={`text-lg md:text-xl text-white/60 leading-relaxed max-w-2xl mx-auto mb-10 ${
+            className={`text-base md:text-lg text-white/60 leading-relaxed max-w-2xl mx-auto mb-8 ${
               headerVisible
                 ? "animate-blur-in opacity-0"
                 : "opacity-0"
