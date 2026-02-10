@@ -246,8 +246,8 @@ export function FeatureSection() {
             </p>
           </div>
 
-          {/* Two-column: bullets left (narrower), images right (wider) */}
-          <div className="grid lg:grid-cols-[2fr_3fr] gap-8 lg:gap-10 items-start">
+          {/* Two-column: bullets 60%, images 40% */}
+          <div className="grid lg:grid-cols-[3fr_2fr] gap-8 lg:gap-10 items-start">
             {/* Expandable bullets */}
             <div className="flex flex-col gap-3">
               {differencePoints.map((point, i) => (
@@ -269,21 +269,21 @@ export function FeatureSection() {
               }`}
               style={{ transitionDelay: "300ms" }}
             >
-              <div className="rounded-3xl overflow-hidden boty-shadow">
+              <div className="w-3/4 mx-auto rounded-2xl overflow-hidden boty-shadow">
                 <Image
                   src="/images/testimonial-linda-before-after.png"
                   alt="Linda, 61 -- before and after results with Confitone arm sleeves"
-                  width={700}
-                  height={700}
+                  width={350}
+                  height={350}
                   className="w-full h-auto object-contain"
                 />
               </div>
-              <div className="rounded-3xl overflow-hidden boty-shadow">
+              <div className="rounded-2xl overflow-hidden boty-shadow">
                 <Image
                   src="/images/arm-fat-reduction-support.jpg"
                   alt="Confitone arm fat reduction support -- thermal activation and improved circulation"
-                  width={700}
-                  height={350}
+                  width={500}
+                  height={250}
                   className="w-full h-auto object-contain"
                 />
               </div>
