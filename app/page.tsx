@@ -4,7 +4,7 @@ import { Hero } from "@/components/boty/hero"
 import { TrustBadges } from "@/components/boty/trust-badges"
 import { FeatureSection } from "@/components/boty/feature-section"
 import { ProductGrid } from "@/components/boty/product-grid"
-import { Testimonials } from "@/components/boty/testimonials"
+
 import { CTABanner } from "@/components/boty/cta-banner"
 import { Newsletter } from "@/components/boty/newsletter"
 import { OurStory } from "@/components/boty/our-story"
@@ -23,7 +23,6 @@ export default async function HomePage() {
       <FeatureSection />
       <OurStory />
       <RealResults />
-      <Testimonials />
       <CTABanner />
       <Newsletter />
       <Footer />
