@@ -269,12 +269,12 @@ export function FeatureSection() {
               }`}
               style={{ transitionDelay: "300ms" }}
             >
-              <div className="w-3/4 mx-auto rounded-2xl overflow-hidden boty-shadow">
+              <div className="rounded-2xl overflow-hidden boty-shadow">
                 <Image
                   src="/images/testimonial-linda-before-after.png"
                   alt="Linda, 61 -- before and after results with Confitone arm sleeves"
-                  width={350}
-                  height={350}
+                  width={500}
+                  height={500}
                   className="w-full h-auto object-contain"
                 />
               </div>
