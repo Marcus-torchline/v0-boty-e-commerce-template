@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Menu, X, ShoppingBag, Search, User } from "lucide-react"
 import { CartDrawer } from "./cart-drawer"
 import { useCart } from "./cart-context"
@@ -48,7 +49,24 @@ export function Header() {
 
           {/* Logo */}
           <Link href="/" className="absolute left-1/2 -translate-x-1/2">
-            <h1 className="font-sans text-2xl font-bold tracking-wide text-foreground">CONF<span className="text-primary">I</span>TONE</h1>
+            {/* Full logo on larger screens */}
+            <Image
+              src="/images/logo-confitone-green.png"
+              alt="Confitone"
+              width={160}
+              height={40}
+              className="hidden sm:block h-8 w-auto"
+              priority
+            />
+            {/* CT monogram on small screens */}
+            <Image
+              src="/images/logo-ct-green.png"
+              alt="Confitone"
+              width={40}
+              height={40}
+              className="sm:hidden h-9 w-auto"
+              priority
+            />
           </Link>
 
           {/* Right Actions */}

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Instagram, Facebook, Twitter } from "lucide-react"
 
 const footerLinks = {
@@ -39,7 +40,13 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <h2 className="font-sans text-2xl text-foreground mb-4 font-bold">CONF<span className="text-primary">I</span>TONE</h2>
+            <Image
+              src="/images/logo-confitone-green.png"
+              alt="Confitone"
+              width={160}
+              height={40}
+              className="h-8 w-auto mb-4"
+            />
             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
               Comfortable, non-invasive arm toning for women who want to reclaim their sleeveless confidence.
             </p>

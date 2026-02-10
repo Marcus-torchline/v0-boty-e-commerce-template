@@ -39,7 +39,25 @@ export function CTABanner() {
             isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           }`}
         >
+          {/* Background brand mark */}
+          <div className="absolute top-8 right-8 md:right-12 opacity-10">
+            <Image
+              src="/images/logo-ct-white.png"
+              alt=""
+              width={200}
+              height={200}
+              className="w-32 md:w-48 h-auto"
+              aria-hidden="true"
+            />
+          </div>
           <div className="relative z-10 text-left max-w-2xl">
+            <Image
+              src="/images/logo-confitone-white.png"
+              alt="Confitone"
+              width={140}
+              height={35}
+              className="h-7 w-auto mb-6"
+            />
             <h3 className="text-4xl md:text-5xl text-white mb-4 lg:text-5xl font-bold">
               Ready to Reclaim Your Confidence?
             </h3>

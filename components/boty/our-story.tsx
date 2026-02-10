@@ -80,6 +80,22 @@ export function OurStory() {
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
+          <Image
+            src="/images/logo-confitone-green.png"
+            alt="Confitone"
+            width={140}
+            height={35}
+            className={`h-7 w-auto mx-auto mb-8 ${
+              heroVisible
+                ? "animate-blur-in opacity-0"
+                : "opacity-0"
+            }`}
+            style={
+              heroVisible
+                ? { animationDelay: "0.1s", animationFillMode: "forwards" }
+                : {}
+            }
+          />
           <span
             className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${
               heroVisible
@@ -291,7 +307,25 @@ export function OurStory() {
                 : "opacity-0 scale-95"
             }`}
           >
+            {/* Background brand mark */}
+            <div className="absolute top-8 right-8 md:right-12 opacity-10">
+              <Image
+                src="/images/logo-ct-white.png"
+                alt=""
+                width={200}
+                height={200}
+                className="w-32 md:w-48 h-auto"
+                aria-hidden="true"
+              />
+            </div>
             <div className="relative z-10 max-w-3xl">
+              <Image
+                src="/images/logo-confitone-white.png"
+                alt="Confitone"
+                width={120}
+                height={30}
+                className="h-6 w-auto mb-6"
+              />
               <span className="text-sm tracking-[0.3em] uppercase text-white/70 mb-4 block">
                 Where We Are Today
               </span>

@@ -74,6 +74,17 @@ export function RealResults() {
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
+          <Image
+            src="/images/logo-confitone-white.png"
+            alt="Confitone"
+            width={140}
+            height={35}
+            className={`h-7 w-auto mx-auto mb-8 transition-all duration-700 ease-out ${
+              sloganVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-4"
+            }`}
+          />
           <span
             className={`text-sm tracking-[0.3em] uppercase text-primary mb-6 block ${
               sloganVisible
