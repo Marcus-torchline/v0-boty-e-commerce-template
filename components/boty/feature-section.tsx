@@ -9,7 +9,6 @@ import {
   Zap,
   Heart,
   Shield,
-  Sparkles,
   Wind,
   HandMetal,
   Activity,
@@ -392,43 +391,7 @@ export function FeatureSection() {
             ))}
           </div>
 
-          {/* Coming Soon teaser */}
-          <div
-            className={`mt-12 rounded-3xl p-8 md:p-12 bg-[#1A1A1A] text-center relative overflow-hidden transition-all duration-700 ease-out ${
-              lineVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-            style={{ transitionDelay: "600ms" }}
-          >
-            <div className="absolute top-1/2 right-8 md:right-16 -translate-y-1/2 opacity-[0.04]">
-              <Image
-                src="/images/logo-ct-white.png"
-                alt=""
-                width={200}
-                height={200}
-                className="w-28 md:w-40 h-auto"
-                aria-hidden="true"
-              />
-            </div>
-            <div className="relative z-10">
-              <div className="flex items-center justify-center gap-2 mb-3">
-                <Sparkles className="w-5 h-5 text-primary" />
-                <span className="text-sm tracking-[0.3em] uppercase text-primary font-medium">
-                  Coming Soon
-                </span>
-              </div>
-              <h3 className="text-2xl md:text-3xl text-white font-bold mb-3 text-balance">
-                The Confitone Wellness Collection Keeps Growing
-              </h3>
-              <p className="text-white/60 max-w-2xl mx-auto leading-relaxed">
-                Sweat-enhancing gels, targeted massage tools, and new
-                compression products are in development. Everything we make
-                follows the same philosophy: effective, comfortable, and
-                designed for how real women actually live.
-              </p>
-            </div>
-          </div>
+
         </div>
       </div>
 
