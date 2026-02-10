@@ -92,8 +92,8 @@ const productLine = [
 ]
 
 const stats = [
-  { number: "92%", label: "Achieved Smoother Arms" },
-  { number: "87%", label: "Felt Enhanced Comfort" },
+    { number: "88%", label: "Achieved Smoother Arms" },
+    { number: "91%", label: "Felt Enhanced Comfort" },
   { number: "94%", label: "Gained Confidence" },
   { number: "96%", label: "Rated 5 Stars" },
 ]

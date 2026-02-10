@@ -4,9 +4,10 @@ import { Hero } from "@/components/boty/hero"
 import { TrustBadges } from "@/components/boty/trust-badges"
 import { FeatureSection } from "@/components/boty/feature-section"
 import { ProductGrid } from "@/components/boty/product-grid"
+import { Testimonials } from "@/components/boty/testimonials"
+import { CTABanner } from "@/components/boty/cta-banner"
 import { OurStory } from "@/components/boty/our-story"
 import { RealResults } from "@/components/boty/real-results"
-import { CTABanner } from "@/components/boty/cta-banner"
 import { Newsletter } from "@/components/boty/newsletter"
 import { Footer } from "@/components/boty/footer"
 
@@ -25,6 +26,10 @@ export default async function HomePage() {
         <ProductGrid products={products} />
       </div>
 
+      {/* Trusted by Thousands + CTA */}
+      <Testimonials />
+      <CTABanner />
+
       {/* Branch 2: Our Story */}
       <div id="our-story">
         <OurStory />
@@ -35,7 +40,6 @@ export default async function HomePage() {
         <RealResults />
       </div>
 
-      <CTABanner />
       <Newsletter />
       <Footer />
     </main>
