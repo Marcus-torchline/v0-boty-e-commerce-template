@@ -31,8 +31,6 @@ const benefits = [
   { icon: Award, label: "4.9/5 Stars" }
 ]
 
-const sizes = ["S/M", "L/XL", "XXL"]
-
 type AccordionSection = "details" | "howToUse" | "shipping"
 
 export default function ProductPage() {
@@ -46,7 +44,6 @@ export default function ProductPage() {
     { revalidateOnFocus: false }
   )
 
-  const [selectedSize, setSelectedSize] = useState(sizes[0])
   const [quantity, setQuantity] = useState(1)
   const [openAccordion, setOpenAccordion] = useState<AccordionSection | null>("details")
   const [isAdded, setIsAdded] = useState(false)
@@ -183,29 +180,6 @@ export default function ProductPage() {
               <div className="mb-8">
                 <SalePrice price={product.price} size="lg" />
               </div>
-
-              {/* Size Selector */}
-              {product.category === 'sleeves' && (
-                <div className="mb-6">
-                  <label className="text-sm font-medium text-foreground mb-3 block">Size</label>
-                  <div className="flex gap-3">
-                    {sizes.map((size) => (
-                      <button
-                        key={size}
-                        type="button"
-                        onClick={() => setSelectedSize(size)}
-                        className={`px-6 py-3 rounded-full text-sm boty-transition boty-shadow ${
-                          selectedSize === size
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-card text-foreground hover:bg-card/80"
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
 
               {/* Quantity Selector */}
               <div className="mb-8">

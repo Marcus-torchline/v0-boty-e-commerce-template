@@ -1,6 +1,7 @@
 'use server'
 
 import { stripe } from '@/lib/stripe'
+import { headers } from 'next/headers'
 
 export interface CheckoutItem {
   name: string
@@ -9,10 +10,13 @@ export interface CheckoutItem {
   quantity: number
 }
 
-export async function startCheckoutSession(items: CheckoutItem[]) {
+export async function createCheckoutSession(items: CheckoutItem[]) {
   if (!items.length) {
     throw new Error('No items provided for checkout')
   }
+
+  const headersList = await headers()
+  const origin = headersList.get('origin') || 'http://localhost:3000'
 
   const line_items = items.map((item) => ({
     price_data: {
@@ -27,11 +31,15 @@ export async function startCheckoutSession(items: CheckoutItem[]) {
   }))
 
   const session = await stripe.checkout.sessions.create({
-    ui_mode: 'embedded',
-    redirect_on_completion: 'never',
     line_items,
     mode: 'payment',
+    success_url: `${origin}/checkout/success`,
+    cancel_url: `${origin}/checkout`,
   })
 
-  return session.client_secret
+  if (!session.url) {
+    throw new Error('Failed to create checkout session')
+  }
+
+  return session.url
 }
