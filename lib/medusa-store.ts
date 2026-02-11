@@ -140,12 +140,6 @@ export async function getMedusaProducts(): Promise<Product[]> {
   }
 
   const data = await res.json()
-  console.log("[v0] Medusa returned", (data.products ?? []).length, "products")
-  if (data.products?.[0]) {
-    const sample = data.products[0]
-    console.log("[v0] Sample product:", sample.title, "| variant prices:", JSON.stringify(sample.variants?.[0]?.prices ?? sample.variants?.[0]?.calculated_price ?? "none"))
-  }
-
   return (data.products ?? []).map(mapMedusaToProduct)
 }
 
