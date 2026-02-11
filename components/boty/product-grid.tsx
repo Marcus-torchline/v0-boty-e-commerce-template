@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ShoppingBag } from "lucide-react"
+import { ShoppingBag, Sparkles } from "lucide-react"
 import { useCart } from "./cart-context"
 
 interface Product {
@@ -23,13 +23,13 @@ interface ProductGridProps {
 }
 
 const categories = [
-  { label: "All", value: "all" },
-  { label: "Sleeves", value: "sleeves" },
-  { label: "Bundles", value: "bundles" },
+  { label: "Top Sellers", value: "top-sellers" },
+  { label: "Kits & Bundles", value: "bundles" },
+  { label: "All Products", value: "all" },
 ]
 
 export function ProductGrid({ products }: ProductGridProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>("all")
+  const [selectedCategory, setSelectedCategory] = useState<string>("top-sellers")
   const [isVisible, setIsVisible] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(false)
@@ -99,10 +99,12 @@ export function ProductGrid({ products }: ProductGridProps) {
   const filteredProducts =
     selectedCategory === "all"
       ? products
+      : selectedCategory === "top-sellers"
+      ? products.filter((product) => product.featured || product.badge === "Bestseller")
       : products.filter((product) => product.category === selectedCategory)
 
   return (
-    <section className="py-24 bg-card">
+    <section className="py-16 bg-card">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div ref={headerRef} className="text-center mb-16">
@@ -169,7 +171,11 @@ export function ProductGrid({ products }: ProductGridProps) {
         {/* Product Grid */}
         <div
           ref={gridRef}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[400px]"
+          className={`grid gap-6 min-h-[400px] ${
+            selectedCategory === "top-sellers"
+              ? "sm:grid-cols-2 max-w-4xl mx-auto"
+              : "sm:grid-cols-2 lg:grid-cols-4"
+          }`}
         >
           {filteredProducts.length === 0 ? (
             <div className="col-span-full text-center py-20 text-muted-foreground">
@@ -266,6 +272,44 @@ export function ProductGrid({ products }: ProductGridProps) {
           >
             View All Products
           </Link>
+        </div>
+
+        {/* Coming Soon teaser */}
+        <div
+          className={`mt-12 rounded-3xl p-8 md:p-12 bg-[#1A1A1A] text-center relative overflow-hidden transition-all duration-700 ease-out ${
+            isVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-8"
+          }`}
+          style={{ transitionDelay: "600ms" }}
+        >
+          <div className="absolute top-1/2 right-8 md:right-16 -translate-y-1/2 opacity-[0.04]">
+            <Image
+              src="/images/logo-ct-white.png"
+              alt=""
+              width={200}
+              height={200}
+              className="w-28 md:w-40 h-auto"
+              aria-hidden="true"
+            />
+          </div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <Sparkles className="w-5 h-5 text-primary" />
+              <span className="text-sm tracking-[0.3em] uppercase text-primary font-medium">
+                Coming Soon
+              </span>
+            </div>
+            <h3 className="text-2xl md:text-3xl text-white font-bold mb-3 text-balance">
+              The Confitone Wellness Collection Keeps Growing
+            </h3>
+            <p className="text-white/60 max-w-2xl mx-auto leading-relaxed">
+              Sweat-enhancing gels, targeted massage tools, and new
+              compression products are in development. Everything we make
+              follows the same philosophy: effective, comfortable, and
+              designed for how real women actually live.
+            </p>
+          </div>
         </div>
       </div>
     </section>

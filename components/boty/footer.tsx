@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Instagram, Facebook, Twitter } from "lucide-react"
 
 const footerLinks = {
@@ -12,9 +13,9 @@ const footerLinks = {
     { name: "Gift Sets", href: "/shop" }
   ],
   about: [
-    { name: "Our Story", href: "/" },
-    { name: "How It Works", href: "/" },
-    { name: "Real Results", href: "/" },
+    { name: "Our Story", href: "/#our-story" },
+    { name: "Our Products", href: "/#our-products" },
+    { name: "Real Results", href: "/#real-results" },
     { name: "Press", href: "/" }
   ],
   support: [
@@ -39,7 +40,13 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <h2 className="font-sans text-2xl text-foreground mb-4 font-bold">CONF<span className="text-primary">I</span>TONE</h2>
+            <Image
+              src="/images/logo-confitone-green.png"
+              alt="Confitone"
+              width={160}
+              height={40}
+              className="h-8 w-auto mb-4"
+            />
             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
               Comfortable, non-invasive arm toning for women who want to reclaim their sleeveless confidence.
             </p>
@@ -133,10 +140,10 @@ export function Footer() {
               © {new Date().getFullYear()} Confitone. All rights reserved.
             </p>
             <div className="flex gap-6">
-              <Link href="/" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
+              <Link href="/privacy-policy" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
                 Privacy Policy
               </Link>
-              <Link href="/" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
+              <Link href="/terms-of-service" className="text-sm text-muted-foreground hover:text-foreground boty-transition">
                 Terms of Service
               </Link>
             </div>
