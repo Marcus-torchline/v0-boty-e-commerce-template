@@ -12,14 +12,14 @@ interface SalePriceProps {
 /** Generates a pseudo-random "bought today" count that stays stable per price
  *  for the lifetime of the page but feels dynamic across products. */
 function useBoughtToday(price: number) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState<number | null>(null)
   useEffect(() => {
     // Seed from price to keep it stable per product
     const base = Math.floor((price * 7.3 + 13) % 40) + 14
     setCount(base)
     // Slowly tick up every 30-90s to create "live" feeling
     const id = setInterval(() => {
-      setCount((c) => c + 1)
+      setCount((c) => (c ?? base) + 1)
     }, (Math.floor(price % 5) + 3) * 10000)
     return () => clearInterval(id)
   }, [price])
@@ -49,7 +49,7 @@ function SalePriceSm({ price, beforePrice }: { price: number; beforePrice: numbe
 }
 
 /** Medium: shop page cards */
-function SalePriceMd({ price, beforePrice, boughtToday }: { price: number; beforePrice: number; boughtToday: number }) {
+function SalePriceMd({ price, beforePrice, boughtToday }: { price: number; beforePrice: number; boughtToday: number | null }) {
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center gap-2">
@@ -65,17 +65,19 @@ function SalePriceMd({ price, beforePrice, boughtToday }: { price: number; befor
       </span>
       <div className="flex items-center gap-3">
         <SaleCountdownCompact />
-        <span className="text-[10px] text-muted-foreground flex items-center gap-1">
-          <TrendingUp className="w-3 h-3 text-emerald-600" />
-          {boughtToday} bought today
-        </span>
+        {boughtToday !== null && (
+          <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+            <TrendingUp className="w-3 h-3 text-emerald-600" />
+            {boughtToday} bought today
+          </span>
+        )}
       </div>
     </div>
   )
 }
 
 /** Large: product detail page -- full psychological treatment */
-function SalePriceLg({ price, beforePrice, boughtToday }: { price: number; beforePrice: number; boughtToday: number }) {
+function SalePriceLg({ price, beforePrice, boughtToday }: { price: number; beforePrice: number; boughtToday: number | null }) {
   const savings = beforePrice - price
 
   return (
@@ -115,13 +117,15 @@ function SalePriceLg({ price, beforePrice, boughtToday }: { price: number; befor
       <SaleCountdown />
 
       {/* Social proof: bought today */}
-      <div className="flex items-center gap-2 bg-card rounded-xl px-4 py-2.5 boty-shadow">
-        <TrendingUp className="w-4 h-4 text-emerald-600" />
-        <span className="text-sm text-foreground font-medium">
-          <strong className="text-emerald-700">{boughtToday} women</strong> bought this today
-        </span>
-        <span className="text-xs text-muted-foreground ml-auto">Selling fast</span>
-      </div>
+      {boughtToday !== null && (
+        <div className="flex items-center gap-2 bg-card rounded-xl px-4 py-2.5 boty-shadow">
+          <TrendingUp className="w-4 h-4 text-emerald-600" />
+          <span className="text-sm text-foreground font-medium">
+            <strong className="text-emerald-700">{boughtToday} women</strong> bought this today
+          </span>
+          <span className="text-xs text-muted-foreground ml-auto">Selling fast</span>
+        </div>
+      )}
     </div>
   )
 }
