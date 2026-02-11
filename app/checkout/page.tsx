@@ -43,7 +43,7 @@ export default function CheckoutPage() {
             Add some items to your cart before checking out.
           </p>
           <Link
-            href="/shop"
+            href="/"
             className="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 boty-transition"
           >
             Continue Shopping

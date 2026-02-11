@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, type ReactNode } from "react"
+import { createContext, useContext, useState, useEffect, useRef, type ReactNode } from "react"
 
 export interface CartItem {
   id: string
@@ -25,9 +25,32 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
+const CART_STORAGE_KEY = "boty-cart"
+
+function loadCart(): CartItem[] {
+  if (typeof window === "undefined") return []
+  try {
+    const stored = sessionStorage.getItem(CART_STORAGE_KEY)
+    return stored ? JSON.parse(stored) : []
+  } catch {
+    return []
+  }
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([])
+  const [items, setItems] = useState<CartItem[]>(loadCart)
   const [isOpen, setIsOpen] = useState(false)
+  const isInitialised = useRef(false)
+
+  // Sync cart to sessionStorage whenever items change
+  useEffect(() => {
+    // Skip the first render to avoid overwriting with the initial empty array on SSR
+    if (!isInitialised.current) {
+      isInitialised.current = true
+      return
+    }
+    sessionStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items))
+  }, [items])
 
   const addItem = (newItem: Omit<CartItem, "quantity">) => {
     setItems(currentItems => {
