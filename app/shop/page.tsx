@@ -239,20 +239,10 @@ function ProductCard({
             }`}
             onLoad={() => setImageLoaded(true)}
           />
-          {/* Badge */}
-          {product.badge && (
-            <span
-              className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs tracking-wide ${
-                product.badge === "Sale"
-                  ? "bg-destructive/10 text-destructive"
-                  : product.badge === "New"
-                  ? "bg-primary/10 text-primary"
-                  : "bg-accent text-accent-foreground"
-              }`}
-            >
-              {product.badge}
-            </span>
-          )}
+          {/* Sale badge */}
+          <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide bg-emerald-500 text-white shadow-lg animate-gentle-pulse">
+            30% OFF TODAY
+          </span>
           {/* Quick add button */}
           <button
             type="button"

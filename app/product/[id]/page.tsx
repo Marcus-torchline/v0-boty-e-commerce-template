@@ -148,19 +148,9 @@ export default function ProductPage() {
                 className="object-cover"
                 priority
               />
-              {product.badge && (
-                <span
-                  className={`absolute top-6 left-6 px-4 py-2 rounded-full text-sm font-medium ${
-                    product.badge === "Sale"
-                      ? "bg-destructive/10 text-destructive"
-                      : product.badge === "New"
-                      ? "bg-primary/10 text-primary"
-                      : "bg-primary text-white"
-                  }`}
-                >
-                  {product.badge}
-                </span>
-              )}
+              <span className="absolute top-6 left-6 px-4 py-2 rounded-full text-sm font-bold bg-emerald-500 text-white shadow-lg animate-gentle-pulse">
+                30% OFF TODAY
+              </span>
             </div>
 
             {/* Product Info */}
@@ -242,11 +232,11 @@ export default function ProductPage() {
               </div>
 
               {/* Add to Cart Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-10">
+              <div className="flex flex-col gap-3 mb-10">
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  className={`flex-1 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm tracking-wide boty-transition boty-shadow font-medium ${
+                  className={`w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-base tracking-wide boty-transition boty-shadow font-bold ${
                     isAdded
                       ? "bg-[#3DA870] text-white"
                       : "bg-primary text-primary-foreground hover:bg-[#3DA870]"
@@ -254,19 +244,22 @@ export default function ProductPage() {
                 >
                   {isAdded ? (
                     <>
-                      <Check className="w-4 h-4" />
+                      <Check className="w-5 h-5" />
                       Added to Cart
                     </>
                   ) : (
-                    "Add to Cart"
+                    "Add to Cart -- Lock In 30% Off"
                   )}
                 </button>
                 <button
                   type="button"
-                  className="flex-1 inline-flex items-center justify-center gap-2 bg-transparent border border-foreground/20 text-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-foreground/5 font-medium"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-foreground text-background px-8 py-4 rounded-full text-base tracking-wide boty-transition hover:bg-foreground/90 font-bold"
                 >
-                  Buy Now
+                  Buy Now -- Today{"'"}s Price
                 </button>
+                <p className="text-center text-xs text-muted-foreground">
+                  Free shipping on orders over $50. 30-day money-back guarantee.
+                </p>
               </div>
 
               {/* Benefits */}
