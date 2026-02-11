@@ -22,7 +22,7 @@ const footerLinks = {
     { name: "Contact Us", href: "/" },
     { name: "FAQ", href: "/" },
     { name: "Shipping", href: "/" },
-    { name: "30-Day Guarantee", href: "/" }
+    { name: "30-Day Guarantee", href: "/master-policy" }
   ]
 }
 
@@ -136,7 +136,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-10 border-t border-border/50">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground" suppressHydrationWarning>
               © {new Date().getFullYear()} Confitone. All rights reserved.
             </p>
             <div className="flex gap-6">

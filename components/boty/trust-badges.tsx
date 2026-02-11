@@ -9,7 +9,7 @@ const badges = [
     icon: Shield,
     title: "30-Day Guarantee",
     description: "Full money-back promise",
-    link: { href: "/privacy-policy", label: "Privacy Policy" }
+    link: { href: "/master-policy", label: "Master Policy" }
   },
   {
     icon: Star,
