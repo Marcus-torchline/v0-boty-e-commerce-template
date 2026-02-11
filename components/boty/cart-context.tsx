@@ -27,28 +27,27 @@ const CartContext = createContext<CartContextType | undefined>(undefined)
 
 const CART_STORAGE_KEY = "boty-cart"
 
-function loadCart(): CartItem[] {
-  if (typeof window === "undefined") return []
-  try {
-    const stored = sessionStorage.getItem(CART_STORAGE_KEY)
-    return stored ? JSON.parse(stored) : []
-  } catch {
-    return []
-  }
-}
-
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(loadCart)
+  const [items, setItems] = useState<CartItem[]>([])
   const [isOpen, setIsOpen] = useState(false)
-  const isInitialised = useRef(false)
+  const hasMounted = useRef(false)
 
-  // Sync cart to sessionStorage whenever items change
+  // Load cart from sessionStorage on mount (client only)
   useEffect(() => {
-    // Skip the first render to avoid overwriting with the initial empty array on SSR
-    if (!isInitialised.current) {
-      isInitialised.current = true
-      return
+    try {
+      const stored = sessionStorage.getItem(CART_STORAGE_KEY)
+      if (stored) {
+        setItems(JSON.parse(stored))
+      }
+    } catch {
+      // ignore
     }
+    hasMounted.current = true
+  }, [])
+
+  // Sync cart to sessionStorage whenever items change (skip initial mount)
+  useEffect(() => {
+    if (!hasMounted.current) return
     sessionStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items))
   }, [items])
 
