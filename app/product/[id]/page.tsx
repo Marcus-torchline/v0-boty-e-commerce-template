@@ -9,6 +9,7 @@ import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
 import { useCart } from "@/components/boty/cart-context"
 import useSWR from "swr"
+import { SalePrice } from "@/components/boty/sale-price"
 
 interface Product {
   id: string
@@ -189,18 +190,8 @@ export default function ProductPage() {
               </div>
 
               {/* Price */}
-              <div className="flex items-center gap-3 mb-8">
-                <span className="text-3xl font-bold text-foreground">${product.price.toFixed(2)}</span>
-                {product.original_price && (
-                  <span className="text-xl text-muted-foreground line-through">
-                    ${product.original_price.toFixed(2)}
-                  </span>
-                )}
-                {product.original_price && (
-                  <span className="text-sm bg-destructive/10 text-destructive px-2 py-1 rounded-full">
-                    Save ${(product.original_price - product.price).toFixed(2)}
-                  </span>
-                )}
+              <div className="mb-8">
+                <SalePrice price={product.price} size="lg" />
               </div>
 
               {/* Size Selector */}

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ShoppingBag, Sparkles } from "lucide-react"
+import { SalePrice } from "./sale-price"
 import { useCart } from "./cart-context"
 
 interface Product {
@@ -247,16 +248,7 @@ export function ProductGrid({ products }: ProductGridProps) {
                     <p className="text-sm text-muted-foreground mb-3">
                       {product.description}
                     </p>
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium text-foreground">
-                        ${product.price.toFixed(2)}
-                      </span>
-                      {product.original_price && (
-                        <span className="text-sm text-muted-foreground line-through">
-                          ${product.original_price.toFixed(2)}
-                        </span>
-                      )}
-                    </div>
+                    <SalePrice price={product.price} size="sm" />
                   </div>
                 </div>
               </Link>
