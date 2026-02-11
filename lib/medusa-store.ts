@@ -1,7 +1,6 @@
 const BASE_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL!
 const PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY!
 
-// This matches the Product interface in ProductGrid
 export type Product = {
   id: string
   name: string
@@ -15,15 +14,28 @@ export type Product = {
 }
 
 function mapMedusaToProduct(p: any): Product {
-  const v = p.variants?.[0]
+  const variants = Array.isArray(p.variants) ? p.variants : []
+  const firstVariant = variants[0]
 
-  const usdPrice =
-    v?.prices?.find((pr: any) => pr.currency_code === "usd")?.amount ?? 0
+  let usdAmount = 0
 
-  // Use Medusa title as name
+  if (firstVariant && Array.isArray(firstVariant.prices)) {
+    const usdPrice = firstVariant.prices.find(
+      (pr: any) => pr.currency_code === "usd"
+    )
+    if (usdPrice?.amount != null) {
+      usdAmount = usdPrice.amount
+    }
+  }
+
+  // TEMP: if still zero, log for debugging
+  if (usdAmount === 0) {
+    // You can check your server logs to see what Medusa sends
+    console.warn("No USD price found for product", p.id, p.title, p.variants)
+  }
+
   const name = p.title ?? ""
 
-  // Use a short description: prefer subtitle, then truncate description
   const rawDesc = p.subtitle || p.description || ""
   const description =
     rawDesc.length > 120 ? rawDesc.slice(0, 117).trimEnd() + "..." : rawDesc
@@ -32,11 +44,11 @@ function mapMedusaToProduct(p: any): Product {
     id: p.id,
     name,
     description,
-    price: usdPrice / 100, // Medusa stores cents
+    price: usdAmount / 100, // cents → dollars
     original_price: null,
     image: p.thumbnail ?? "",
     badge: null,
-    category: "bundles", // or some default; refine later
+    category: "bundles",
     featured: false,
   }
 }
@@ -59,4 +71,5 @@ export async function getMedusaProducts(): Promise<Product[]> {
   const medusaProducts = data.products ?? []
   return medusaProducts.map(mapMedusaToProduct)
 }
+
 
