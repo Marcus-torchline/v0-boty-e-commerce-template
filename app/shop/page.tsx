@@ -8,6 +8,7 @@ import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
 import { useCart } from "@/components/boty/cart-context"
 import useSWR from "swr"
+import { SalePrice } from "@/components/boty/sale-price"
 
 interface Product {
   id: string
@@ -238,20 +239,10 @@ function ProductCard({
             }`}
             onLoad={() => setImageLoaded(true)}
           />
-          {/* Badge */}
-          {product.badge && (
-            <span
-              className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs tracking-wide ${
-                product.badge === "Sale"
-                  ? "bg-destructive/10 text-destructive"
-                  : product.badge === "New"
-                  ? "bg-primary/10 text-primary"
-                  : "bg-accent text-accent-foreground"
-              }`}
-            >
-              {product.badge}
-            </span>
-          )}
+          {/* Sale badge */}
+          <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide bg-emerald-500 text-white shadow-lg animate-gentle-pulse">
+            30% OFF TODAY
+          </span>
           {/* Quick add button */}
           <button
             type="button"
@@ -277,14 +268,7 @@ function ProductCard({
         <div className="p-6">
           <h3 className="font-sans text-xl text-foreground mb-1 font-medium">{product.name}</h3>
           <p className="text-sm text-muted-foreground mb-4">{product.description}</p>
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-medium text-foreground">${product.price}</span>
-            {product.original_price && (
-              <span className="text-sm text-muted-foreground line-through">
-                ${product.original_price}
-              </span>
-            )}
-          </div>
+          <SalePrice price={product.price} size="md" />
         </div>
       </div>
     </Link>

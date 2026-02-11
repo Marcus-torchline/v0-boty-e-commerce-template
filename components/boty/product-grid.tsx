@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ShoppingBag, Sparkles } from "lucide-react"
+import { SalePrice } from "./sale-price"
 import { useCart } from "./cart-context"
 
 interface Product {
@@ -204,20 +205,10 @@ export function ProductGrid({ products }: ProductGridProps) {
                       fill
                       className="object-cover boty-transition group-hover:scale-105"
                     />
-                    {/* Badge */}
-                    {product.badge && (
-                      <span
-                        className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs tracking-wide bg-white text-black ${
-                          product.badge === "Sale"
-                            ? "bg-destructive/10 text-destructive"
-                            : product.badge === "New"
-                            ? "bg-primary/10 text-primary"
-                            : "bg-accent text-accent-foreground"
-                        }`}
-                      >
-                        {product.badge}
-                      </span>
-                    )}
+                    {/* Sale badge */}
+                    <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide bg-emerald-500 text-white shadow-lg animate-gentle-pulse">
+                      30% OFF TODAY
+                    </span>
                     {/* Quick add button */}
                     <button
                       type="button"
@@ -247,16 +238,7 @@ export function ProductGrid({ products }: ProductGridProps) {
                     <p className="text-sm text-muted-foreground mb-3">
                       {product.description}
                     </p>
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium text-foreground">
-                        ${product.price}
-                      </span>
-                      {product.original_price && (
-                        <span className="text-sm text-muted-foreground line-through">
-                          ${product.original_price}
-                        </span>
-                      )}
-                    </div>
+                    <SalePrice price={product.price} size="sm" />
                   </div>
                 </div>
               </Link>
