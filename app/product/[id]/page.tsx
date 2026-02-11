@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useParams, useRouter } from "next/navigation"
+import { useParams } from "next/navigation"
 import { ChevronLeft, Minus, Plus, ChevronDown, Shield, Heart, Award, Flame, Star, Check, Loader2 } from "lucide-react"
 import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
@@ -39,7 +39,6 @@ export default function ProductPage() {
   const params = useParams()
   const productId = params.id as string
   const { addItem } = useCart()
-  const router = useRouter()
 
   const { data: product, isLoading, error } = useSWR<Product>(
     `/api/products/${productId}`,
@@ -252,23 +251,7 @@ export default function ProductPage() {
                     "Add to Cart -- Lock In 30% Off"
                   )}
                 </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (!product) return
-                    addItem({
-                      id: product.id,
-                      name: product.name,
-                      description: product.description,
-                      price: product.price,
-                      image: product.image,
-                    })
-                    router.push('/checkout')
-                  }}
-                  className="w-full inline-flex items-center justify-center gap-2 bg-foreground text-background px-8 py-4 rounded-full text-base tracking-wide boty-transition hover:bg-foreground/90 font-bold"
-                >
-                  Buy Now -- Today{"'"}s Price
-                </button>
+
                 <p className="text-center text-xs text-muted-foreground">
                   Free shipping on orders over $50. 30-day money-back guarantee.
                 </p>
