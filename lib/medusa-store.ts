@@ -1,6 +1,7 @@
 const BASE_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL!
 const PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY!
 
+
 export type Product = {
   id: string
   name: string
