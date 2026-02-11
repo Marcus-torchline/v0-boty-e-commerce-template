@@ -24,7 +24,12 @@ function getTimeUntilMidnightPT() {
 
 /** Compact countdown for product cards (sm/md) */
 export function SaleCountdownCompact() {
-  const [time, setTime] = useState<{ hours: number; minutes: number; seconds: number } | null>(null)
+  const [time, setTime] = useState<{
+    hours: number
+    minutes: number
+    seconds: number
+  } | null>(null)
+
   useEffect(() => {
     setTime(getTimeUntilMidnightPT())
     const id = setInterval(() => setTime(getTimeUntilMidnightPT()), 1000)
