@@ -278,10 +278,10 @@ function ProductCard({
           <h3 className="font-sans text-xl text-foreground mb-1 font-medium">{product.name}</h3>
           <p className="text-sm text-muted-foreground mb-4">{product.description}</p>
           <div className="flex items-center gap-2">
-            <span className="text-lg font-medium text-foreground">${product.price}</span>
+            <span className="text-lg font-medium text-foreground">${product.price.toFixed(2)}</span>
             {product.original_price && (
               <span className="text-sm text-muted-foreground line-through">
-                ${product.original_price}
+                ${product.original_price.toFixed(2)}
               </span>
             )}
           </div>

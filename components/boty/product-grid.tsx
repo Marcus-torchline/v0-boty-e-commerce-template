@@ -249,11 +249,11 @@ export function ProductGrid({ products }: ProductGridProps) {
                     </p>
                     <div className="flex items-center gap-2">
                       <span className="font-medium text-foreground">
-                        ${product.price}
+                        ${product.price.toFixed(2)}
                       </span>
                       {product.original_price && (
                         <span className="text-sm text-muted-foreground line-through">
-                          ${product.original_price}
+                          ${product.original_price.toFixed(2)}
                         </span>
                       )}
                     </div>

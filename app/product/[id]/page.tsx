@@ -190,15 +190,15 @@ export default function ProductPage() {
 
               {/* Price */}
               <div className="flex items-center gap-3 mb-8">
-                <span className="text-3xl font-bold text-foreground">${product.price}</span>
+                <span className="text-3xl font-bold text-foreground">${product.price.toFixed(2)}</span>
                 {product.original_price && (
                   <span className="text-xl text-muted-foreground line-through">
-                    ${product.original_price}
+                    ${product.original_price.toFixed(2)}
                   </span>
                 )}
                 {product.original_price && (
                   <span className="text-sm bg-destructive/10 text-destructive px-2 py-1 rounded-full">
-                    Save ${product.original_price - product.price}
+                    Save ${(product.original_price - product.price).toFixed(2)}
                   </span>
                 )}
               </div>
