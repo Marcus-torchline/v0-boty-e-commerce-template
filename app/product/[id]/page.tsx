@@ -251,12 +251,7 @@ export default function ProductPage() {
                     "Add to Cart -- Lock In 30% Off"
                   )}
                 </button>
-                <button
-                  type="button"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-foreground text-background px-8 py-4 rounded-full text-base tracking-wide boty-transition hover:bg-foreground/90 font-bold"
-                >
-                  Buy Now -- Today{"'"}s Price
-                </button>
+
                 <p className="text-center text-xs text-muted-foreground">
                   Free shipping on orders over $50. 30-day money-back guarantee.
                 </p>

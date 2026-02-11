@@ -2,12 +2,14 @@
 
 import { useEffect, useRef, useState } from "react"
 import { Shield, Star, Truck, HeartHandshake } from "lucide-react"
+import Link from "next/link"
 
 const badges = [
   {
     icon: Shield,
     title: "30-Day Guarantee",
-    description: "Full money-back promise"
+    description: "Full money-back promise",
+    link: { href: "/master-policy", label: "Master Policy" }
   },
   {
     icon: Star,
@@ -71,6 +73,14 @@ export function TrustBadges() {
               <badge.icon className="text-primary mb-4 mx-auto size-12" strokeWidth={1} />
               <h3 className="font-serif text-foreground mb-2 text-2xl">{badge.title}</h3>
               <p className="text-sm text-muted-foreground">{badge.description}</p>
+              {"link" in badge && badge.link && (
+                <Link
+                  href={badge.link.href}
+                  className="inline-block mt-3 text-xs font-medium text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
+                >
+                  {badge.link.label}
+                </Link>
+              )}
             </div>
           ))}
         </div>
