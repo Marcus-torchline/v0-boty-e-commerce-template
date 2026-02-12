@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://confitone.comx/sitemap.xml',
+    sitemap: 'https://confitone.com/sitemap.xml',
   }
 }
