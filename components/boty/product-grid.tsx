@@ -4,6 +4,17 @@ import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ShoppingBag, Sparkles } from "lucide-react"
+
+function ProductImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src || "/placeholder.svg"}
+      alt={alt}
+      className={`absolute inset-0 w-full h-full object-cover ${className || ""}`}
+    />
+  )
+}
 import { SalePrice } from "./sale-price"
 import { useCart } from "./cart-context"
 
@@ -199,11 +210,10 @@ export function ProductGrid({ products }: ProductGridProps) {
                 <div className="bg-background rounded-3xl overflow-hidden boty-shadow boty-transition group-hover:scale-[1.02]">
                   {/* Image */}
                   <div className="relative aspect-square bg-muted overflow-hidden">
-                    <Image
-                      src={product.image || "/placeholder.svg"}
+                    <ProductImage
+                      src={product.image}
                       alt={product.name}
-                      fill
-                      className="object-cover boty-transition group-hover:scale-105"
+                      className="boty-transition group-hover:scale-105"
                     />
                     {/* Sale badge */}
                     <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide bg-emerald-500 text-white shadow-lg animate-gentle-pulse">

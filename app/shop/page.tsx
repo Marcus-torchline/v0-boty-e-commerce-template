@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import Image from "next/image"
+
 import Link from "next/link"
 import { ShoppingBag, SlidersHorizontal, X, Loader2 } from "lucide-react"
 import { Header } from "@/components/boty/header"
@@ -230,11 +230,11 @@ function ProductCard({
             }`}
           />
           
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src={product.image || "/placeholder.svg"}
             alt={product.name}
-            fill
-            className={`object-cover boty-transition group-hover:scale-105 transition-opacity duration-500 ${
+            className={`absolute inset-0 w-full h-full object-cover boty-transition group-hover:scale-105 transition-opacity duration-500 ${
               imageLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             onLoad={() => setImageLoaded(true)}
