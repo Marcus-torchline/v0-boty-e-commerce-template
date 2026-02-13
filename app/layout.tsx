@@ -5,25 +5,62 @@ import { DM_Sans, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { CartProvider } from '@/components/boty/cart-context'
+import { FBCompat } from '@/components/boty/fb-compat'
 import './globals.css'
 
 const dmSans = DM_Sans({ 
   subsets: ["latin"],
   variable: '--font-dm-sans',
-  weight: ['300', '400', '500', '600']
+  weight: ['400', '500', '600'],
+  display: 'swap',
+  preload: true,
 });
 
 const playfairDisplay = Playfair_Display({ 
   subsets: ["latin"],
   variable: '--font-playfair',
-  weight: ['400', '500', '600', '700']
+  weight: ['400', '600', '700'],
+  display: 'swap',
+  preload: true,
 });
 
+const SITE_URL = 'https://www.confitone.com'
+
 export const metadata: Metadata = {
-  title: 'Confitone — Reclaim Your Sleeveless Confidence',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Confitone — Reclaim Your Sleeveless Confidence',
+    template: '%s | Confitone',
+  },
   description: 'Comfortable, non-invasive arm toning sleeves for women 40+. Real women, real results. 30-day money-back guarantee.',
   generator: 'v0.app',
   keywords: ['arm toning', 'arm sleeves', 'arm shaper', 'women over 40', 'arm fat', 'compression sleeves', 'body confidence'],
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: SITE_URL,
+    siteName: 'Confitone',
+    title: 'Confitone — Reclaim Your Sleeveless Confidence',
+    description: 'Comfortable, non-invasive arm toning sleeves for women 40+. Trusted by 23,000+ women. 30-day money-back guarantee.',
+    images: [
+      {
+        url: '/images/confitone-hero.png',
+        width: 1200,
+        height: 630,
+        alt: 'Confitone arm toning sleeves - reclaim your sleeveless confidence',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Confitone — Reclaim Your Sleeveless Confidence',
+    description: 'Comfortable, non-invasive arm toning sleeves for women 40+. Trusted by 23,000+ women.',
+    images: ['/images/confitone-hero.png'],
+  },
+  alternates: {
+    canonical: SITE_URL,
+  },
   icons: {
     icon: [
       {
@@ -45,6 +82,10 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: '#5BB98C',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 }
 
 export default function RootLayout({
@@ -55,7 +96,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Script id="meta-pixel" strategy="afterInteractive">
+        {/* DNS prefetch for Facebook domains to reduce connection time */}
+        <link rel="dns-prefetch" href="https://connect.facebook.net" />
+        <link rel="dns-prefetch" href="https://www.facebook.com" />
+        {/* Preconnect to critical origins */}
+        <link rel="preconnect" href="https://connect.facebook.net" crossOrigin="anonymous" />
+        <Script id="meta-pixel" strategy="lazyOnload">
           {`
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -81,6 +127,7 @@ export default function RootLayout({
         </noscript>
       </head>
       <body className={`${dmSans.variable} ${playfairDisplay.variable} font-sans antialiased`}>
+        <FBCompat />
         <CartProvider>
           {children}
         </CartProvider>

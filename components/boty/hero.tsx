@@ -1,5 +1,3 @@
-"use client"
-
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
@@ -86,10 +84,14 @@ export function Hero() {
             </div>
             {/* Right image */}
             <div className="relative animate-blur-in opacity-0" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>
-              <img
+              <Image
                 src="/images/confitone-hero.png"
                 alt="Woman wearing Confitone arm toning sleeves"
+                width={700}
+                height={700}
+                priority
                 className="w-full h-auto rounded-3xl"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
           </div>

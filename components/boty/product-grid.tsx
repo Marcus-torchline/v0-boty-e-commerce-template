@@ -7,11 +7,13 @@ import { ShoppingBag, Sparkles } from "lucide-react"
 
 function ProductImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
+    <Image
       src={src || "/placeholder.svg"}
       alt={alt}
-      className={`absolute inset-0 w-full h-full object-cover ${className || ""}`}
+      fill
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+      loading="lazy"
+      className={`object-cover ${className || ""}`}
     />
   )
 }
@@ -62,14 +64,6 @@ export function ProductGrid({ products }: ProductGridProps) {
       }, 300)
     }
   }
-
-  // Preload all product images on mount
-  useEffect(() => {
-    products.forEach((product) => {
-      const img = new window.Image()
-      img.src = product.image
-    })
-  }, [products])
 
   useEffect(() => {
     const gridObserver = new IntersectionObserver(

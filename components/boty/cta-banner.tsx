@@ -81,6 +81,8 @@ export function CTABanner() {
                   alt="Confitone compression waistband - built to resist sweat and pressure"
                   width={400}
                   height={500}
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, 30vw"
                   className="w-full h-full object-cover rounded-2xl"
                 />
               </div>
