@@ -30,6 +30,8 @@ export function Newsletter() {
                 alt="Real Confitone customers showing off their results with our compression arm sleeves"
                 width={600}
                 height={400}
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 45vw"
                 className="w-full h-auto object-cover"
               />
             </div>

@@ -50,6 +50,8 @@ export function RealResults() {
             alt="Confitone"
             width={560}
             height={140}
+            loading="lazy"
+            sizes="240px"
             className={`h-20 md:h-24 w-auto mx-auto mb-5 transition-all duration-700 ease-out ${
               headerVisible
                 ? "opacity-100 translate-y-0"
@@ -185,6 +187,8 @@ export function RealResults() {
                 alt="Four real Confitone customers wearing their arm sleeves at home"
                 width={600}
                 height={400}
+                loading="lazy"
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="w-full h-auto object-contain"
               />
             </div>
@@ -241,6 +245,8 @@ export function RealResults() {
                 alt="Before and after comparison showing firmer arm skin after using Confitone"
                 width={500}
                 height={500}
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="w-full h-auto object-contain"
               />
             </div>
@@ -259,6 +265,8 @@ export function RealResults() {
                 alt="Week 4 results - side by side arm comparison showing visible improvement"
                 width={500}
                 height={500}
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="w-full h-auto object-contain"
               />
             </div>
@@ -277,6 +285,8 @@ export function RealResults() {
                 alt="Customer before and after body transformation with Confitone"
                 width={500}
                 height={500}
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="w-full h-auto object-contain"
               />
             </div>

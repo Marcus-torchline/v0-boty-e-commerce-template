@@ -140,6 +140,8 @@ export function OurStory() {
               src="/images/karen-taylor-founder.png"
               alt="Karen Taylor, founder of Confitone"
               fill
+              loading="lazy"
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />
             {/* Name card overlay */}
@@ -350,6 +352,8 @@ export function OurStory() {
                     alt="Karen Taylor on Good Morning TV promoting Confitone"
                     width={400}
                     height={500}
+                    loading="lazy"
+                    sizes="(max-width: 1024px) 100vw, 320px"
                     className="w-full h-auto object-cover"
                   />
                 </div>

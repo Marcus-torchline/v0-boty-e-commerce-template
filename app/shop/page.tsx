@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 
 import Link from "next/link"
+import Image from "next/image"
 import { ShoppingBag, SlidersHorizontal, X, Loader2 } from "lucide-react"
 import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
@@ -230,11 +231,13 @@ function ProductCard({
             }`}
           />
           
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={product.image || "/placeholder.svg"}
             alt={product.name}
-            className={`absolute inset-0 w-full h-full object-cover boty-transition group-hover:scale-105 transition-opacity duration-500 ${
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            loading="lazy"
+            className={`object-cover boty-transition group-hover:scale-105 transition-opacity duration-500 ${
               imageLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             onLoad={() => setImageLoaded(true)}

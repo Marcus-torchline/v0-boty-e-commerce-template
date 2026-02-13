@@ -137,44 +137,51 @@
   box-shadow: rgba(91, 185, 140, 0.08) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px;
 }
 
-/* Smooth transitions */
+/* Smooth transitions — scoped to specific properties to avoid layout thrashing */
 .boty-transition,
 .confitone-transition {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Blur in animation */
+/* Blur in animation — uses GPU-friendly transform + opacity */
 @keyframes blur-in {
   0% {
     opacity: 0;
-    filter: blur(12px);
-    transform: translateY(10px);
+    filter: blur(8px);
+    transform: translate3d(0, 10px, 0);
   }
   100% {
     opacity: 1;
     filter: blur(0);
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 .animate-blur-in {
-  animation: blur-in 0.8s ease-out;
+  animation: blur-in 0.6s ease-out;
+  will-change: opacity, transform, filter;
 }
 
 /* Scale fade in animation */
 @keyframes scale-fade-in {
   0% {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale3d(0.95, 0.95, 1);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale3d(1, 1, 1);
   }
 }
 
 .animate-scale-fade-in {
-  animation: scale-fade-in 0.6s ease-out;
+  animation: scale-fade-in 0.4s ease-out;
+  will-change: opacity, transform;
 }
 
 /* Gentle pulse for urgency elements */
@@ -184,4 +191,92 @@
 }
 .animate-gentle-pulse {
   animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+/* Respect user preference for reduced motion (helps Facebook browser + accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  .animate-blur-in,
+  .animate-scale-fade-in,
+  .animate-gentle-pulse {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .boty-transition,
+  .confitone-transition {
+    transition: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Content-visibility optimization for below-fold sections — lets the browser
+   skip rendering off-screen sections until they're needed. Massive paint savings. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* Testimonial scroll animations — GPU-accelerated with translate3d */
+@keyframes scroll-down {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, -50%, 0); }
+}
+@keyframes scroll-up {
+  0% { transform: translate3d(0, -50%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+.animate-scroll-down {
+  animation: scroll-down 30s linear infinite;
+  will-change: transform;
+}
+.animate-scroll-up {
+  animation: scroll-up 30s linear infinite;
+  will-change: transform;
+}
+.animate-scroll-down-slow {
+  animation: scroll-down 60s linear infinite;
+  will-change: transform;
+}
+.animate-scroll-up-slow {
+  animation: scroll-up 60s linear infinite;
+  will-change: transform;
+}
+
+/* ──── Facebook In-App Browser Compatibility ────
+   The .fb-browser class is added to <html> by lib/fb-browser.ts at runtime.
+   These rules disable expensive CSS features that cause the FB browser to freeze. */
+.fb-browser .animate-blur-in {
+  animation: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
+}
+.fb-browser .animate-scale-fade-in {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+.fb-browser .animate-scroll-down,
+.fb-browser .animate-scroll-up,
+.fb-browser .animate-scroll-down-slow,
+.fb-browser .animate-scroll-up-slow {
+  animation: none !important;
+  transform: none !important;
+}
+/* Replace backdrop-blur with solid bg in FB browser (backdrop-filter is very expensive) */
+.fb-browser [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.fb-browser .boty-transition,
+.fb-browser .confitone-transition {
+  transition: none !important;
+}
+/* Disable box-shadow in FB browser to reduce paint operations */
+.fb-browser .boty-shadow,
+.fb-browser .confitone-shadow {
+  box-shadow: rgba(91, 185, 140, 0.1) 0px 0px 0px 1px !important;
 }

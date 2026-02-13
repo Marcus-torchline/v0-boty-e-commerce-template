@@ -196,41 +196,7 @@ export function Testimonials() {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes scroll-down {
-          0% {
-            transform: translateY(0);
-          }
-          100% {
-            transform: translateY(-50%);
-          }
-        }
 
-        @keyframes scroll-up {
-          0% {
-            transform: translateY(-50%);
-          }
-          100% {
-            transform: translateY(0);
-          }
-        }
-
-        .animate-scroll-down {
-          animation: scroll-down 30s linear infinite;
-        }
-
-        .animate-scroll-up {
-          animation: scroll-up 30s linear infinite;
-        }
-
-        .animate-scroll-down-slow {
-          animation: scroll-down 60s linear infinite;
-        }
-
-        .animate-scroll-up-slow {
-          animation: scroll-up 60s linear infinite;
-        }
-      `}</style>
     </section>
   )
 }

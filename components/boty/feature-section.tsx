@@ -274,6 +274,8 @@ export function FeatureSection() {
                   alt="Linda, 61 -- before and after results with Confitone arm sleeves"
                   width={500}
                   height={500}
+                  loading="lazy"
+                  sizes="(max-width: 1024px) 0px, 40vw"
                   className="w-full h-auto object-contain"
                 />
               </div>
@@ -283,6 +285,8 @@ export function FeatureSection() {
                   alt="Confitone arm fat reduction support -- thermal activation and improved circulation"
                   width={500}
                   height={250}
+                  loading="lazy"
+                  sizes="(max-width: 1024px) 0px, 40vw"
                   className="w-full h-auto object-contain"
                 />
               </div>
@@ -359,6 +363,8 @@ export function FeatureSection() {
                     src={product.image}
                     alt={product.title}
                     fill
+                    loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover group-hover:scale-105 boty-transition"
                   />
                   <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
