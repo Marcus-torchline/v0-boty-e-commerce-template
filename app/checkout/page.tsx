@@ -5,7 +5,6 @@ import { Header } from '@/components/boty/header'
 import { Footer } from '@/components/boty/footer'
 import { ShoppingBag, Lock, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useState } from 'react'
 import { createCheckoutSession, type CheckoutItem } from '@/app/actions/stripe'
 
@@ -71,11 +70,11 @@ export default function CheckoutPage() {
             {items.map((item) => (
               <div key={item.id} className="flex gap-4 bg-card rounded-2xl p-4 boty-shadow">
                 <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-muted shrink-0">
-                  <Image
-                    src={item.image}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.image || "/placeholder.svg"}
                     alt={item.name}
-                    fill
-                    className="object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                   />
                 </div>
                 <div className="flex-1 min-w-0">
