@@ -64,19 +64,29 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
+        url: '/images/logo-ct-green.png',
+        sizes: '32x32',
+        type: 'image/png',
       },
       {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
+        url: '/images/logo-ct-green.png',
+        sizes: '16x16',
+        type: 'image/png',
       },
       {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: '/images/logo-ct-green.png',
+        type: 'image/png',
       },
     ],
-    apple: '/apple-icon.png',
+    apple: {
+      url: '/images/logo-ct-green.png',
+      sizes: '180x180',
+      type: 'image/png',
+    },
+    shortcut: {
+      url: '/images/logo-ct-green.png',
+      type: 'image/png',
+    },
   },
 }
 
@@ -133,6 +143,28 @@ export default function RootLayout({
         </CartProvider>
         <Analytics />
         <SpeedInsights />
+        {/* Chatwoot Widget */}
+        <Script
+          id="chatwoot-widget"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(d,t) {
+                var BASE_URL="https://crm.torchlinegroup.com";
+                var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+                g.src=BASE_URL+"/packs/js/sdk.js";
+                g.async = true;
+                s.parentNode.insertBefore(g,s);
+                g.onload=function(){
+                  window.chatwootSDK.run({
+                    websiteToken: 'TfhcBwa7uJCgXhXy8RByY1aP',
+                    baseUrl: BASE_URL
+                  })
+                }
+              })(document,"script");
+            `
+          }}
+        />
       </body>
     </html>
   )
