@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Image from "next/image"
+
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import { ChevronLeft, Minus, Plus, ChevronDown, Shield, Heart, Award, Flame, Star, Check, Loader2 } from "lucide-react"
@@ -138,12 +138,11 @@ export default function ProductPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
             {/* Product Image */}
             <div className="relative aspect-square rounded-3xl overflow-hidden bg-card boty-shadow">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={product.image || "/placeholder.svg"}
                 alt={product.name}
-                fill
-                className="object-cover"
-                priority
+                className="absolute inset-0 w-full h-full object-cover"
               />
               <span className="absolute top-6 left-6 px-4 py-2 rounded-full text-sm font-bold bg-emerald-500 text-white shadow-lg animate-gentle-pulse">
                 30% OFF TODAY

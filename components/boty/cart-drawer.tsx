@@ -1,7 +1,7 @@
 "use client"
 
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react"
-import Image from "next/image"
+
 import { useRouter } from "next/navigation"
 import {
   Drawer,
@@ -50,11 +50,11 @@ export function CartDrawer() {
                 <div key={item.id} className="flex gap-4">
                   {/* Product Image */}
                   <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-muted">
-                    <Image
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
                       src={item.image || "/placeholder.svg"}
                       alt={item.name}
-                      fill
-                      className="object-cover"
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
                   </div>
 
