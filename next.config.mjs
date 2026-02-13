@@ -9,11 +9,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "s3.us-east-1.amazonaws.com",
-        pathname: "/medusajs.cloud-data-prod-use1-*/**",
       },
       {
         protocol: "https",
-        hostname: "**.amazonaws.com",
+        hostname: "*.amazonaws.com",
       },
     ],
   },
