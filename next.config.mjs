@@ -3,6 +3,15 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/pages/10-reasons-why-women-over-50',
+        destination: '/shop',
+        permanent: true,
+      },
+    ]
+  },
   images: {
     unoptimized: true,
     remotePatterns: [
