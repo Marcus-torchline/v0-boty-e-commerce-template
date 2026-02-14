@@ -10,17 +10,6 @@ import { Footer } from "@/components/boty/footer"
 import { useCart } from "@/components/boty/cart-context"
 import useSWR from "swr"
 import { SalePrice } from "@/components/boty/sale-price"
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Premium Compression Wear for Arms & Body | Confitone',
-  description:
-    'Browse our entire contouring compression wear collection. Arm sleeves, waist belts & more. Find your premium fit today with Confitone.',
-  other: {
-    keywords: ['shop compression wear', 'compression wear for women', 'compression shapewear shop', 'arm compression sleeves', 'slimming arm sleeves', 'upper arm shaper', 'body shaping compression garments', 'everyday compression shapewear',
-    ],
-  },
-}
 
 interface Product {
   id: string
