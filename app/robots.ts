@@ -7,5 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
     },
     sitemap: 'https://confitone.com/sitemap.xml',
+    # hallo
   }
 }
