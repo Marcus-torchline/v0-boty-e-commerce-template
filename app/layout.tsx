@@ -29,12 +29,12 @@ const SITE_URL = 'https://www.confitone.com'
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Confitone — Reclaim Your Sleeveless Confidence',
+    default: 'Confitone | Premium Compression Wear for Women',
     template: '%s | Confitone',
   },
-  description: 'Comfortable, non-invasive arm toning sleeves for women 40+. Real women, real results. 30-day money-back guarantee.',
+  description: 'Browse premium compression wear for body contouring and support. Arm sleeves, waist belts & more to help you feel your best at any age with Confitone.',
   generator: 'v0.app',
-  keywords: ['arm toning', 'arm sleeves', 'arm shaper', 'women over 40', 'arm fat', 'compression sleeves', 'body confidence'],
+  keywords: ['compression wear', 'women compression wear', 'compression shapewear', 'body shaping compression', 'slimming shapewear for women', 'everyday compression garments', 'arm compression sleeves', 'slimming arm sleeves', 'upper arm shaper', 'arm toning compression wear', 'arm slimming shapewear', 'compression sleeves for arms',],
   openGraph: {
     type: 'website',
     locale: 'en_US',
