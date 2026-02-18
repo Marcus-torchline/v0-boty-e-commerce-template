@@ -32,8 +32,8 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
 }
 
 // Fallback SEO if a product ID has no custom entry
-//export const DEFAULT_SEO: ProductSeo = {
-//  title: 'Confitone Compression Wear',
-//  description:
-//    'Explore Confitone compression wear designed to smooth, support, and sculpt your silhouette with everyday comfort.',
-//}
+export const DEFAULT_SEO: ProductSeo = {
+  title: 'Confitone Compression Wear',
+  description:
+    'Explore Confitone compression wear designed to smooth, support, and sculpt your silhouette with everyday comfort.',
+}
