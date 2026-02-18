@@ -100,9 +100,9 @@ export default function ProductPage() {
     content:
       PRODUCT_COPY[product?.id ?? '']?.details ??
       (product?.category === 'sleeves'
-        ? 'Our arm toning sleeves feature advanced thermal technology that supports circulation and promotes gentle warmth. Made from premium neoprene material, they provide comfortable compression while allowing full range of motion. Suitable for all-day wear during daily activities.'
+        ? 'AAAA Our arm toning sleeves feature advanced thermal technology that supports circulation and promotes gentle warmth. Made from premium neoprene material, they provide comfortable compression while allowing full range of motion. Suitable for all-day wear during daily activities.'
         : product?.category === 'bundles'
-        ? 'AAAAAA This bundle includes everything you need to start your arm toning journey. Each set comes with detailed instructions and our exclusive Toned Arms After 40 guide with 5+ simple exercises.'
+        ? 'This bundle includes everything you need to start your arm toning journey. Each set comes with detailed instructions and our exclusive Toned Arms After 40 guide with 5+ simple exercises.'
         : 'High-quality accessories designed to complement your Confitone arm toning routine. Made with the same attention to detail and comfort as our signature sleeves.'),
   },
   {
