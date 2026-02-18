@@ -71,7 +71,7 @@ export default function ProductPage() {
     setTimeout(() => setIsAdded(false), 2000)
   }
 
-  /*const accordionItems: { key: AccordionSection; title: string; content: string }[] = [
+  {/*const accordionItems: { key: AccordionSection; title: string; content: string }[] = [
     { 
       key: "details", 
       title: "Product Details", 
@@ -91,7 +91,7 @@ export default function ProductPage() {
       title: "Shipping & Returns", 
       content: "Free standard shipping on orders over $50. Express shipping available at checkout. All orders ship within 1-2 business days. We offer a 30-day money-back guarantee - if you're not satisfied with your results, return the product for a full refund."
     }
-  ] */
+  ] */}
 
   const accordionItems: { key: AccordionSection; title: string; content: string }[] = [
   {
@@ -100,7 +100,7 @@ export default function ProductPage() {
     content:
       PRODUCT_COPY[product?.id ?? '']?.details ??
       (product?.category === 'sleeves'
-        ? 'Our arm toning sleeves feature advanced thermal technology that supports circulation and promotes gentle warmth. Made from premium neoprene material, they provide comfortable compression while allowing full range of motion. Suitable for all-day wear during daily activities.'
+        ? 'Ours arm toning sleeves feature advanced thermal technology that supports circulation and promotes gentle warmth. Made from premium neoprene material, they provide comfortable compression while allowing full range of motion. Suitable for all-day wear during daily activities.'
         : product?.category === 'bundles'
         ? 'This bundle includes everything you need to start your arm toning journey. Each set comes with detailed instructions and our exclusive Toned Arms After 40 guide with 5+ simple exercises.'
         : 'High-quality accessories designed to complement your Confitone arm toning routine. Made with the same attention to detail and comfort as our signature sleeves.'),
