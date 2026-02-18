@@ -198,7 +198,7 @@ export default function ProductPage() {
                       <Star key={i} className="w-4 h-4 fill-primary text-primary" />
                     ))}
                   </div>
-                  <span className="text-sm text-muted-foreground">4.9/5 (2,847 reviews)</span>
+                  <span className="text-sm text-muted-foreground">4.9/5 (2,849 reviews)</span>
                 </div>
 
                 <p className="text-foreground/80 leading-relaxed text-lg">
