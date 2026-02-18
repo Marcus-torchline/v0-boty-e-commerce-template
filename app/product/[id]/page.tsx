@@ -11,6 +11,8 @@ import { useCart } from "@/components/boty/cart-context"
 import useSWR from "swr"
 import { SalePrice } from "@/components/boty/sale-price"
 
+import { PRODUCT_COPY } from './product-config'
+
 interface Product {
   id: string
   name: string
