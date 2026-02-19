@@ -1,6 +1,9 @@
-const BASE_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL!
-const PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY!
+const BASE_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL ?? ""
+const PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY ?? ""
 
+function isMedusaConfigured(): boolean {
+  return Boolean(BASE_URL)
+}
 
 export type Product = {
   id: string
@@ -124,6 +127,10 @@ async function getRegionId(): Promise<string | null> {
 /* ── Public API ── */
 
 export async function getMedusaProducts(): Promise<Product[]> {
+  if (!isMedusaConfigured()) {
+    console.warn("[medusa-store] NEXT_PUBLIC_MEDUSA_BACKEND_URL is not set. Returning empty product list.")
+    return []
+  }
   // Get region for calculated prices
   const regionId = await getRegionId()
   const params = new URLSearchParams({ limit: "100" })
@@ -144,6 +151,10 @@ export async function getMedusaProducts(): Promise<Product[]> {
 }
 
 export async function getMedusaProductById(id: string): Promise<Product | null> {
+  if (!isMedusaConfigured()) {
+    console.warn("[medusa-store] NEXT_PUBLIC_MEDUSA_BACKEND_URL is not set. Cannot fetch product.")
+    return null
+  }
   const regionId = await getRegionId()
   const params = new URLSearchParams()
   if (regionId) params.set("region_id", regionId)

@@ -1,7 +1,7 @@
 // lib/products.ts (or whatever this file is)
 // Switched from Neon DB to Medusa Store API
 
-const BASE_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL!
+const BASE_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL ?? ""
 
 // Shape you’ll use in the frontend
 export type Product = {
@@ -43,6 +43,10 @@ function mapMedusaToProduct(p: any): Product {
 
 // Fetch all products from Medusa
 export async function getProducts(): Promise<Product[]> {
+  if (!BASE_URL) {
+    console.warn("[db] NEXT_PUBLIC_MEDUSA_BACKEND_URL is not set. Returning empty product list.")
+    return []
+  }
   const res = await fetch(`${BASE_URL}/store/products`, {
     cache: "no-store",
   })
@@ -64,6 +68,10 @@ export async function getProductsByCategory(category: string): Promise<Product[]
 
 // Fetch a single product by ID
 export async function getProductById(id: string): Promise<Product | null> {
+  if (!BASE_URL) {
+    console.warn("[db] NEXT_PUBLIC_MEDUSA_BACKEND_URL is not set. Cannot fetch product.")
+    return null
+  }
   const res = await fetch(`${BASE_URL}/store/products/${id}`, {
     cache: "no-store",
   })
