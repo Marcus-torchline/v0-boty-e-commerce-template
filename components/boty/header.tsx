@@ -10,6 +10,7 @@ import { useCart } from "./cart-context"
 const navLinks = [
   { label: "Our Products", href: "/#our-products" },
   { label: "Our Story", href: "/#our-story" },
+  { label: "Blog", href: "/blog" },
   { label: "Shop All", href: "/shop" },
 ]
 

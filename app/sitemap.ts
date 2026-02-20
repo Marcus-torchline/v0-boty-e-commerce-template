@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { getMedusaProducts } from '@/lib/medusa-store'
+import { blogPosts } from '@/data/blog-posts'
 
 const BASE_URL = 'https://www.confitone.com'
 
@@ -37,5 +38,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(),
   }))
 
-  return [...staticRoutes, ...productRoutes]
+  const blogRoutes: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/blog`,
+      lastModified: new Date(),
+    },
+    ...blogPosts.map((post) => ({
+      url: `${BASE_URL}/blog/${post.slug}`,
+      lastModified: new Date(post.publishedAt),
+    })),
+  ]
+
+  return [...staticRoutes, ...productRoutes, ...blogRoutes]
 }
