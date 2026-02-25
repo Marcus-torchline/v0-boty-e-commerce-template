@@ -8,6 +8,7 @@ export interface CheckoutItem {
   description: string
   priceInCents: number
   quantity: number
+  image?: string
 }
 
 export async function createCheckoutSession(items: CheckoutItem[]) {
@@ -24,6 +25,7 @@ export async function createCheckoutSession(items: CheckoutItem[]) {
       product_data: {
         name: item.name,
         description: item.description,
+        ...(item.image ? { images: [item.image] } : {}),
       },
       unit_amount: item.priceInCents,
     },
@@ -33,7 +35,15 @@ export async function createCheckoutSession(items: CheckoutItem[]) {
   const session = await stripe.checkout.sessions.create({
     line_items,
     mode: 'payment',
-    success_url: `${origin}/checkout/success`,
+    billing_address_collection: 'required',
+    shipping_address_collection: {
+      allowed_countries: ['US', 'CA'],
+    },
+    phone_number_collection: {
+      enabled: true,
+    },
+    customer_creation: 'always',
+    success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/checkout`,
   })
 
