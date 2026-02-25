@@ -23,6 +23,7 @@ export default function CheckoutPage() {
         description: item.description,
         priceInCents: Math.round(item.price * 100),
         quantity: item.quantity,
+        image: item.image,
       }))
       const url = await createCheckoutSession(checkoutItems)
       window.location.href = url
